@@ -62,6 +62,72 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-力扣-数据库2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/10/力扣-数据库2/" class="article-date">
+  <time datetime="2019-10-10T09:59:54.996Z" itemprop="datePublished">2019-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="力扣-数据库"><a href="#力扣-数据库" class="headerlink" title="力扣-数据库"></a>力扣-数据库</h1><p>题目：给定一个 <code>Weather</code> 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1570700754194.png" alt="1570700754194"></p>
+<p><strong>解题</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> w1.Id <span class="keyword">from</span> Weather w1 <span class="keyword">join</span> Weather w2 <span class="keyword">on</span> <span class="keyword">DATEDIFF</span>(w1.RecordDate, w2.RecordDate) = <span class="number">1</span> <span class="keyword">and</span> w1.Temperature&gt;w2.Temperature</span><br></pre></td></tr></table></figure>
+
+<p>DATEDIFF的使用说明：</p>
+<p>可以参考：<a href="http://www.360doc.com/content/15/0921/15/110467_500515921.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/15/0921/15/110467_500515921.shtml</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/10/力扣-数据库2/" data-id="ck1kj76bt00029wr91mikkvfu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-力扣-数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/10/力扣-数据库/" class="article-date">
+  <time datetime="2019-10-10T09:59:54.993Z" itemprop="datePublished">2019-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="力扣-数据库"><a href="#力扣-数据库" class="headerlink" title="力扣-数据库"></a>力扣-数据库</h1><p>1.编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。</p>
+<p>题目：</p>
+<p>编写一个 SQL 查询，来删除 <code>Person</code>表中所有重复的电子邮箱，重复的邮箱里只保留 Id <em>最小</em> 的那个。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1570699229660.png" alt="1570699229660"></p>
+<p>​         自己的想法陷入了死胡同，发现在MySql中的Delete和Select不能同时运行！</p>
+<p>后来看了大神的写法，顿时了解了！</p>
+<p>借鉴别人的想法：<a href="https://blog.csdn.net/mrlin6688/article/details/100537858" target="_blank" rel="noopener">https://blog.csdn.net/mrlin6688/article/details/100537858</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/10/力扣-数据库/" data-id="ck1kj76bi00009wr9yzfub6yi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/10/10/test/" class="article-date">
@@ -93,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/10/test/" data-id="ck1kggb4f0001jcr9zs5j51ge" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/10/test/" data-id="ck1kj76bq00019wr9sw2fyk0m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -142,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/10/hello-world/" data-id="ck1kggb3r0000jcr98f9zlkru" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/10/hello-world/" data-id="ck1kj76bv00039wr9yi7tei4m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -181,6 +247,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/10/10/力扣-数据库2/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/10/力扣-数据库/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2019/10/10/test/">test</a>
