@@ -5,21 +5,21 @@
   
 
   
-  <title>力扣-数据库1 | Blog</title>
+  <title>力扣-数据库2 | Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。 题目： 编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。  ​         自己的想法陷入了死胡同，发现在MySql中的Delete和Select不能同时运行！ 后来看了大神的写法，顿时了解了！ 借鉴别人的想法：https">
+  <meta name="description" content="题目：给定一个 Weather 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。  解题： 1select w1.Id from Weather w1 join Weather w2 on DATEDIFF(w1.RecordDate, w2.RecordDate) = 1 and w1.Temperature&amp;gt;w2.Temperature  DATED">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣-数据库1">
-<meta property="og:url" content="http://yoursite.com/2019/10/11/力扣-数据库1/index.html">
+<meta property="og:title" content="力扣-数据库2">
+<meta property="og:url" content="http://yoursite.com/2019/10/11/力扣-数据库2/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="1.编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。 题目： 编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。  ​         自己的想法陷入了死胡同，发现在MySql中的Delete和Select不能同时运行！ 后来看了大神的写法，顿时了解了！ 借鉴别人的想法：https">
+<meta property="og:description" content="题目：给定一个 Weather 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。  解题： 1select w1.Id from Weather w1 join Weather w2 on DATEDIFF(w1.RecordDate, w2.RecordDate) = 1 and w1.Temperature&amp;gt;w2.Temperature  DATED">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/.com//%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%931%5C1570699229660.png">
-<meta property="og:updated_time" content="2019-10-11T00:56:26.627Z">
+<meta property="og:image" content="http://yoursite.com/.com//%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%932%5C1570700754194.png">
+<meta property="og:updated_time" content="2019-10-11T01:10:45.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="力扣-数据库1">
-<meta name="twitter:description" content="1.编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。 题目： 编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。  ​         自己的想法陷入了死胡同，发现在MySql中的Delete和Select不能同时运行！ 后来看了大神的写法，顿时了解了！ 借鉴别人的想法：https">
-<meta name="twitter:image" content="http://yoursite.com/.com//%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%931%5C1570699229660.png">
+<meta name="twitter:title" content="力扣-数据库2">
+<meta name="twitter:description" content="题目：给定一个 Weather 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。  解题： 1select w1.Id from Weather w1 join Weather w2 on DATEDIFF(w1.RecordDate, w2.RecordDate) = 1 and w1.Temperature&amp;gt;w2.Temperature  DATED">
+<meta name="twitter:image" content="http://yoursite.com/.com//%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%932%5C1570700754194.png">
   
     <link rel="alternate" href="/atom.xml" title="Blog" type="application/atom+xml">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-力扣-数据库1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-力扣-数据库2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/10/11/力扣-数据库1/" class="article-date">
-  <time datetime="2019-10-11T00:55:21.000Z" itemprop="datePublished">2019-10-11</time>
+    <a href="/2019/10/11/力扣-数据库2/" class="article-date">
+  <time datetime="2019-10-11T01:10:03.000Z" itemprop="datePublished">2019-10-11</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      力扣-数据库1
+      力扣-数据库2
     </h1>
   
 
@@ -88,18 +88,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。</p>
-<p>题目：</p>
-<p>编写一个 SQL 查询，来删除 <code>Person</code>表中所有重复的电子邮箱，重复的邮箱里只保留 Id <em>最小</em> 的那个。</p>
-<p><img src="/.com//%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%931%5C1570699229660.png" alt></p>
-<p>​         自己的想法陷入了死胡同，发现在MySql中的Delete和Select不能同时运行！</p>
-<p>后来看了大神的写法，顿时了解了！</p>
-<p>借鉴别人的想法：<a href="https://blog.csdn.net/mrlin6688/article/details/100537858" target="_blank" rel="noopener">https://blog.csdn.net/mrlin6688/article/details/100537858</a></p>
+        <p>题目：给定一个 <code>Weather</code> 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。</p>
+<p><img src="/.com//%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%932%5C1570700754194.png" alt="1570700754194"></p>
+<p><strong>解题</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> w1.Id <span class="keyword">from</span> Weather w1 <span class="keyword">join</span> Weather w2 <span class="keyword">on</span> <span class="keyword">DATEDIFF</span>(w1.RecordDate, w2.RecordDate) = <span class="number">1</span> <span class="keyword">and</span> w1.Temperature&gt;w2.Temperature</span><br></pre></td></tr></table></figure>
+
+<p>DATEDIFF的使用说明：</p>
+<p>可以参考：<a href="http://www.360doc.com/content/15/0921/15/110467_500515921.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/15/0921/15/110467_500515921.shtml</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/11/力扣-数据库1/" data-id="ck1lfrg0s0002p8r92ulx298n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/11/力扣-数据库2/" data-id="ck1lfrg0u0003p8r900tnjr63" class="article-share-link">Share</a>
       
       
     </footer>
@@ -108,19 +108,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/10/11/力扣-数据库2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          力扣-数据库2
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/10/10/test/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/10/11/力扣-数据库1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">test</div>
+      <div class="article-nav-title">力扣-数据库1</div>
     </a>
   
 </nav>
