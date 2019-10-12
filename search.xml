@@ -83,7 +83,7 @@
   <entry>
     <title>test</title>
     <url>/2019/10/10/test/</url>
-    <content><![CDATA[<h1 id="我的测试"><a href="#我的测试" class="headerlink" title="我的测试"></a>我的测试</h1><p>​       今天开始我的<strong>第一篇*</strong>Bolg*文章分享，以后<u>加油</u>！</p>
+    <content><![CDATA[<p>​       今天开始我的<strong>第一篇*</strong>Bolg*文章分享，以后<u>加油</u>！</p>
 <h2 id="1-搭建博客的由来"><a href="#1-搭建博客的由来" class="headerlink" title="1.搭建博客的由来"></a>1.搭建博客的由来</h2><p>​        看到表弟发布一个Hexo博客，还用Goihub部署，想想省去了服务器的钱，果断自己搭建一个自己的学习心技术分享的博客！</p>
 <h2 id="2-搭建过程"><a href="#2-搭建过程" class="headerlink" title="2.搭建过程"></a>2.搭建过程</h2><p>​      开始了自己的搭建过程，挺简单的！当中遇到几个问题，遇到问题就百度！都解决了！</p>
 <p>参考学习：<a href="https://www.cnblogs.com/cherishzy/p/5694658.html" target="_blank" rel="noopener">https://www.cnblogs.com/cherishzy/p/5694658.html</a></p>
