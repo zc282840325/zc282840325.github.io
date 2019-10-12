@@ -1,90 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>Singleton</title>
-      <link href="/2019/10/11/Singleton/"/>
-      <url>/2019/10/11/Singleton/</url>
-      
-        <content type="html"><![CDATA[<p><strong>一、单例模式的定义</strong></p><p>　　确保一个类只有一个实例，并提供一个全局访问点来访问这个唯一的实例，是一种对象创建型模式，有如下3个要点：</p><ul><li>只能有一个实例</li><li>必须是自行创建这个实例</li><li>必须自行向整个系统提供这个实例</li></ul><p><strong>二、单例模式的结构</strong></p><ul><li><p>一个类型为自身的静态私有成员变量 - 存储唯一实例</p></li><li><p>一个私有的构造函数</p></li><li><p>一个公有的静态成员方法 ，返回唯一实例，对象为自身</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Singleton</span><br><span class="line">    &#123;</span><br><span class="line">        //静态私有成员变量，存储唯一实例</span><br><span class="line">        private static Singleton _instance = null;   、</span><br><span class="line">        </span><br><span class="line">        //私有构造函数，保证唯一性</span><br><span class="line">        private Singleton()   </span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //公有静态方法，返回一个唯一的实例</span><br><span class="line">        public static Singleton GetInstance()    </span><br><span class="line">        &#123;</span><br><span class="line">            if (_instance == null)</span><br><span class="line">            &#123;</span><br><span class="line">                _instance = new Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">            return _instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li></ul><p><strong>三、单例模式的两种书写方法</strong></p><p>1.类被加载时就将自己实例化</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Singleton</span><br><span class="line">    &#123;</span><br><span class="line">        private static Singleton _instance = new Singleton();</span><br><span class="line">       </span><br><span class="line">        private Singleton()</span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static Singleton GetInstance()</span><br><span class="line">        &#123;</span><br><span class="line">            return _instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p>2.类在第一次被引用时将自己实例化</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Singleton</span><br><span class="line">    &#123;</span><br><span class="line">        private static Singleton _instance = null;</span><br><span class="line">        private static readonly object syncRoot = new object();   </span><br><span class="line"></span><br><span class="line">        private Singleton()</span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static Singleton GetInstance()</span><br><span class="line">        &#123;</span><br><span class="line">            if (_instance == null)</span><br><span class="line">            &#123;</span><br><span class="line">                lock (syncRoot)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (_instance == null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        _instance = new Singleton();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return _instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p><strong>四、双重锁的运用分析</strong></p><p>​     在上述代码中出现“If - Lock - If”结构模式，即双重检查锁定的双重判断机制：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//第一重判断，先判断实例是否存在，不存在再加锁处理</span><br><span class="line">if (_instance == null)   </span><br><span class="line">            &#123;</span><br><span class="line">             //加锁，在某一时刻只允许一个线程访问</span><br><span class="line">                lock (syncRoot)  </span><br><span class="line">                &#123;</span><br><span class="line">                //第二重判断: 第一个线程进入Lock中执行创建代码，第二个线程处于排队等待状态，当第二个线程进入Lock后并不知道实例已创建，将会继续创建新的实例</span><br><span class="line">                    if (_instance == null)   </span><br><span class="line">                    &#123;</span><br><span class="line">                        _instance = new SingletonClass();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure><p><strong>五、单例模式的优缺点</strong></p><ul><li><p>封装了唯一性，可严格控制客户怎么访问及何时访问</p></li><li><p>内存中只存在一个对象，可节约系统资源，提高系统性能</p></li><li><p>单例类的扩展不方便</p></li><li><p>单例类既提供了业务方法，又提供了创建对象的方法，将对象的创建和对象本身的功能耦合在一起</p></li></ul>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>Singleton</title>
+    <url>/2019/10/11/Singleton/</url>
+    <content><![CDATA[<p><strong>一、单例模式的定义</strong></p>
+<p>　　确保一个类只有一个实例，并提供一个全局访问点来访问这个唯一的实例，是一种对象创建型模式，有如下3个要点：</p>
+<ul>
+<li>只能有一个实例</li>
+<li>必须是自行创建这个实例</li>
+<li>必须自行向整个系统提供这个实例</li>
+</ul>
+<p><strong>二、单例模式的结构</strong></p>
+<ul>
+<li><p>一个类型为自身的静态私有成员变量 - 存储唯一实例</p>
+</li>
+<li><p>一个私有的构造函数</p>
+</li>
+<li><p>一个公有的静态成员方法 ，返回唯一实例，对象为自身</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Singleton</span><br><span class="line">    &#123;</span><br><span class="line">        //静态私有成员变量，存储唯一实例</span><br><span class="line">        private static Singleton _instance = null;   、</span><br><span class="line">        </span><br><span class="line">        //私有构造函数，保证唯一性</span><br><span class="line">        private Singleton()   </span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //公有静态方法，返回一个唯一的实例</span><br><span class="line">        public static Singleton GetInstance()    </span><br><span class="line">        &#123;</span><br><span class="line">            if (_instance == null)</span><br><span class="line">            &#123;</span><br><span class="line">                _instance = new Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">            return _instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>三、单例模式的两种书写方法</strong></p>
+<p>1.类被加载时就将自己实例化</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Singleton</span><br><span class="line">    &#123;</span><br><span class="line">        private static Singleton _instance = new Singleton();</span><br><span class="line">       </span><br><span class="line">        private Singleton()</span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static Singleton GetInstance()</span><br><span class="line">        &#123;</span><br><span class="line">            return _instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.类在第一次被引用时将自己实例化</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Singleton</span><br><span class="line">    &#123;</span><br><span class="line">        private static Singleton _instance = null;</span><br><span class="line">        private static readonly object syncRoot = new object();   </span><br><span class="line"></span><br><span class="line">        private Singleton()</span><br><span class="line">        &#123; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static Singleton GetInstance()</span><br><span class="line">        &#123;</span><br><span class="line">            if (_instance == null)</span><br><span class="line">            &#123;</span><br><span class="line">                lock (syncRoot)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (_instance == null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        _instance = new Singleton();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return _instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>四、双重锁的运用分析</strong></p>
+<p>​     在上述代码中出现“If - Lock - If”结构模式，即双重检查锁定的双重判断机制：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//第一重判断，先判断实例是否存在，不存在再加锁处理</span><br><span class="line">if (_instance == null)   </span><br><span class="line">            &#123;</span><br><span class="line">             //加锁，在某一时刻只允许一个线程访问</span><br><span class="line">                lock (syncRoot)  </span><br><span class="line">                &#123;</span><br><span class="line">                //第二重判断: 第一个线程进入Lock中执行创建代码，第二个线程处于排队等待状态，当第二个线程进入Lock后并不知道实例已创建，将会继续创建新的实例</span><br><span class="line">                    if (_instance == null)   </span><br><span class="line">                    &#123;</span><br><span class="line">                        _instance = new SingletonClass();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>五、单例模式的优缺点</strong></p>
+<ul>
+<li><p>封装了唯一性，可严格控制客户怎么访问及何时访问</p>
+</li>
+<li><p>内存中只存在一个对象，可节约系统资源，提高系统性能</p>
+</li>
+<li><p>单例类的扩展不方便</p>
+</li>
+<li><p>单例类既提供了业务方法，又提供了创建对象的方法，将对象的创建和对象本身的功能耦合在一起</p>
+</li>
+</ul>
+]]></content>
       <categories>
-          
-          <category> 设计模式 </category>
-          
+        <category>设计模式</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>力扣-数据库2</title>
-      <link href="/2019/10/11/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%932/"/>
-      <url>/2019/10/11/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%932/</url>
-      
-        <content type="html"><![CDATA[<p>题目：给定一个 <code>Weather</code> 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。</p><p><img src="/.com//1570700754194.png" alt></p><p><strong>解题</strong>：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> w1.Id <span class="keyword">from</span> Weather w1 <span class="keyword">join</span> Weather w2 <span class="keyword">on</span> <span class="keyword">DATEDIFF</span>(w1.RecordDate, w2.RecordDate) = <span class="number">1</span> <span class="keyword">and</span> w1.Temperature&gt;w2.Temperature</span><br></pre></td></tr></table></figure><p>DATEDIFF的使用说明：</p><p>可以参考：<a href="http://www.360doc.com/content/15/0921/15/110467_500515921.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/15/0921/15/110467_500515921.shtml</a></p>]]></content>
-      
-      
+  </entry>
+  <entry>
+    <title>力扣-数据库2</title>
+    <url>/2019/10/11/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%932/</url>
+    <content><![CDATA[<p>题目：给定一个 <code>Weather</code> 表，编写一个 SQL 查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id。</p>
+<p><img src="/2019/10/11/力扣-数据库2/1570700754194.png" alt></p>
+<p><strong>解题</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> w1.Id <span class="keyword">from</span> Weather w1 <span class="keyword">join</span> Weather w2 <span class="keyword">on</span> <span class="keyword">DATEDIFF</span>(w1.RecordDate, w2.RecordDate) = <span class="number">1</span> <span class="keyword">and</span> w1.Temperature&gt;w2.Temperature</span><br></pre></td></tr></table></figure>
+
+<p>DATEDIFF的使用说明：</p>
+<p>可以参考：<a href="http://www.360doc.com/content/15/0921/15/110467_500515921.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/15/0921/15/110467_500515921.shtml</a></p>
+]]></content>
       <categories>
-          
-          <category> 力扣-SQL </category>
-          
+        <category>力扣-SQL</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>力扣-数据库1</title>
-      <link href="/2019/10/11/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%931/"/>
-      <url>/2019/10/11/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%931/</url>
-      
-        <content type="html"><![CDATA[<p>1.编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。</p><p>题目：</p><p>编写一个 SQL 查询，来删除 <code>Person</code>表中所有重复的电子邮箱，重复的邮箱里只保留 Id <em>最小</em> 的那个。</p><p><img src="/.com//1570699229660.png" alt></p><p>​         自己的想法陷入了死胡同，发现在MySql中的Delete和Select不能同时运行！</p><p>后来看了大神的写法，顿时了解了！</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">delete  p1 from  Person p1, Person p2 where (p1.email = p2.email) and (p1.id &gt; p2.id)</span><br></pre></td></tr></table></figure><p>借鉴别人的想法：<a href="https://blog.csdn.net/mrlin6688/article/details/100537858" target="_blank" rel="noopener">https://blog.csdn.net/mrlin6688/article/details/100537858</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> SQL </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>test</title>
-      <link href="/2019/10/10/test/"/>
-      <url>/2019/10/10/test/</url>
-      
-        <content type="html"><![CDATA[<h1 id="我的测试"><a href="#我的测试" class="headerlink" title="我的测试"></a>我的测试</h1><p>​       今天开始我的<strong>第一篇*</strong>Bolg*文章分享，以后<u>加油</u>！</p><h2 id="1-搭建博客的由来"><a href="#1-搭建博客的由来" class="headerlink" title="1.搭建博客的由来"></a>1.搭建博客的由来</h2><p>​        看到表弟发布一个Hexo博客，还用Goihub部署，想想省去了服务器的钱，果断自己搭建一个自己的学习心技术分享的博客！</p><h2 id="2-搭建过程"><a href="#2-搭建过程" class="headerlink" title="2.搭建过程"></a>2.搭建过程</h2><p>​      开始了自己的搭建过程，挺简单的！当中遇到几个问题，遇到问题就百度！都解决了！</p><p>参考学习：<a href="https://www.cnblogs.com/cherishzy/p/5694658.html" target="_blank" rel="noopener">https://www.cnblogs.com/cherishzy/p/5694658.html</a></p><h2 id="3-下次的学习心得分享"><a href="#3-下次的学习心得分享" class="headerlink" title="3.下次的学习心得分享"></a>3.下次的学习心得分享</h2><p>​     现在学习多线程、数据结构、ASP.NET CORE等！</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2019/10/10/hello-world/"/>
-      <url>/2019/10/10/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-  
-  
+  </entry>
+  <entry>
+    <title>力扣-数据库1</title>
+    <url>/2019/10/11/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%931/</url>
+    <content><![CDATA[<p>1.编写一个 SQL 查询，来删除 Person表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。</p>
+<p>题目：</p>
+<p>编写一个 SQL 查询，来删除 <code>Person</code>表中所有重复的电子邮箱，重复的邮箱里只保留 Id <em>最小</em> 的那个。</p>
+<p><img src="/2019/10/11/力扣-数据库1/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%931%5C1570699229660.png" alt></p>
+<p>​         自己的想法陷入了死胡同，发现在MySql中的Delete和Select不能同时运行！</p>
+<p>后来看了大神的写法，顿时了解了！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">delete  p1 from  Person p1, Person p2 where (p1.email = p2.email) and (p1.id &gt; p2.id)</span><br></pre></td></tr></table></figure>
+
+<p>借鉴别人的想法：<a href="https://blog.csdn.net/mrlin6688/article/details/100537858" target="_blank" rel="noopener">https://blog.csdn.net/mrlin6688/article/details/100537858</a></p>
+]]></content>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>/2019/10/10/test/</url>
+    <content><![CDATA[<h1 id="我的测试"><a href="#我的测试" class="headerlink" title="我的测试"></a>我的测试</h1><p>​       今天开始我的<strong>第一篇*</strong>Bolg*文章分享，以后<u>加油</u>！</p>
+<h2 id="1-搭建博客的由来"><a href="#1-搭建博客的由来" class="headerlink" title="1.搭建博客的由来"></a>1.搭建博客的由来</h2><p>​        看到表弟发布一个Hexo博客，还用Goihub部署，想想省去了服务器的钱，果断自己搭建一个自己的学习心技术分享的博客！</p>
+<h2 id="2-搭建过程"><a href="#2-搭建过程" class="headerlink" title="2.搭建过程"></a>2.搭建过程</h2><p>​      开始了自己的搭建过程，挺简单的！当中遇到几个问题，遇到问题就百度！都解决了！</p>
+<p>参考学习：<a href="https://www.cnblogs.com/cherishzy/p/5694658.html" target="_blank" rel="noopener">https://www.cnblogs.com/cherishzy/p/5694658.html</a></p>
+<h2 id="3-下次的学习心得分享"><a href="#3-下次的学习心得分享" class="headerlink" title="3.下次的学习心得分享"></a>3.下次的学习心得分享</h2><p>​     现在学习多线程、数据结构、ASP.NET CORE等！</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/10/10/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
 </search>
