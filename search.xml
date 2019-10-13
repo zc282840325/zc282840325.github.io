@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>力扣-数据库3</title>
+    <url>/2019/10/13/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%933/</url>
+    <content><![CDATA[<p>编写一个 SQL 查询，获取 <code>Employee</code> 表中第二高的薪水（Salary） 。</p>
+<p><img src="/2019/10/13/力扣-数据库3/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%933%5C1570980125556.png" alt="1570980125556"></p>
+<p>Mysql写法：</p>
+<!--首先可能结果为空，Limit 1，1表示从第1位取一位，也就是第2位-->
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Select IFNULL((select distinct(Salary) as SecondHighestSalary from Employee order by Salary desc limit 1,1),null) AS SecondHighestSalary</span><br></pre></td></tr></table></figure>
+
+<p>SQL写法：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">Max</span>(Salary) <span class="keyword">as</span> SecondHighestSalary <span class="keyword">from</span> Employee <span class="keyword">WHERE</span> Salary&lt;(<span class="keyword">select</span> <span class="keyword">Max</span>(Salary) <span class="keyword">from</span> Employee)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>力扣-SQL</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Singleton</title>
     <url>/2019/10/11/Singleton/</url>
     <content><![CDATA[<p><strong>一、单例模式的定义</strong></p>
@@ -62,6 +83,9 @@
       <categories>
         <category>力扣-SQL</category>
       </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
   </entry>
   <entry>
     <title>力扣-数据库1</title>
@@ -76,6 +100,9 @@
 
 <p>借鉴别人的想法：<a href="https://blog.csdn.net/mrlin6688/article/details/100537858" target="_blank" rel="noopener">https://blog.csdn.net/mrlin6688/article/details/100537858</a></p>
 ]]></content>
+      <categories>
+        <category>力扣-SQL</category>
+      </categories>
       <tags>
         <tag>SQL</tag>
       </tags>
