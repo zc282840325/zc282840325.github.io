@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>HexoUse</title>
+      <link href="/2019/10/14/HexoUse/"/>
+      <url>/2019/10/14/HexoUse/</url>
+      
+        <content type="html"><![CDATA[<p>1.上传图片显示图片</p><p><img src="/2019/10/14/HexoUse/1571020146223.png" alt></p><p>需要把图片复制到当前文件夹,还得把<strong>\</strong>改为<strong>/</strong></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>力扣-数据库3</title>
       <link href="/2019/10/13/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%933/"/>
       <url>/2019/10/13/%E5%8A%9B%E6%89%A3-%E6%95%B0%E6%8D%AE%E5%BA%933/</url>
