@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>委托的概念</title>
+    <url>/2019/10/17/%E5%A7%94%E6%89%98%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<h1 id="1-委托的概念"><a href="#1-委托的概念" class="headerlink" title="1.委托的概念"></a>1.委托的概念</h1><p>​       委托是一个<strong>类</strong>，它定义了<strong>方法的类型</strong>，使得可以<strong>将方法当作另一个方法的参数来进行传递</strong>，这种将方法<strong>动态地赋给参数的做法</strong>，可以避免在程序中大量使用If-Else(Switch)语句，同时使得程序具有更好的可扩展性。委托是一个<strong>引用类型</strong>，委托看成是用来执行方法（函数）的一个东西。</p>
+<h1 id="2-委托的声明和定义"><a href="#2-委托的声明和定义" class="headerlink" title="2.委托的声明和定义"></a>2.委托的声明和定义</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public delegate int MyFirstDelegate (string s);</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-委托的方法"><a href="#3-委托的方法" class="headerlink" title="3.委托的方法"></a>3.委托的方法</h1><p>Invoke（同步）</p>
+<p>BeginInvoke(异步)</p>
+<p>EndInvoke(异步回调)</p>
+<p>可以参考学习这个：<a href="https://blog.csdn.net/ydm19891101/article/details/50069491" target="_blank" rel="noopener">委托的invoke、beginInvoke和控件的invoke、beginInvoke的区别</a></p>
+<h1 id="4-代码模块"><a href="#4-代码模块" class="headerlink" title="4.代码模块"></a>4.代码模块</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//代码清单2-1 以各种简单的方式使用委托</span><br><span class="line">delegate void StringProcessor(string input);//声明委托类型</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">    string name;</span><br><span class="line">    public Person(string name) &#123; this.name = name; &#125;</span><br><span class="line">    //声明兼容的实例方法</span><br><span class="line">    public void Say(string message)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;&#123;0&#125;说:&#123;1&#125;&quot;,name,message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class BackGround</span><br><span class="line">&#123;</span><br><span class="line">    //声明兼容的静态方法</span><br><span class="line">    public static void Note(string note)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;（&#123;0&#125;）&quot;,note);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">    static void Main()</span><br><span class="line">    &#123;</span><br><span class="line">        //声明人物实例</span><br><span class="line">        Person jon = new Person(&quot;铁子&quot;);</span><br><span class="line">        Person tom = new Person(&quot;杨树&quot;);</span><br><span class="line">        //声明委托实例，并添加对应的实例方法和静态方法</span><br><span class="line">        StringProcessor jonsVoice, tomsVoice, background;</span><br><span class="line">        jonsVoice = new StringProcessor(jon.Say);</span><br><span class="line">        tomsVoice = new StringProcessor(tom.Say);</span><br><span class="line">        background = new StringProcessor(BackGround.Note);</span><br><span class="line">        //调用委托实例</span><br><span class="line">        jonsVoice(&quot;你瞅啥？&quot;);</span><br><span class="line">        tomsVoice.Invoke(&quot;瞅你咋地？&quot;);</span><br><span class="line">        background(&quot;烧烤摊又开始洋溢着欢快的声音了&quot;);</span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>委托</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL面试题</title>
+    <url>/2019/10/15/SQL%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>C#面试题</title>
     <url>/2019/10/15/C-%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
     <content><![CDATA[<p><strong>1.维护数据库的完整性、一致性、你喜欢用触发器还是自写业务逻辑？为什么?</strong></p>
