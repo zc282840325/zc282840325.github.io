@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Thread基础</title>
+    <url>/2019/10/28/Thread%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="Thread的基础知识"><a href="#Thread的基础知识" class="headerlink" title="Thread的基础知识"></a>Thread的基础知识</h1><h2 id="一-空间的开销"><a href="#一-空间的开销" class="headerlink" title="一.空间的开销"></a>一.空间的开销</h2><h3 id="1-Thread可以理解为操作系统的概率"><a href="#1-Thread可以理解为操作系统的概率" class="headerlink" title="1.Thread可以理解为操作系统的概率"></a>1.Thread可以理解为操作系统的概率</h3><p>   Thread的内核数据结构，其中有osid,context=&gt;cpu寄存器的里面的一些变量.</p>
+<p>​    <strong><u>时间片切换，切换间隔30ms</u></strong></p>
+<h3 id="2-Thread环境块"><a href="#2-Thread环境块" class="headerlink" title="2.Thread环境块"></a>2.Thread环境块</h3><p> TLS[thread本地存储]，ExecptionList的信息</p>
+<p>工具：<a href="https://down.52pojie.cn/Tools/Debuggers/WinDbg_X64_v10.0.16299.15.msi" target="_blank" rel="noopener">WinDbg</a></p>
+<p>功能：查看底层，线程的信息，如主线程,结束线程，OSID,终结器等！</p>
+<p>命令:</p>
+<ul>
+<li>.loadby sos clr:对于.Net Runtime 4.0,加载所有的DLL</li>
+<li>!threads: 查看托管线程</li>
+<li>!teb:列出结构_TEB的成员信息</li>
+<li>!dumpdomain:查看程序域</li>
+</ul>
+<h3 id="3-用户模式堆栈：内存溢出的一个异常【堆栈溢出】"><a href="#3-用户模式堆栈：内存溢出的一个异常【堆栈溢出】" class="headerlink" title="3.用户模式堆栈：内存溢出的一个异常【堆栈溢出】"></a>3.用户模式堆栈：内存溢出的一个异常【堆栈溢出】</h3><p>​     一个线程分配1m的堆栈空间，存放【参数，局部变量】</p>
+<h3 id="4-内核模式堆栈"><a href="#4-内核模式堆栈" class="headerlink" title="4.内核模式堆栈"></a>4.内核模式堆栈</h3><p>​     在CLR的线程操作，包括线程同步，大多数调用底层的Win32函数，用户模式的参数需要传递到内核模式。</p>
+<h2 id="二-时间开销"><a href="#二-时间开销" class="headerlink" title="二.时间开销"></a>二.时间开销</h2><h4 id="1-我们的Application启动的时候，回加载很多的dll【托管和非托管】-exe-资源，元数据"><a href="#1-我们的Application启动的时候，回加载很多的dll【托管和非托管】-exe-资源，元数据" class="headerlink" title="1.我们的Application启动的时候，回加载很多的dll【托管和非托管】,exe,资源，元数据"></a>1.我们的Application启动的时候，回加载很多的dll【托管和非托管】,exe,资源，元数据</h4><p>   进程启动时候为什么我没看到应用程序域？</p>
+<p>   答：进程启动回默认启动3个应用程序域。System domain,shared domain,domain</p>
+<hr>
+<p>开启一个thread,销毁一个thread都会通知进程中的dll,attach,detach标志位</p>
+<p>通知dll的目的就是给thread做准备工作，比如销毁，让这些dll做资源清理</p>
+<h4 id="2-时间片切换"><a href="#2-时间片切换" class="headerlink" title="2.时间片切换"></a>2.时间片切换</h4><p>   4个逻辑处理器，可提供4个thread并行执行</p>
+<p>  <img src="/2019/10/28/Thread基础/1572279645799.png" alt></p>
+<p>执行5个thread，就有个一个thread休眠30ms</p>
+]]></content>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>委托的概念</title>
     <url>/2019/10/17/%E5%A7%94%E6%89%98%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<h1 id="1-委托的概念"><a href="#1-委托的概念" class="headerlink" title="1.委托的概念"></a>1.委托的概念</h1><p>​       委托是一个<strong>类</strong>，它定义了<strong>方法的类型</strong>，使得可以<strong>将方法当作另一个方法的参数来进行传递</strong>，这种将方法<strong>动态地赋给参数的做法</strong>，可以避免在程序中大量使用If-Else(Switch)语句，同时使得程序具有更好的可扩展性。委托是一个<strong>引用类型</strong>，委托看成是用来执行方法（函数）的一个东西。</p>
