@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Thread实例方法</title>
+    <url>/2019/10/29/Thread%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="Thread实例方法"><a href="#Thread实例方法" class="headerlink" title="Thread实例方法"></a>Thread实例方法</h2><p>1.Thread的生命周期(join阻塞主线程)</p>
+<ul>
+<li>Start()：启动。</li>
+<li>Suspend()：暂停。</li>
+<li>Resume()：挂起。</li>
+<li>Interrupt()：中断（用来中断处于出于WaitSleepJoin状态的线程），相当continue;。</li>
+<li>About()：中断线程（通过抛出异常的销毁一个线程）,相当于break</li>
+<li>Join:阻塞主线程，等待子线程执行完后。</li>
+</ul>
+<p>2.</p>
+]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Thread基础</title>
     <url>/2019/10/28/Thread%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="Thread的基础知识"><a href="#Thread的基础知识" class="headerlink" title="Thread的基础知识"></a>Thread的基础知识</h1><h2 id="一-空间的开销"><a href="#一-空间的开销" class="headerlink" title="一.空间的开销"></a>一.空间的开销</h2><h3 id="1-Thread可以理解为操作系统的概率"><a href="#1-Thread可以理解为操作系统的概率" class="headerlink" title="1.Thread可以理解为操作系统的概率"></a>1.Thread可以理解为操作系统的概率</h3><p>   Thread的内核数据结构，其中有osid,context=&gt;cpu寄存器的里面的一些变量.</p>
@@ -26,6 +47,9 @@
 <p>  <img src="/2019/10/28/Thread基础/1572279645799.png" alt></p>
 <p>执行5个thread，就有个一个thread休眠30ms</p>
 ]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
       <tags>
         <tag>Thread</tag>
       </tags>
