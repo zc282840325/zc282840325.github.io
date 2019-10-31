@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Thread静态方法</title>
+    <url>/2019/10/31/Thread%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="Thread静态方法"><a href="#Thread静态方法" class="headerlink" title=".Thread静态方法"></a>.Thread静态方法</h2><h6 id="1-主线程上设置槽位，也是Hello-Word-只能被主线程读取，其他线程无法读取"><a href="#1-主线程上设置槽位，也是Hello-Word-只能被主线程读取，其他线程无法读取" class="headerlink" title="1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取"></a>1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取</h6><p>Thread.AllocateDataSlot();<strong>分配未命名的槽位</strong></p>
+<p>var solt =Thread.AllocateNamedDataSlot(“username”);<strong>分配命名的槽位</strong></p>
+<p>Thread.SetData(solt, “Hello Word!”);<strong>设置槽位的值</strong></p>
+<p>var obj2 = Thread.GetData(solt);<strong>获取槽位的值</strong></p>
+<p>Thread.FreeNamedDataSlot(“username”);<strong>释放槽位</strong></p>
+<h6 id="2-ThreadStatic-：设置线程字段的唯一"><a href="#2-ThreadStatic-：设置线程字段的唯一" class="headerlink" title="2.[ThreadStatic]：设置线程字段的唯一"></a>2.[ThreadStatic]：<u>设置线程字段的唯一</u></h6><h6 id="3-ThreadLocal：提供线程的本地存储线程可见"><a href="#3-ThreadLocal：提供线程的本地存储线程可见" class="headerlink" title="3.ThreadLocal：提供线程的本地存储线程可见"></a>3.ThreadLocal<t>：<u>提供线程的本地存储</u>线程可见</t></h6><h6 id="4-TLS-thread-local-storage-线程本地存储"><a href="#4-TLS-thread-local-storage-线程本地存储" class="headerlink" title="4.TLS:thread local storage[线程本地存储]"></a>4.TLS:thread local storage[线程本地存储]</h6>]]></content>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Thread实例方法</title>
     <url>/2019/10/29/Thread%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="Thread实例方法"><a href="#Thread实例方法" class="headerlink" title="Thread实例方法"></a>Thread实例方法</h2><p>1.Thread的生命周期(join阻塞主线程)</p>

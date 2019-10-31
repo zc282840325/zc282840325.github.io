@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Thread,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content=".Thread静态方法1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取Thread.AllocateDataSlot();分配未命名的槽位 var solt =Thread.AllocateNamedDataSlot(“username”);分配命名的槽位 Thread.SetData(solt, “Hello Word!”);设置槽位的值 var obj2 =">
+<meta name="keywords" content="Thread">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thread静态方法">
+<meta property="og:url" content="http://yoursite.com/2019/10/31/Thread静态方法/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content=".Thread静态方法1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取Thread.AllocateDataSlot();分配未命名的槽位 var solt =Thread.AllocateNamedDataSlot(“username”);分配命名的槽位 Thread.SetData(solt, “Hello Word!”);设置槽位的值 var obj2 =">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-12T11:57:28.554Z">
+<meta property="og:updated_time" content="2019-10-31T15:39:05.834Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Thread静态方法">
+<meta name="twitter:description" content=".Thread静态方法1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取Thread.AllocateDataSlot();分配未命名的槽位 var solt =Thread.AllocateNamedDataSlot(“username”);分配命名的槽位 Thread.SetData(solt, “Hello Word!”);设置槽位的值 var obj2 =">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/31/Thread静态方法/">
 
 
 
 
 
-  <title>tags | Blog</title>
+  <title>Thread静态方法 | Blog</title>
   
 
 
@@ -309,40 +313,153 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/Thread静态方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 5 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Hexo/" style="font-size: 12px; color: #ccc">Hexo</a> <a href="/tags/SQL/" style="font-size: 30px; color: #111">SQL</a> <a href="/tags/Thread/" style="font-size: 30px; color: #111">Thread</a> <a href="/tags/委托/" style="font-size: 12px; color: #ccc">委托</a> <a href="/tags/面试题/" style="font-size: 12px; color: #ccc">面试题</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Thread静态方法</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-31T23:16:47+08:00">
+                2019-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="Thread静态方法"><a href="#Thread静态方法" class="headerlink" title=".Thread静态方法"></a>.Thread静态方法</h2><h6 id="1-主线程上设置槽位，也是Hello-Word-只能被主线程读取，其他线程无法读取"><a href="#1-主线程上设置槽位，也是Hello-Word-只能被主线程读取，其他线程无法读取" class="headerlink" title="1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取"></a>1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取</h6><p>Thread.AllocateDataSlot();<strong>分配未命名的槽位</strong></p>
+<p>var solt =Thread.AllocateNamedDataSlot(“username”);<strong>分配命名的槽位</strong></p>
+<p>Thread.SetData(solt, “Hello Word!”);<strong>设置槽位的值</strong></p>
+<p>var obj2 = Thread.GetData(solt);<strong>获取槽位的值</strong></p>
+<p>Thread.FreeNamedDataSlot(“username”);<strong>释放槽位</strong></p>
+<h6 id="2-ThreadStatic-：设置线程字段的唯一"><a href="#2-ThreadStatic-：设置线程字段的唯一" class="headerlink" title="2.[ThreadStatic]：设置线程字段的唯一"></a>2.[ThreadStatic]：<u>设置线程字段的唯一</u></h6><h6 id="3-ThreadLocal：提供线程的本地存储线程可见"><a href="#3-ThreadLocal：提供线程的本地存储线程可见" class="headerlink" title="3.ThreadLocal：提供线程的本地存储线程可见"></a>3.ThreadLocal<t>：<u>提供线程的本地存储</u>线程可见</t></h6><h6 id="4-TLS-thread-local-storage-线程本地存储"><a href="#4-TLS-thread-local-storage-线程本地存储" class="headerlink" title="4.TLS:thread local storage[线程本地存储]"></a>4.TLS:thread local storage[线程本地存储]</h6>
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Thread/" rel="tag"># Thread</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/29/Thread实例方法/" rel="next" title="Thread实例方法">
+                <i class="fa fa-chevron-left"></i> Thread实例方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -375,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -436,6 +562,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread静态方法"><span class="nav-number">1.</span> <span class="nav-text">.Thread静态方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-主线程上设置槽位，也是Hello-Word-只能被主线程读取，其他线程无法读取"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1.主线程上设置槽位，也是Hello Word!只能被主线程读取，其他线程无法读取</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-ThreadStatic-：设置线程字段的唯一"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2.[ThreadStatic]：设置线程字段的唯一</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-ThreadLocal：提供线程的本地存储线程可见"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3.ThreadLocal：提供线程的本地存储线程可见</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-TLS-thread-local-storage-线程本地存储"><span class="nav-number">1.0.0.0.4.</span> <span class="nav-text">4.TLS:thread local storage[线程本地存储]</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
