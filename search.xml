@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Thread定时器</title>
+    <url>/2019/11/03/Thread%E5%AE%9A%E6%97%B6%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="一-定时器-（可以想到Time）"><a href="#一-定时器-（可以想到Time）" class="headerlink" title="一.定时器 （可以想到Time）"></a>一.定时器 （可以想到Time）</h2><h3 id="1-ThreadPool的定时器功能："><a href="#1-ThreadPool的定时器功能：" class="headerlink" title="1.ThreadPool的定时器功能："></a>1.ThreadPool的定时器功能：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ThreadPool.RegisterWaitForSingleObject(new AutoResetEvent(true), new WaitOrTimerCallback((obj, b) =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">     Console.WriteLine(&quot;obj=&#123;0&#125;,tid=&#123;1&#125;,datetime=&#123;2&#125;&quot;, obj,           Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;hh:MM:ss&quot;));</span><br><span class="line">        &#125;), &quot;hello word&quot;, 1000, false);</span><br></pre></td></tr></table></figure>
+
+<p>RegisterWaitForSingleObject():</p>
+<p>1.(new AutoResetEvent(true):两个线程之间进行信号发送，当true无需等待，当为false,会等待1秒</p>
+<p>False:</p>
+<p><img src="/2019/11/03/Thread定时器/1572776249485.png" alt="1572776249485"></p>
+<p>True:</p>
+<p><img src="/2019/11/03/Thread定时器/1572776292652.png" alt></p>
+<p>2.new WaitOrTimerCallback():回调函数</p>
+<p>3.”hello word”：传递参数</p>
+<p>4.1000：定时器执行的间隔（单位毫秒）</p>
+<p>5.false:是否仅执行一次</p>
+<p>6.debug执行的效果如下：</p>
+<p><img src="/2019/11/03/Thread定时器/D:%5Chexo%5Csource_posts%5CThread%E5%AE%9A%E6%97%B6%E5%99%A8%5C1572776606802.png" alt></p>
+<p><img src="/2019/11/03/Thread定时器/1572776650195.png" alt></p>
+<h3 id="2-Timer"><a href="#2-Timer" class="headerlink" title="2.Timer"></a>2.Timer</h3><p>有很多地方都有Timer:</p>
+<ul>
+<li>System.Threading</li>
+<li>System.Timer</li>
+<li>System.Windows.Form</li>
+<li>System.Web.UI</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Timer timer = new Timer(new TimerCallback((obj) =&gt;</span><br><span class="line">       &#123;</span><br><span class="line">           Console.WriteLine(&quot;obj=&#123;0&#125;,tid=&#123;1&#125;,datetime=&#123;2&#125;&quot;, obj, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;hh:MM:ss&quot;));</span><br><span class="line">       &#125;), &quot;hello word&quot;, 1000, 1000);</span><br></pre></td></tr></table></figure>
+
+<p>1.new TimerCallback();回调函数</p>
+<p>2.“hello word”：传递参数</p>
+<p>3.1000：延迟执行的时间【单位毫秒】</p>
+<p>4.1000：线程执行的时间间隔</p>
+<p><img src="/2019/11/03/Thread定时器/1572777324601.png" alt></p>
+<p>Timer首先是用ThreadPool.<strong>UnsafeQueueUserWorkItem</strong>(waitCallback, timer);来完成定时功能。</p>
+<h2 id="三：实战开发中，基本上不会用Timer来处理问题"><a href="#三：实战开发中，基本上不会用Timer来处理问题" class="headerlink" title="三：实战开发中，基本上不会用Timer来处理问题"></a>三：实战开发中，基本上不会用Timer来处理问题</h2><p>功能太少。</p>
+<p>比如，每天早上8点启动一个线程，逻辑太多计算时间，开销大，费时费力。</p>
+<h2 id="四：开源框架解决定时的问题：Quarz-net"><a href="#四：开源框架解决定时的问题：Quarz-net" class="headerlink" title="四：开源框架解决定时的问题：Quarz.net"></a>四：开源框架解决定时的问题：Quarz.net</h2>]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ThreadPool</title>
     <url>/2019/11/03/ThreadPool/</url>
     <content><![CDATA[<h2 id="一：Thread是CLR表示线程的数据结构"><a href="#一：Thread是CLR表示线程的数据结构" class="headerlink" title="一：Thread是CLR表示线程的数据结构"></a><strong>一：Thread是CLR表示线程的数据结构</strong></h2><h2 id="二：ThreadPool线程池"><a href="#二：ThreadPool线程池" class="headerlink" title="二：ThreadPool线程池"></a>二：ThreadPool线程池</h2><ul>
