@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="1.维护数据库的完整性、一致性、你喜欢用触发器还是自写业务逻辑？为什么? 答：尽可能用约束（包括CHECK、主键、唯一键、外键、非空字段）实现，这种方式的效率最好；其次用触发器，这种方式可以保证无论何种业务系统访问数据库都能维持数据库的完整性、一致性；最后再考虑用自写业务逻辑实现，但这种方式效率最低、编程最复杂，当为下下之策。 2.什么是事务？什么是锁？ 答：事务是指一个工作单元，它包含了一组数据">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-15T00:59:30.268Z">
+<meta property="og:updated_time" content="2019-11-02T05:24:05.050Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C#面试题">
 <meta name="twitter:description" content="1.维护数据库的完整性、一致性、你喜欢用触发器还是自写业务逻辑？为什么? 答：尽可能用约束（包括CHECK、主键、唯一键、外键、非空字段）实现，这种方式的效率最好；其次用触发器，这种方式可以保证无论何种业务系统访问数据库都能维持数据库的完整性、一致性；最后再考虑用自写业务逻辑实现，但这种方式效率最低、编程最复杂，当为下下之策。 2.什么是事务？什么是锁？ 答：事务是指一个工作单元，它包含了一组数据">
@@ -835,8 +835,18 @@
 <p><strong>126.什么是值类型?什么是引用类型？</strong></p>
 <p>答：值类型：值类型变量声明后，不管是否已经赋值，编译器为其分配内存</p>
 <p>例如：byte，short，int，long，float，double，decimal，char，bool 和 struct  </p>
-<p>   引用类型：当声明一个类时，只在栈中分配一小片内存用于容纳一个地址，而此时<strong>并没有为其分配堆上的内存空间</strong></p>
+<p>引用类型：当声明一个类时，只在栈中分配一小片内存用于容纳一个地址，而此时<strong>并没有为其分配堆上的内存空间</strong></p>
 <p>例如：string 和 class统称为引用类型</p>
+<p><strong>127.C#:string、stringBuffer、stringBuilder的区别</strong></p>
+<p>答：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s = &quot;3&quot;;</span><br><span class="line">StringBuilder stringBuilder = new StringBuilder();</span><br><span class="line">stringBuilder.Append(&quot;qwe&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>string 是字符串常量，创建之后内存大小固定,对象是不可改变，如果使用s+=”2”;此时s又会开辟新的内存空间</p>
+<p>stringBuilder 是字符串变量（非线程安全），<strong>对象是动态对象</strong>，new了一个对象后，实例化后的对象内存大小可以自由变换，也可以这样理解，当我们的向对象中添加的内容超过当前存储的量之前，将自动分配新的空间且容量翻倍。可以使用重载的构造函数之一来指定 StringBuilder 类的容量。 </p>
+<p>stringBuffer 是字符串变量（线程安全）</p>
+<p><u>stringbuffer和stringbuilder是一样的，后者速度比前者快，但是后者是线程不安全的，前者是线程安全的。</u></p>
+<p><strong>128.什么是前后端分离，有什么好处？</strong></p>
+<p>答：</p>
 
       
     </div>
@@ -947,7 +957,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
