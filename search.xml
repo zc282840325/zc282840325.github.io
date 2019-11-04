@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Task常见的枚举</title>
+    <url>/2019/11/04/Task%E5%B8%B8%E8%A7%81%E7%9A%84%E6%9E%9A%E4%B8%BE/</url>
+    <content><![CDATA[<p>一：Task中的枚举</p>
+<pre><code>None = 0,
+PreferFairness = 1,
+LongRunning = 2,
+AttachedToParent = 4,
+DenyChildAttach = 8,
+HideScheduler = 16,
+RunContinuationsAsynchronously = 64</code></pre><p>二：任务延续中的枚举</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">None = 0,</span><br><span class="line">PreferFairness = 1,</span><br><span class="line">LongRunning = 2,</span><br><span class="line">AttachedToParent = 4,</span><br><span class="line">DenyChildAttach = 8,</span><br><span class="line">HideScheduler = 16,</span><br><span class="line">LazyCancellation = 32,</span><br><span class="line">RunContinuationsAsynchronously = 64,</span><br><span class="line">NotOnRanToCompletion = 65536,</span><br><span class="line">NotOnFaulted = 131072,</span><br><span class="line">NotOnCanceled = 262144,</span><br><span class="line">OnlyOnRanToCompletion = 393216,</span><br><span class="line">OnlyOnFaulted = 327680,</span><br><span class="line">OnlyOnCanceled = 196608,</span><br><span class="line">ExecuteSynchronously = 524288</span><br></pre></td></tr></table></figure>
+
+<p>三：演示</p>
+<p>TaskCreationOptions:</p>
+<p>1.AttachedToParent:子线程和父线程同步</p>
+<pre><code>Task task = new Task(() =&gt;
+        {
+
+            Task task1 = new Task(() =&gt;
+            {
+                Thread.Sleep(100);
+                Console.WriteLine(&quot;task1&quot;);
+
+            }, TaskCreationOptions.AttachedToParent);
+
+            Task task2 = new Task(() =&gt;
+            {
+                Thread.Sleep(10);
+                Console.WriteLine(&quot;task2&quot;);
+            }, TaskCreationOptions.AttachedToParent);
+            task1.Start();
+            task2.Start();
+        });
+        task.Start();
+        task.Wait();
+        Console.WriteLine(&quot;我是主线程&quot;);</code></pre><p><img src="/2019/11/04/Task常见的枚举/1572837904340.png" alt="1572837904340"></p>
+<p>2.DenyChildAttach:不让子任务附加到父任务中</p>
+<p> Task task = new Task(() =&gt;<br>            {</p>
+<pre><code>    Task task1 = new Task(() =&gt;
+    {
+        Thread.Sleep(100);
+        Console.WriteLine(&quot;task1&quot;);
+
+    }, TaskCreationOptions.AttachedToParent);
+
+    Task task2 = new Task(() =&gt;
+    {
+        Thread.Sleep(10);
+        Console.WriteLine(&quot;task2&quot;);
+    }, TaskCreationOptions.AttachedToParent);
+    task1.Start();
+    task2.Start();
+}, TaskCreationOptions.DenyChildAttach);
+task.Start();
+task.Wait();
+Console.WriteLine(&quot;我是主线程&quot;);</code></pre><p><img src="/2019/11/04/Task常见的枚举/1572838075737.png" alt="1572838075737"></p>
+<p>3.HideScheduler:子任务默认不调用父类的Task的Scheduler，而是使用默认的</p>
+<p>4.LongRunning：长时间运行的任务，建议使用此选项，或者建议使用Thread而不是ThreadPool,如果长期租用不还给ThreadPool,ThreadPool会开启新的线程，如果此时租用线程归还，这回导致ThreadPool线程过多，销毁和调度都是一个很大的麻烦。</p>
+<pre><code>Task task1 = new Task(() =&gt;
+    {
+        Thread.Sleep(100);
+        Console.WriteLine(&quot;task1&quot;);
+    }, TaskCreationOptions.LongRunning);
+    task1.Start();
+    task1.Wait();
+    Console.WriteLine(&quot;我是主线程！！！&quot;);
+    Console.Read();</code></pre><p><img src="/2019/11/04/Task常见的枚举/1572838876190.png" alt="1572838876190"></p>
+<p>5.PreferFairness:会将Task放入到ThreadPool的全局变量中，让word thread进行争抢，默认情况会放到task的一个本地队列中。</p>
+]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Task7种阻塞方式</title>
     <url>/2019/11/04/Task7%E7%A7%8D%E9%98%BB%E5%A1%9E%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="一：Task的阻塞和延续操作"><a href="#一：Task的阻塞和延续操作" class="headerlink" title="一：Task的阻塞和延续操作"></a>一：Task的阻塞和延续操作</h2><p>1.阻塞</p>
