@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Task7种阻塞方式</title>
+    <url>/2019/11/04/Task7%E7%A7%8D%E9%98%BB%E5%A1%9E%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="一：Task的阻塞和延续操作"><a href="#一：Task的阻塞和延续操作" class="headerlink" title="一：Task的阻塞和延续操作"></a>一：Task的阻塞和延续操作</h2><p>1.阻塞</p>
+<p>在Thread=&gt;使用Join方法阻塞</p>
+<p>Thread:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Thread t = new Thread(() =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            Thread.Sleep(1000);</span><br><span class="line">            Console.WriteLine(&quot;我是工作线程1&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread t2 = new Thread(() =&gt;</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            Thread.Sleep(1000);</span><br><span class="line">            Console.WriteLine(&quot;我是工作线程2&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line">        t2.Start();</span><br><span class="line">        t.Start();</span><br><span class="line"></span><br><span class="line">        t2.Join();</span><br><span class="line">        t.Join();</span><br></pre></td></tr></table></figure>
+
+<p>每等待一个，需要Join()一下，线程多了以后，就繁琐了！</p>
+<p>Task:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Task task1 = new Task(()=&gt; &#123;</span><br><span class="line">               Thread.Sleep(1000);</span><br><span class="line">              Console.WriteLine(&quot;我是工作线程1:&#123;0&#125;&quot;,                 DateTime.Now.ToString(&quot;hh:mm:ss&quot;));</span><br><span class="line">          &#125;);</span><br><span class="line">          task1.Start();</span><br><span class="line">          Task task2 = new Task(() =&gt; &#123;</span><br><span class="line">              Thread.Sleep(2000);</span><br><span class="line">              Console.WriteLine(&quot;我是工作线程2:&#123;0&#125;&quot;, DateTime.Now.ToString(&quot;hh:mm:ss&quot;));</span><br><span class="line">          &#125;);</span><br><span class="line">          task2.Start();</span><br><span class="line">          Task.WhenAll(task1, task2);</span><br></pre></td></tr></table></figure>
+
+<p>2.Task.WaitAll():是一种&amp;&amp;关系<strong>[必须其中所有的Task完成才算完成]</strong></p>
+<p>3.Task.WaitAny():是一种||关系<strong>[其中有一个Task完成就算完成]</strong></p>
+<p>4.Task.Wait()==join()</p>
+<p>5.Task.WhenAll(task1,task2).ContinueWith();执行延续任务</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Task task1 = new Task(()=&gt; &#123;</span><br><span class="line">                 Thread.Sleep(1000);</span><br><span class="line">                Console.WriteLine(&quot;我是工作线程1:&#123;0&#125;&quot;, DateTime.Now.ToString(&quot;hh:mm:ss&quot;));</span><br><span class="line">            &#125;);</span><br><span class="line">            task1.Start();</span><br><span class="line">            Task task2 = new Task(() =&gt; &#123;</span><br><span class="line">                Thread.Sleep(2000);</span><br><span class="line">                Console.WriteLine(&quot;我是工作线程2:&#123;0&#125;&quot;, DateTime.Now.ToString(&quot;hh:mm:ss&quot;));</span><br><span class="line">            &#125;);</span><br><span class="line">            task2.Start();</span><br><span class="line">            //------------------------------------上面的等待返回值都是void</span><br><span class="line">            Task.WhenAll(task1, task2).ContinueWith(t=&gt; &#123;</span><br><span class="line">                //执行工作线程3</span><br><span class="line">                Console.WriteLine(&quot;我是主线程:&#123;0&#125;&quot;, DateTime.Now.ToString(&quot;hh:mm:ss&quot;));</span><br><span class="line">            &#125;);</span><br><span class="line">            Console.Read();</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/04/Task7种阻塞方式/1572830032942.png" alt="1572830032942"></p>
+<p>6.Task.Factory.ContinueWhenAll();</p>
+<p>7.Task.Factory.ContinueWhenAny();</p>
+]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Task</title>
+    <url>/2019/11/04/Task/</url>
+    <content><![CDATA[<h2 id="一：Task-在-net-4-0版本使用"><a href="#一：Task-在-net-4-0版本使用" class="headerlink" title="一：Task(在.net 4.0版本使用)"></a>一：Task(在.net 4.0版本使用)</h2><ul>
+<li>Task=&gt;Thread+ThreadPool</li>
+<li>Thread:容易造成时间+空间开销，而且使用不当，容易造成线程过多，导致时间片切换</li>
+<li>ThreadPool:控制能力比较弱，做Thread的延续，阻塞，取消，超时等等功能。控制权在CLR，而不是在我们手上。</li>
+</ul>
+<p>Task是基于ThreadPool的基础上进行的封装，.net4..0之后，微软主推Task做异步启动。</p>
+<h2 id="二：Task的启动方式"><a href="#二：Task的启动方式" class="headerlink" title="二：Task的启动方式"></a>二：Task的启动方式</h2><p>1.实例化启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Task task = new Task(() =&gt;</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">           &#125;);</span><br><span class="line">           task.Start();</span><br></pre></td></tr></table></figure>
+
+<p>2.工程模式(Task.Factory启动)</p>
+<pre><code>var task = Task.Factory.StartNew(() =&gt;
+{
+    Console.WriteLine(&quot;我是工作线程，tid={0}&quot;, Thread.CurrentThread.ManagedThreadId);
+});</code></pre><p>3.使用Task的Run方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var task = Task.Run(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>4.同步（阻塞线程，同步执行）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var task = new Task(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">&#125;);</span><br><span class="line">task.RunSynchronously();</span><br></pre></td></tr></table></figure>
+
+<p>三：Task是建立在ThreadPool</p>
+<p>实例化Task在Windgb下的状态：</p>
+<p><img src="/2019/11/04/Task/1572827768283.png" alt="1572827768283"></p>
+<p>同步（阻塞线程，同步执行）在Windbg下的状态：</p>
+<p><img src="/2019/11/04/Task/1572827872739.png" alt="1572827872739"></p>
+<p>很明显看出：</p>
+<ul>
+<li>Task的底层就是ThreadPool,ThreadPool分配了2个线程，属于CLR所有</li>
+<li>同步就没有其他线程，当线程执行完，才执行主线程</li>
+</ul>
+<p>Task底层都是由不同的TaskScheduler支撑的</p>
+<p>TaskScheduler相当于Task的CPU处理器</p>
+<p>默认的TaskScheduler是ThreadPoolTaskScheduler</p>
+<h2 id="四：Task具有返回值"><a href="#四：Task具有返回值" class="headerlink" title="四：Task具有返回值"></a>四：Task具有返回值</h2><pre><code>var task = new Task&lt;string&gt;(() =&gt;
+{
+    return &quot;Hello Word!&quot;;
+});
+task.Start();
+Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/1572828794968.png" alt="1572828794968"></p>
+]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Thread定时器</title>
     <url>/2019/11/03/Thread%E5%AE%9A%E6%97%B6%E5%99%A8/</url>
     <content><![CDATA[<h2 id="一-定时器-（可以想到Time）"><a href="#一-定时器-（可以想到Time）" class="headerlink" title="一.定时器 （可以想到Time）"></a>一.定时器 （可以想到Time）</h2><h3 id="1-ThreadPool的定时器功能："><a href="#1-ThreadPool的定时器功能：" class="headerlink" title="1.ThreadPool的定时器功能："></a>1.ThreadPool的定时器功能：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ThreadPool.RegisterWaitForSingleObject(new AutoResetEvent(true), new WaitOrTimerCallback((obj, b) =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">     Console.WriteLine(&quot;obj=&#123;0&#125;,tid=&#123;1&#125;,datetime=&#123;2&#125;&quot;, obj,           Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;hh:MM:ss&quot;));</span><br><span class="line">        &#125;), &quot;hello word&quot;, 1000, false);</span><br></pre></td></tr></table></figure>
