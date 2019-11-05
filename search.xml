@@ -1,17 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Task返回值</title>
+    <url>/2019/11/05/Task%E8%BF%94%E5%9B%9E%E5%80%BC/</url>
+    <content><![CDATA[<h2 id="一：Task的返回值："><a href="#一：Task的返回值：" class="headerlink" title="一：Task的返回值："></a>一：Task的返回值：</h2><p>1.使用Task.Result</p>
+<pre><code>Task&lt;int&gt; task = Task.Factory.StartNew(()=&gt; {
+    int s = 0;
+    for (int i = 0; i &lt; 5; i++)
+    {
+        s += i;
+    }
+    return s;
+});
+Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/05/Task返回值/1572941896412.png" alt="1572941896412"></p>
+<h2 id="二：ContinueWith的返回值"><a href="#二：ContinueWith的返回值" class="headerlink" title="二：ContinueWith的返回值"></a>二：ContinueWith<t>的返回值</t></h2><pre><code>  Task&lt;int&gt; task = Task.Factory.StartNew(()=&gt; {
+        int s = 0;
+        for (int i = 0; i &lt; 5; i++)
+        {
+            s += i;
+        }
+        return s;
+    });
+    var task2 = task.ContinueWith&lt;string&gt;(t =&gt;
+    {var num = t.Result;
+    var sum = num + 10;
+    return sum.ToString();
+});
+Console.WriteLine(task2.Result);
+Console.ReadKey();</code></pre><p><img src="/2019/11/05/Task返回值/1572942000959.png" alt="1572942000959"></p>
+<h2 id="三：Task-WhenAll-WhenAny"><a href="#三：Task-WhenAll-WhenAny" class="headerlink" title="三：Task.WhenAll/WhenAny"></a>三：Task.WhenAll<t>/WhenAny</t></h2><pre><code>   Task&lt;int&gt; task = Task.Factory.StartNew(() =&gt;
+      {
+          return 6;
+      });
+Task&lt;int&gt; task2 = Task.Factory.StartNew(() =&gt;
+  {
+      return 2;
+  });
+  int[] result = Task.WhenAll&lt;int&gt;(new Task&lt;int&gt;[2] { task, task2 }).Result;
+
+  foreach (var item in result)
+  {
+      Console.WriteLine(item);
+  }
+  Console.ReadKey();</code></pre><p><img src="/2019/11/05/Task返回值/1572942605519.png" alt="1572942605519"></p>
+<h2 id="四：异常处理"><a href="#四：异常处理" class="headerlink" title="四：异常处理"></a>四：异常处理</h2><p>AggregateException是一个集合，因为task中可能回抛出多个异常，所以我们需要一种新的类型把这些异常都追加到一个集合种</p>
+<h3 id="1。什么时候抛出异常？"><a href="#1。什么时候抛出异常？" class="headerlink" title="1。什么时候抛出异常？"></a>1。什么时候抛出异常？</h3><p>Task.Wait() or Tresult</p>
+<h3 id="2-何时会有多个异常在AggregateException中？"><a href="#2-何时会有多个异常在AggregateException中？" class="headerlink" title="2.何时会有多个异常在AggregateException中？"></a>2.何时会有多个异常在AggregateException中？</h3><pre><code>    var task = Task.Factory.StartNew(()=&gt; {
+        var child = Task.Factory.StartNew(() =&gt; {
+            throw new Exception(&quot;我是child的异常&quot;);
+        },TaskCreationOptions.AttachedToParent);
+ var child2 = Task.Factory.StartNew(() =&gt; {
+        throw new Exception(&quot;我是child2的异常&quot;);
+    },TaskCreationOptions.AttachedToParent);
+});
+try
+{
+    task.Wait();
+}
+catch (AggregateException ex)
+{
+    foreach (var item in ex.InnerExceptions)
+    {
+        Console.WriteLine(string.Format(&quot;message:{0},type={1}&quot;, item.InnerException.Message, item.GetType().ToString()));
+    }
+}</code></pre><h3 id="3-Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？"><a href="#3-Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？" class="headerlink" title="3.Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？"></a>3.Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？</h3><p>Handle是用来便利异常数组，如果又一个异常信息是这样的，我任务已经处理，如果你觉得异常还需要往上抛，请返回fasle</p>
+<p><img src="/2019/11/05/Task返回值/1572944579915.png" alt="1572944579915"><br>            try<br>                {<br>                    task.Wait();<br>                }<br>                catch (AggregateException ex)<br>                {<br>                    ex.Handle(x=&gt; {<br>                        return true;<br>                    });<br>                    return false;<br>                }</p>
+]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Task取消</title>
     <url>/2019/11/05/Task%E5%8F%96%E6%B6%88/</url>
-    <content><![CDATA[<p>一：在Thread中做取消操作</p>
-<p>声明一个变量取去判断Thread中是否可以退出。</p>
+    <content><![CDATA[<h2 id="一：在Thread中做取消操作"><a href="#一：在Thread中做取消操作" class="headerlink" title="一：在Thread中做取消操作"></a>一：在Thread中做取消操作</h2><p>声明一个变量取去判断Thread中是否可以退出。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bool res = false;</span><br><span class="line">           var task = new Task(()=&gt; &#123;</span><br><span class="line">               while (!res)</span><br><span class="line">               &#123;</span><br><span class="line">                   Thread.Sleep(100);</span><br><span class="line">                   Console.WriteLine(&quot;当前Thread=&#123;0&#125;正在运行&quot;,Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">           task.Start();</span><br><span class="line">           Thread.Sleep(1000);</span><br><span class="line">           res = true;</span><br><span class="line">           Console.Read();</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2019/11/05/Task取消/1572915945633.png" alt="1572915945633"></p>
 <p>不能让多个线程操作一个共享变量，否则会在release版本中有潜在bug</p>
-<p>二：task中有专门的类CancellationTokenSource去处理“任务取消”</p>
-<p>1.CancellationTokenSource远比一个变量强的多。</p>
-<pre><code> CancellationTokenSource source = new CancellationTokenSource();
+<h2 id="二：task中有专门的类CancellationTokenSource去处理“任务取消”"><a href="#二：task中有专门的类CancellationTokenSource去处理“任务取消”" class="headerlink" title="二：task中有专门的类CancellationTokenSource去处理“任务取消”"></a>二：task中有专门的类CancellationTokenSource去处理“任务取消”</h2><h3 id="1-CancellationTokenSource远比一个变量强的多。"><a href="#1-CancellationTokenSource远比一个变量强的多。" class="headerlink" title="1.CancellationTokenSource远比一个变量强的多。"></a>1.CancellationTokenSource远比一个变量强的多。</h3><pre><code> CancellationTokenSource source = new CancellationTokenSource();
     var task = new Task(() =&gt; {
 while (!source.IsCancellationRequested)
     {
@@ -23,9 +93,7 @@ task.Start();
 Thread.Sleep(1000);
 source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916271694.png" alt="1572916271694"></p>
 <p>效果同上</p>
-<p>2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理</p>
-<p>，又或者更新数据库信息</p>
-<pre><code>   CancellationTokenSource source = new CancellationTokenSource();
+<h3 id="2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"><a href="#2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息" class="headerlink" title="2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"></a>2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息</h3><pre><code>   CancellationTokenSource source = new CancellationTokenSource();
     source.Token.Register(()=&gt; {
         //如果当前token被取消，此函数被执行
         Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
@@ -41,8 +109,7 @@ var task = new Task(() =&gt; {
 task.Start();
 Thread.Sleep(1000);
 source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916548220.png" alt="1572916548220"></p>
-<p>3.延时取消：我想2秒之后自动取消，或者N秒</p>
-<ul>
+<h3 id="3-延时取消：我想2秒之后自动取消，或者N秒"><a href="#3-延时取消：我想2秒之后自动取消，或者N秒" class="headerlink" title="3.延时取消：我想2秒之后自动取消，或者N秒"></a>3.延时取消：我想2秒之后自动取消，或者N秒</h3><ul>
 <li><p>source.CancelAfter(new TimeSpan(0,0,0,2));</p>
 </li>
 <li><p>CancellationTokenSource 构造函数： CancellationTokenSource source = new CancellationTokenSource(1000);</p>
@@ -56,8 +123,7 @@ source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916548220.p
 <p><img src="/2019/11/05/Task取消/1572917962280.png" alt></p>
 <p>不加source1.Cancel();</p>
 <p><img src="/2019/11/05/Task取消/1572917999533.png" alt="1572917999533"></p>
-<p>4.ThrowIfCancellationRequested</p>
-<pre><code>        CancellationTokenSource source1 = new CancellationTokenSource();
+<h3 id="4-ThrowIfCancellationRequested"><a href="#4-ThrowIfCancellationRequested" class="headerlink" title="4.ThrowIfCancellationRequested"></a>4.ThrowIfCancellationRequested</h3><pre><code>        CancellationTokenSource source1 = new CancellationTokenSource();
 source1.Token.Register(()=&gt; {
                Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
            });
