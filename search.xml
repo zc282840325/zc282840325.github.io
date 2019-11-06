@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Task并行封装</title>
+    <url>/2019/11/05/Task%E5%B9%B6%E8%A1%8C%E5%B0%81%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="一：Task中并行和串行"><a href="#一：Task中并行和串行" class="headerlink" title="一：Task中并行和串行"></a>一：Task中并行和串行</h2><p>串行：</p>
+<pre><code>for (int i = 0; i &lt; 100; i++)
+{
+    Console.WriteLine(i);
+}</code></pre><p><img src="/2019/11/05/Task并行封装/1572968795179.png" alt="1572968795179"></p>
+<p>并行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Parallel.For(0, 100, (item) =&gt;</span><br><span class="line">   &#123;</span><br><span class="line">       Console.WriteLine(item);</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/05/Task并行封装/1572968878768.png" alt="1572968878768"></p>
+<h2 id="二：Parallel-For的实现结构"><a href="#二：Parallel-For的实现结构" class="headerlink" title="二：Parallel.For的实现结构"></a>二：Parallel.For的实现结构</h2><p>1.可以设置指定的线程计算，不需要所有的线程参与计算。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int nNumExpectedWorkers = (parallelOptions.EffectiveMaxConcurrencyLevel == -1) ? PlatformHelper.ProcessorCount : parallelOptions.EffectiveMaxConcurrencyLevel;</span><br></pre></td></tr></table></figure>
+
+<p>2.分区函数，实现线程并行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RangeManager rangeManager = new RangeManager((long)fromInclusive,(long)toExclusive, 1L, nNumExpectedWorkers);</span><br></pre></td></tr></table></figure>
+
+<p>分区后，使用    ParallelForReplicatingTask处理线程，这个类继承Task</p>
+<p>3.不要在Parallel.For中使用break()或Stop()，或许会给你引入不必要的bug；</p>
+<pre><code>ConcurrentStack&lt;int&gt; stack = new ConcurrentStack&lt;int&gt;();
+      Parallel.For(0, 100, (item,loop) =&gt;
+      {
+          Thread.Sleep(100000);
+          stack.Push(item);
+      });
+      Console.WriteLine(string.Join(&quot;,&quot;, stack));</code></pre><p><img src="/2019/11/05/Task并行封装/D:%5Chexo%5Csource_posts%5CTask%E5%B9%B6%E8%A1%8C%E5%B0%81%E8%A3%85%5C1573015947294.png" alt="1573015947294"></p>
+<p>线程池中开启16个线程，使用了12个线程,还有4个线程是CLR为发生饱和，做备用线程</p>
+<h2 id="三-Parallel-For高级重载"><a href="#三-Parallel-For高级重载" class="headerlink" title="三.Parallel.For高级重载"></a>三.Parallel.For高级重载</h2><p>Parallel.For解决问题是数组的遍历。</p>
+<p>public static ParallelLoopResult For<tlocal>(<strong>int</strong> fromInclusive, <strong>int</strong> toExclusive, Func<tlocal> localInit, Func&lt;<strong>int</strong>, ParallelLoopState, TLocal, TLocal&gt; body, Action<tlocal> localFinally)</tlocal></tlocal></tlocal></p>
+<p>计算1-100的总和</p>
+<pre><code>var totalNums = 0;
+       Parallel.For(1,100,()=&gt; {
+           return 0;
+       },(current,loop,total)=&gt; {
+           total += (int)current;
+           return total;
+       },(total)=&gt; {
+           Interlocked.Add(ref totalNums,total);
+       });
+       Console.WriteLine(totalNums);</code></pre><p>结果4950</p>
+<h2 id="四：Parallel-Foreach"><a href="#四：Parallel-Foreach" class="headerlink" title="四：Parallel.Foreach()"></a>四：Parallel.Foreach()</h2><p>Parallel.Foreach()应对一些集合运算【非数组】</p>
+<pre><code>Dictionary&lt;int, int&gt; dic = new Dictionary&lt;int, int&gt;() { 
+{ 1, 100 }, { 2, 200 }, { 3, 300 } };
+       Parallel.ForEach(dic,(item)=&gt; {
+            Console.WriteLine(item.Key+&quot;:&quot;+item.Value);
+        });</code></pre><p><img src="/2019/11/05/Task并行封装/1573048308181.png" alt="1573048308181"></p>
+<p><img src="/2019/11/05/Task并行封装/1573048681375.png" alt="1573048681375"></p>
+<p>上面是源码，分区函数，首先得分区。</p>
+<h2 id="五：Parallel-Invoke（）"><a href="#五：Parallel-Invoke（）" class="headerlink" title="五：Parallel.Invoke（）"></a>五：Parallel.Invoke（）</h2><pre><code>Parallel.Invoke(() =&gt;
+{
+    Console.WriteLine(&quot;我是并行计算{0}&quot;,Thread.CurrentThread.ManagedThreadId);
+}, () =&gt;
+{
+    Console.WriteLine(&quot;我是并行计算{0}&quot;, Thread.CurrentThread.ManagedThreadId);
+}, () =&gt;
+{
+    Console.WriteLine(&quot;我是并行计算{0}&quot;, Thread.CurrentThread.ManagedThreadId);
+});</code></pre><p><img src="/2019/11/05/Task并行封装/1573049137151.png" alt="1573049137151"></p>
+<p>Parallel.Invoke()可以同时开始多个线程并行执行，CPU回分配不同的线程执行任务。</p>
+]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Task返回值</title>
     <url>/2019/11/05/Task%E8%BF%94%E5%9B%9E%E5%80%BC/</url>
     <content><![CDATA[<h2 id="一：Task的返回值："><a href="#一：Task的返回值：" class="headerlink" title="一：Task的返回值："></a>一：Task的返回值：</h2><p>1.使用Task.Result</p>
