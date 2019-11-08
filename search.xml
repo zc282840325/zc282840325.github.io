@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>异步编程awaint</title>
+    <url>/2019/11/08/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8Bawaint/</url>
+    <content><![CDATA[<h2 id="一：async-await"><a href="#一：async-await" class="headerlink" title="一：async await"></a>一：async await</h2><ul>
+<li>调用方法：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行；</li>
+<li>异步方法：该方法异步执行工作，然后立刻返回到调用方法；</li>
+<li>await 表达式：用于异步方法内部，指出需要异步执行的任务。一个异步方法可以包含多个 await 表达式（不存在 await 表达式的话 IDE 会发出警告）。</li>
+</ul>
+<h2 id="二、async-await-结构"><a href="#二、async-await-结构" class="headerlink" title="二、async/await 结构"></a>二、async/await 结构</h2><ul>
+<li><p>同步方法：一个程序调用某个方法，等到其执行完成之后才进行下一步操作。这也是默认的形式。</p>
+</li>
+<li><p>异步方法：一个程序调用某个方法，在处理完成之前就返回该方法。通过 async/await 我们就可以实现这种类型的方法。</p>
+</li>
+</ul>
+<h2 id="三：-异步方法"><a href="#三：-异步方法" class="headerlink" title="三： 异步方法"></a>三： 异步方法</h2><ul>
+<li>关键字：方法头使用 async 修饰。</li>
+<li>要求：包含 N（N&gt;0） 个 await 表达式（不存在 await 表达式的话 IDE 会发出警告），表示需要异步执行的任务。</li>
+<li>​     （3）返回类型：只能返回 3 种类型（void、Task 和 Task<t>）。Task 和 Task<t> 标识返回的对象会在将来完成工作，表示调用方法和异步方法可以继续执行。</t></t></li>
+<li>参数：数量不限，但不能使用 out 和 ref 关键字。</li>
+<li>命名约定：方法后缀名应以 Async 结尾。</li>
+<li>其它：匿名方法和 Lambda 表达式也可以作为异步对象；async 是一个上下文关键字；关键字 async 必须在返回类型前。</li>
+</ul>
+<p><img src="/2019/11/08/异步编程awaint/1573227579628.png" alt="1573227579628"></p>
+]]></content>
+      <categories>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Task多线程模型</title>
     <url>/2019/11/08/Task%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h2 id="一：同步编程模型-SPM"><a href="#一：同步编程模型-SPM" class="headerlink" title="一：同步编程模型(SPM)"></a>一：同步编程模型(SPM)</h2><p>单线线程、串行开发模式。</p>
