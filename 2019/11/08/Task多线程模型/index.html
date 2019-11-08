@@ -79,25 +79,18 @@
 
 
 
-<meta name="description" content="一：Task中并行和串行串行： for (int i = 0; i &amp;lt; 100; i++) {     Console.WriteLine(i); } 并行： 1234Parallel.For(0, 100, (item) =&amp;gt;   &amp;#123;       Console.WriteLine(item);   &amp;#125;);   二：Parallel.For的实现结构1.可以设置指">
+<meta name="description" content="一：同步编程模型(SPM)单线线程、串行开发模式。 二：异步编程模型（APM）xxxbegin、xxxend的模式。    FileStream file = new FileStream(Environment.CurrentDirectory+&amp;quot;//1.txt&amp;quot;,FileMode.Open); var bytes= new byte[file.Length];     fi">
 <meta name="keywords" content="Thread">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Task并行封装">
-<meta property="og:url" content="http://yoursite.com/2019/11/05/Task并行封装/index.html">
+<meta property="og:title" content="Task多线程模型">
+<meta property="og:url" content="http://yoursite.com/2019/11/08/Task多线程模型/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="一：Task中并行和串行串行： for (int i = 0; i &amp;lt; 100; i++) {     Console.WriteLine(i); } 并行： 1234Parallel.For(0, 100, (item) =&amp;gt;   &amp;#123;       Console.WriteLine(item);   &amp;#125;);   二：Parallel.For的实现结构1.可以设置指">
+<meta property="og:description" content="一：同步编程模型(SPM)单线线程、串行开发模式。 二：异步编程模型（APM）xxxbegin、xxxend的模式。    FileStream file = new FileStream(Environment.CurrentDirectory+&amp;quot;//1.txt&amp;quot;,FileMode.Open); var bytes= new byte[file.Length];     fi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task并行封装/1572968795179.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task并行封装/1572968878768.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task并行封装/D:%5Chexo%5Csource_posts%5CTask%E5%B9%B6%E8%A1%8C%E5%B0%81%E8%A3%85%5C1573015947294.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task并行封装/1573048308181.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task并行封装/1573048681375.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task并行封装/1573049137151.png">
-<meta property="og:updated_time" content="2019-11-06T14:06:51.108Z">
+<meta property="og:updated_time" content="2019-11-08T12:47:19.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Task并行封装">
-<meta name="twitter:description" content="一：Task中并行和串行串行： for (int i = 0; i &amp;lt; 100; i++) {     Console.WriteLine(i); } 并行： 1234Parallel.For(0, 100, (item) =&amp;gt;   &amp;#123;       Console.WriteLine(item);   &amp;#125;);   二：Parallel.For的实现结构1.可以设置指">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/05/Task并行封装/1572968795179.png">
+<meta name="twitter:title" content="Task多线程模型">
+<meta name="twitter:description" content="一：同步编程模型(SPM)单线线程、串行开发模式。 二：异步编程模型（APM）xxxbegin、xxxend的模式。    FileStream file = new FileStream(Environment.CurrentDirectory+&amp;quot;//1.txt&amp;quot;,FileMode.Open); var bytes= new byte[file.Length];     fi">
 
 
 
@@ -127,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/05/Task并行封装/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/08/Task多线程模型/">
 
 
 
 
 
-  <title>Task并行封装 | Blog</title>
+  <title>Task多线程模型 | Blog</title>
   
 
 
@@ -332,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/Task并行封装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/Task多线程模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张聪">
@@ -349,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Task并行封装</h1>
+          <h1 class="post-title" itemprop="name headline">Task多线程模型</h1>
         
 
         <div class="post-meta">
@@ -361,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-05T23:38:21+08:00">
-                2019-11-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T20:07:05+08:00">
+                2019-11-08
               </time>
             
 
@@ -426,64 +419,48 @@
       
 
       
-        <h2 id="一：Task中并行和串行"><a href="#一：Task中并行和串行" class="headerlink" title="一：Task中并行和串行"></a>一：Task中并行和串行</h2><p>串行：</p>
-<pre><code>for (int i = 0; i &lt; 100; i++)
-{
-    Console.WriteLine(i);
-}</code></pre><p><img src="/2019/11/05/Task并行封装/1572968795179.png" alt="1572968795179"></p>
-<p>并行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Parallel.For(0, 100, (item) =&gt;</span><br><span class="line">   &#123;</span><br><span class="line">       Console.WriteLine(item);</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+        <h2 id="一：同步编程模型-SPM"><a href="#一：同步编程模型-SPM" class="headerlink" title="一：同步编程模型(SPM)"></a>一：同步编程模型(SPM)</h2><p>单线线程、串行开发模式。</p>
+<h2 id="二：异步编程模型（APM）"><a href="#二：异步编程模型（APM）" class="headerlink" title="二：异步编程模型（APM）"></a>二：异步编程模型（APM）</h2><p>xxxbegin、xxxend的模式。</p>
+<pre><code>   FileStream file = new FileStream(Environment.CurrentDirectory+&quot;//1.txt&quot;,FileMode.Open);
+var bytes= new byte[file.Length];
 
-<p><img src="/2019/11/05/Task并行封装/1572968878768.png" alt="1572968878768"></p>
-<h2 id="二：Parallel-For的实现结构"><a href="#二：Parallel-For的实现结构" class="headerlink" title="二：Parallel.For的实现结构"></a>二：Parallel.For的实现结构</h2><p>1.可以设置指定的线程计算，不需要所有的线程参与计算。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int nNumExpectedWorkers = (parallelOptions.EffectiveMaxConcurrencyLevel == -1) ? PlatformHelper.ProcessorCount : parallelOptions.EffectiveMaxConcurrencyLevel;</span><br></pre></td></tr></table></figure>
+   file.BeginRead(bytes,0,bytes.Length,(ary)=&gt; {
+       var nums = file.EndRead(ary);
+       Console.WriteLine(nums);
+   },string.Empty);
 
-<p>2.分区函数，实现线程并行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RangeManager rangeManager = new RangeManager((long)fromInclusive,(long)toExclusive, 1L, nNumExpectedWorkers);</span><br></pre></td></tr></table></figure>
+   Console.Read();</code></pre><h2 id="三：基于事件的编程模型（EAP）"><a href="#三：基于事件的编程模型（EAP）" class="headerlink" title="三：基于事件的编程模型（EAP）"></a>三：基于事件的编程模型（EAP）</h2><p>xxAsync这样的事件模式。 eg：WebClient。</p>
+<h2 id="四：基于Task的编程模型（TAP）"><a href="#四：基于Task的编程模型（TAP）" class="headerlink" title="四：基于Task的编程模型（TAP）"></a>四：基于Task的编程模型（TAP）</h2><p> APM和EAP都可以使用Task来实现，微软的初衷就是想通过Task大一统异步编程领域</p>
+<p>使用Task封装APM模式：</p>
+<p>代码量小</p>
+<p>Task更简单</p>
+<pre><code>FileStream file = new FileStream(Environment.CurrentDirectory+&quot;//1.txt&quot;,FileMode.Open);
 
-<p>分区后，使用    ParallelForReplicatingTask处理线程，这个类继承Task</p>
-<p>3.不要在Parallel.For中使用break()或Stop()，或许会给你引入不必要的bug；</p>
-<pre><code>ConcurrentStack&lt;int&gt; stack = new ConcurrentStack&lt;int&gt;();
-      Parallel.For(0, 100, (item,loop) =&gt;
-      {
-          Thread.Sleep(100000);
-          stack.Push(item);
-      });
-      Console.WriteLine(string.Join(&quot;,&quot;, stack));</code></pre><p><img src="/2019/11/05/Task并行封装/D:%5Chexo%5Csource_posts%5CTask%E5%B9%B6%E8%A1%8C%E5%B0%81%E8%A3%85%5C1573015947294.png" alt="1573015947294"></p>
-<p>线程池中开启16个线程，使用了12个线程,还有4个线程是CLR为发生饱和，做备用线程</p>
-<h2 id="三-Parallel-For高级重载"><a href="#三-Parallel-For高级重载" class="headerlink" title="三.Parallel.For高级重载"></a>三.Parallel.For高级重载</h2><p>Parallel.For解决问题是数组的遍历。</p>
-<p>public static ParallelLoopResult For<tlocal>(<strong>int</strong> fromInclusive, <strong>int</strong> toExclusive, Func<tlocal> localInit, Func&lt;<strong>int</strong>, ParallelLoopState, TLocal, TLocal&gt; body, Action<tlocal> localFinally)</tlocal></tlocal></tlocal></p>
-<p>计算1-100的总和</p>
-<pre><code>var totalNums = 0;
-       Parallel.For(1,100,()=&gt; {
-           return 0;
-       },(current,loop,total)=&gt; {
-           total += (int)current;
-           return total;
-       },(total)=&gt; {
-           Interlocked.Add(ref totalNums,total);
-       });
-       Console.WriteLine(totalNums);</code></pre><p>结果4950</p>
-<h2 id="四：Parallel-Foreach"><a href="#四：Parallel-Foreach" class="headerlink" title="四：Parallel.Foreach()"></a>四：Parallel.Foreach()</h2><p>Parallel.Foreach()应对一些集合运算【非数组】</p>
-<pre><code>Dictionary&lt;int, int&gt; dic = new Dictionary&lt;int, int&gt;() { 
-{ 1, 100 }, { 2, 200 }, { 3, 300 } };
-       Parallel.ForEach(dic,(item)=&gt; {
-            Console.WriteLine(item.Key+&quot;:&quot;+item.Value);
-        });</code></pre><p><img src="/2019/11/05/Task并行封装/1573048308181.png" alt="1573048308181"></p>
-<p><img src="/2019/11/05/Task并行封装/1573048681375.png" alt="1573048681375"></p>
-<p>上面是源码，分区函数，首先得分区。</p>
-<h2 id="五：Parallel-Invoke（）"><a href="#五：Parallel-Invoke（）" class="headerlink" title="五：Parallel.Invoke（）"></a>五：Parallel.Invoke（）</h2><pre><code>Parallel.Invoke(() =&gt;
-{
-    Console.WriteLine(&quot;我是并行计算{0}&quot;,Thread.CurrentThread.ManagedThreadId);
-}, () =&gt;
-{
-    Console.WriteLine(&quot;我是并行计算{0}&quot;, Thread.CurrentThread.ManagedThreadId);
-}, () =&gt;
-{
-    Console.WriteLine(&quot;我是并行计算{0}&quot;, Thread.CurrentThread.ManagedThreadId);
-});</code></pre><p><img src="/2019/11/05/Task并行封装/1573049137151.png" alt="1573049137151"></p>
-<p>Parallel.Invoke()可以同时开始多个线程并行执行，CPU回分配不同的线程执行任务。</p>
+       var bytes= new byte[file.Length];
+        var task = Task.Factory.FromAsync(file.BeginRead, file.EndRead, bytes, 0, bytes.Length, string.Empty);
 
+        var nums = task.Result;
+        Console.WriteLine(nums);</code></pre><p>使用Task包装EAP</p>
+<p>TaskCompletionSource：包装器</p>
+<pre><code>  private static Task&lt;int&gt; GetTask(string url)
+     {
+         TaskCompletionSource&lt;int&gt; source = new TaskCompletionSource&lt;int&gt;();
+WebClient client = new WebClient();
+     client.DownloadDataCompleted += (sendr, e) =&gt;
+     {
+         try
+         {
+             source.TrySetResult(e.Result.Length);
+         }
+         catch (Exception ex)
+         {
+             source.TrySetException(ex);
+         }
+
+     };
+     client.DownloadDataAsync(new Uri(url));
+     return source.Task;
+ }</code></pre>
       
     </div>
     
@@ -513,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/05/Task返回值/" rel="next" title="Task返回值">
-                <i class="fa fa-chevron-left"></i> Task返回值
+              <a href="/2019/11/08/Task核心调度器-TaskScheduler/" rel="next" title="Task核心调度器[TaskScheduler]">
+                <i class="fa fa-chevron-left"></i> Task核心调度器[TaskScheduler]
               </a>
             
           </div>
@@ -522,10 +499,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/06/Task中的Plinq/" rel="prev" title="Task中的Plinq">
-                Task中的Plinq <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -657,7 +630,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：Task中并行和串行"><span class="nav-number">1.</span> <span class="nav-text">一：Task中并行和串行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：Parallel-For的实现结构"><span class="nav-number">2.</span> <span class="nav-text">二：Parallel.For的实现结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-Parallel-For高级重载"><span class="nav-number">3.</span> <span class="nav-text">三.Parallel.For高级重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四：Parallel-Foreach"><span class="nav-number">4.</span> <span class="nav-text">四：Parallel.Foreach()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五：Parallel-Invoke（）"><span class="nav-number">5.</span> <span class="nav-text">五：Parallel.Invoke（）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：同步编程模型-SPM"><span class="nav-number">1.</span> <span class="nav-text">一：同步编程模型(SPM)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：异步编程模型（APM）"><span class="nav-number">2.</span> <span class="nav-text">二：异步编程模型（APM）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：基于事件的编程模型（EAP）"><span class="nav-number">3.</span> <span class="nav-text">三：基于事件的编程模型（EAP）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四：基于Task的编程模型（TAP）"><span class="nav-number">4.</span> <span class="nav-text">四：基于Task的编程模型（TAP）</span></a></li></ol></div>
             
 
           </div>
