@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Thread,">
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/page/2/index.html">
+<meta name="description" content="一：TaskScheduler问：TaskScheduler是做什么的？ 答：我们发现任务执行要经过Scheduler。Task的核心就是这个Scheduler，因为他把要执行任务安排在线程或者线程池中。TaskScheduler由Thread和ThreadPool组成。  二：在.net FrameWork中有两种TaskScheduler1.ThreadPoolTaskScheduler也就是">
+<meta name="keywords" content="Thread">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Task核心调度器[TaskScheduler]">
+<meta property="og:url" content="http://yoursite.com/2019/11/08/Task核心调度器-TaskScheduler/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="一：TaskScheduler问：TaskScheduler是做什么的？ 答：我们发现任务执行要经过Scheduler。Task的核心就是这个Scheduler，因为他把要执行任务安排在线程或者线程池中。TaskScheduler由Thread和ThreadPool组成。  二：在.net FrameWork中有两种TaskScheduler1.ThreadPoolTaskScheduler也就是">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/Task核心调度器-TaskScheduler/D:%5Chexo%5Csource_posts%5CTask%E6%A0%B8%E5%BF%83%E8%B0%83%E5%BA%A6%E5%99%A8-TaskScheduler%5C1573211558433.png">
+<meta property="og:updated_time" content="2019-11-08T12:05:54.640Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Blog">
+<meta name="twitter:title" content="Task核心调度器[TaskScheduler]">
+<meta name="twitter:description" content="一：TaskScheduler问：TaskScheduler是做什么的？ 答：我们发现任务执行要经过Scheduler。Task的核心就是这个Scheduler，因为他把要执行任务安排在线程或者线程池中。TaskScheduler由Thread和ThreadPool组成。  二：在.net FrameWork中有两种TaskScheduler1.ThreadPoolTaskScheduler也就是">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/08/Task核心调度器-TaskScheduler/D:%5Chexo%5Csource_posts%5CTask%E6%A0%B8%E5%BF%83%E8%B0%83%E5%BA%A6%E5%99%A8-TaskScheduler%5C1573211558433.png">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2019/page/2/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/08/Task核心调度器-TaskScheduler/">
 
 
 
 
 
-  <title>归档 | Blog</title>
+  <title>Task核心调度器[TaskScheduler] | Blog</title>
   
 
 
@@ -140,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -306,391 +313,195 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/Task核心调度器-TaskScheduler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Task核心调度器[TaskScheduler]</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T19:07:10+08:00">
+                2019-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 24 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/03/ThreadPool/" itemprop="url">
-              
-                <span itemprop="name">ThreadPool</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-03T10:22:26+08:00" content="2019-11-03">
-          11-03
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一：TaskScheduler"><a href="#一：TaskScheduler" class="headerlink" title="一：TaskScheduler"></a>一：TaskScheduler</h2><p>问：TaskScheduler是做什么的？</p>
+<p>答：我们发现任务执行要经过Scheduler。Task的核心就是这个Scheduler，因为他把要执行任务安排在线程或者线程池中。TaskScheduler由Thread和ThreadPool组成。</p>
+<p><img src="/2019/11/08/Task核心调度器-TaskScheduler/D:%5Chexo%5Csource_posts%5CTask%E6%A0%B8%E5%BF%83%E8%B0%83%E5%BA%A6%E5%99%A8-TaskScheduler%5C1573211558433.png" alt="1573211558433"></p>
+<h2 id="二：在-net-FrameWork中有两种TaskScheduler"><a href="#二：在-net-FrameWork中有两种TaskScheduler" class="headerlink" title="二：在.net FrameWork中有两种TaskScheduler"></a>二：在.net FrameWork中有两种TaskScheduler</h2><h3 id="1-ThreadPoolTaskScheduler"><a href="#1-ThreadPoolTaskScheduler" class="headerlink" title="1.ThreadPoolTaskScheduler"></a>1.ThreadPoolTaskScheduler</h3><p>也就是Task的默认是调用ThreadPool</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">protected internal override void QueueTask(Task task)</span><br><span class="line">		&#123;</span><br><span class="line">			if ((task.Options &amp; TaskCreationOptions.LongRunning) != TaskCreationOptions.None)</span><br><span class="line">			&#123;</span><br><span class="line">				new Thread(ThreadPoolTaskScheduler.s_longRunningThreadWork)</span><br><span class="line">				&#123;</span><br><span class="line">					IsBackground = true</span><br><span class="line">				&#125;.Start(task);</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			bool forceGlobal = (task.Options &amp; TaskCreationOptions.PreferFairness) &gt; TaskCreationOptions.None;</span><br><span class="line">			ThreadPool.UnsafeQueueCustomWorkItem(task, forceGlobal);</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-SynchronizationContextTaskScheduler"><a href="#2-SynchronizationContextTaskScheduler" class="headerlink" title="2.SynchronizationContextTaskScheduler"></a>2.SynchronizationContextTaskScheduler</h3><h4 id="1-同步上下文"><a href="#1-同步上下文" class="headerlink" title="1.同步上下文"></a>1.同步上下文</h4><pre><code>Task task = new Task(() =&gt;
+{
+    try
+    {
+        label1.Text = &quot;das&quot;;
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);
+    }
+});
+task.Start(TaskScheduler.FromCurrentSynchronizationContext());</code></pre><h4 id="2-操作耗时线程"><a href="#2-操作耗时线程" class="headerlink" title="2.操作耗时线程"></a>2.操作耗时线程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var task = Task.Factory.StartNew(() =&gt;</span><br><span class="line">           &#123;</span><br><span class="line">               Thread.Sleep(10000);</span><br><span class="line">           &#125;);</span><br><span class="line">           task.ContinueWith(t =&gt;</span><br><span class="line">           &#123;</span><br><span class="line">               label1.Text = &quot;你好!&quot;;</span><br><span class="line">           &#125;, TaskScheduler.FromCurrentSynchronizationContext());</span><br></pre></td></tr></table></figure>
+
+<p>ContinueWith等待执行完耗时线程，在同步上下文</p>
+<h2 id="三：如何自定义Scheduler？"><a href="#三：如何自定义Scheduler？" class="headerlink" title="三：如何自定义Scheduler？"></a>三：如何自定义Scheduler？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class PerThreadTaskScheduler : TaskScheduler</span><br><span class="line">   &#123;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 给debug</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">       protected override IEnumerable&lt;Task&gt; GetScheduledTasks()</span><br><span class="line">       &#123;</span><br><span class="line">           return Enumerable.Empty&lt;Task&gt;();</span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 执行Task</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;task&quot;&gt;&lt;/param&gt;</span><br><span class="line">       protected override void QueueTask(Task task)</span><br><span class="line">       &#123;</span><br><span class="line">           var thread = new Thread(()=&gt; &#123;</span><br><span class="line">               TryExecuteTask(task);</span><br><span class="line">           &#125;);</span><br><span class="line">           thread.Start();</span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 同步执行</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;task&quot;&gt;&lt;/param&gt;</span><br><span class="line">       /// &lt;param name=&quot;taskWasPreviouslyQueued&quot;&gt;&lt;/param&gt;</span><br><span class="line">       /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">       protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)</span><br><span class="line">       &#123;</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/31/Thread静态方法/" itemprop="url">
-              
-                <span itemprop="name">Thread静态方法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-31T23:16:47+08:00" content="2019-10-31">
-          10-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/29/Thread实例方法/" itemprop="url">
-              
-                <span itemprop="name">Thread实例方法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-29T19:37:50+08:00" content="2019-10-29">
-          10-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/28/Thread基础/" itemprop="url">
-              
-                <span itemprop="name">Thread基础</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-28T23:56:39+08:00" content="2019-10-28">
-          10-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/17/委托的概念/" itemprop="url">
-              
-                <span itemprop="name">委托的概念</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-17T18:58:40+08:00" content="2019-10-17">
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/15/SQL面试题/" itemprop="url">
-              
-                <span itemprop="name">SQL面试题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-15T09:45:15+08:00" content="2019-10-15">
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/15/C-面试题/" itemprop="url">
-              
-                <span itemprop="name">C#面试题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-15T00:06:54+08:00" content="2019-10-15">
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/14/HexoUse/" itemprop="url">
-              
-                <span itemprop="name">HexoUse</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-14T10:28:00+08:00" content="2019-10-14">
-          10-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/13/力扣-数据库3/" itemprop="url">
-              
-                <span itemprop="name">力扣-数据库3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-13T23:02:36+08:00" content="2019-10-13">
-          10-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/11/Singleton/" itemprop="url">
-              
-                <span itemprop="name">Singleton</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-11T12:07:49+08:00" content="2019-10-11">
-          10-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Thread/" rel="tag"># Thread</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/06/Task中的Plinq/" rel="next" title="Task中的Plinq">
+                <i class="fa fa-chevron-left"></i> Task中的Plinq
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2019/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -698,6 +509,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -718,8 +533,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -779,6 +603,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：TaskScheduler"><span class="nav-number">1.</span> <span class="nav-text">一：TaskScheduler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：在-net-FrameWork中有两种TaskScheduler"><span class="nav-number">2.</span> <span class="nav-text">二：在.net FrameWork中有两种TaskScheduler</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ThreadPoolTaskScheduler"><span class="nav-number">2.1.</span> <span class="nav-text">1.ThreadPoolTaskScheduler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SynchronizationContextTaskScheduler"><span class="nav-number">2.2.</span> <span class="nav-text">2.SynchronizationContextTaskScheduler</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-同步上下文"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.同步上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-操作耗时线程"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.操作耗时线程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：如何自定义Scheduler？"><span class="nav-number">3.</span> <span class="nav-text">三：如何自定义Scheduler？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -932,6 +772,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
