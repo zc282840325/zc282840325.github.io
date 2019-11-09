@@ -79,25 +79,20 @@
 
 
 
-<meta name="description" content="一：在Thread中做取消操作声明一个变量取去判断Thread中是否可以退出。 123456789101112bool res = false;           var task = new Task(()=&amp;gt; &amp;#123;               while (!res)               &amp;#123;                   Thread.Sleep(100">
+<meta name="description" content="一：锁机制的内核模式1.在万不得已的情况下，不要使用内核模式的锁，因为代价太大。我们可以有其他方法代替，例如：混合锁机制，lock 2.事件锁 3.信号量 4.互斥锁 二：事件锁【开关锁，true、false的变量来进行控制】1.自动事件锁【AutoResetEvent】场景：可以用此所实现多线程环境下某个变量的自增。【true：表示终止状态，false：表示非终止】  private stati">
 <meta name="keywords" content="Thread">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Task取消">
-<meta property="og:url" content="http://yoursite.com/2019/11/05/Task取消/index.html">
+<meta property="og:title" content="内核模式锁机制">
+<meta property="og:url" content="http://yoursite.com/2019/11/09/内核模式锁机制/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="一：在Thread中做取消操作声明一个变量取去判断Thread中是否可以退出。 123456789101112bool res = false;           var task = new Task(()=&amp;gt; &amp;#123;               while (!res)               &amp;#123;                   Thread.Sleep(100">
+<meta property="og:description" content="一：锁机制的内核模式1.在万不得已的情况下，不要使用内核模式的锁，因为代价太大。我们可以有其他方法代替，例如：混合锁机制，lock 2.事件锁 3.信号量 4.互斥锁 二：事件锁【开关锁，true、false的变量来进行控制】1.自动事件锁【AutoResetEvent】场景：可以用此所实现多线程环境下某个变量的自增。【true：表示终止状态，false：表示非终止】  private stati">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task取消/1572915945633.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task取消/1572916271694.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task取消/1572916548220.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task取消/1572917962280.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task取消/1572917999533.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/05/Task取消/1572919032504.png">
-<meta property="og:updated_time" content="2019-11-05T07:37:06.226Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/09/内核模式锁机制/1573283569284.png">
+<meta property="og:updated_time" content="2019-11-09T14:31:22.402Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Task取消">
-<meta name="twitter:description" content="一：在Thread中做取消操作声明一个变量取去判断Thread中是否可以退出。 123456789101112bool res = false;           var task = new Task(()=&amp;gt; &amp;#123;               while (!res)               &amp;#123;                   Thread.Sleep(100">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/05/Task取消/1572915945633.png">
+<meta name="twitter:title" content="内核模式锁机制">
+<meta name="twitter:description" content="一：锁机制的内核模式1.在万不得已的情况下，不要使用内核模式的锁，因为代价太大。我们可以有其他方法代替，例如：混合锁机制，lock 2.事件锁 3.信号量 4.互斥锁 二：事件锁【开关锁，true、false的变量来进行控制】1.自动事件锁【AutoResetEvent】场景：可以用此所实现多线程环境下某个变量的自增。【true：表示终止状态，false：表示非终止】  private stati">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/09/内核模式锁机制/1573283569284.png">
 
 
 
@@ -127,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/05/Task取消/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/09/内核模式锁机制/">
 
 
 
 
 
-  <title>Task取消 | Blog</title>
+  <title>内核模式锁机制 | Blog</title>
   
 
 
@@ -332,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/Task取消/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/内核模式锁机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张聪">
@@ -349,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Task取消</h1>
+          <h1 class="post-title" itemprop="name headline">内核模式锁机制</h1>
         
 
         <div class="post-meta">
@@ -361,8 +356,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-05T08:58:04+08:00">
-                2019-11-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T14:23:36+08:00">
+                2019-11-09
               </time>
             
 
@@ -426,71 +421,19 @@
       
 
       
-        <h2 id="一：在Thread中做取消操作"><a href="#一：在Thread中做取消操作" class="headerlink" title="一：在Thread中做取消操作"></a>一：在Thread中做取消操作</h2><p>声明一个变量取去判断Thread中是否可以退出。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bool res = false;</span><br><span class="line">           var task = new Task(()=&gt; &#123;</span><br><span class="line">               while (!res)</span><br><span class="line">               &#123;</span><br><span class="line">                   Thread.Sleep(100);</span><br><span class="line">                   Console.WriteLine(&quot;当前Thread=&#123;0&#125;正在运行&quot;,Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">           task.Start();</span><br><span class="line">           Thread.Sleep(1000);</span><br><span class="line">           res = true;</span><br><span class="line">           Console.Read();</span><br></pre></td></tr></table></figure>
+        <h2 id="一：锁机制的内核模式"><a href="#一：锁机制的内核模式" class="headerlink" title="一：锁机制的内核模式"></a>一：锁机制的内核模式</h2><p>1.在万不得已的情况下，不要使用内核模式的锁，因为代价太大。我们可以有其他方法代替，例如：混合锁机制，lock</p>
+<p>2.事件锁</p>
+<p>3.信号量</p>
+<p>4.互斥锁</p>
+<h2 id="二：事件锁【开关锁，true、false的变量来进行控制】"><a href="#二：事件锁【开关锁，true、false的变量来进行控制】" class="headerlink" title="二：事件锁【开关锁，true、false的变量来进行控制】"></a>二：事件锁【开关锁，true、false的变量来进行控制】</h2><h3 id="1-自动事件锁【AutoResetEvent】"><a href="#1-自动事件锁【AutoResetEvent】" class="headerlink" title="1.自动事件锁【AutoResetEvent】"></a>1.自动事件锁【AutoResetEvent】</h3><p>场景：可以用此所实现多线程环境下某个变量的自增。【true：表示终止状态，false：表示非终止】</p>
+<p> private static AutoResetEvent auto = new AutoResetEvent(true);<br>        static void Main(string[] args)<br>        {<br>            while (true)<br>            {<br>                Thread.Sleep(1000);<br>                Console.WriteLine(“开始检票”);<br>                auto.WaitOne();<br>                Thread.Sleep(1000);<br>                Console.WriteLine(“检票ing”);<br>                auto.Set();<br>                Thread.Sleep(1000);<br>                Console.WriteLine(“检票结束”);<br>            }</p>
+<p>}</p>
+<p><img src="/2019/11/09/内核模式锁机制/1573283569284.png" alt="1573283569284"></p>
+<h3 id="2-手动时间锁-ManualResetEvent"><a href="#2-手动时间锁-ManualResetEvent" class="headerlink" title="2.手动时间锁[ManualResetEvent]"></a>2.手动时间锁[ManualResetEvent]</h3><pre><code>private static ManualResetEvent manual = new ManualResetEvent(true);
+       manual.WaitOne();
+       manual.Set();</code></pre><h3 id="3-注意点：两者ManualResetEvent和AutoResetEvent是不一样的，所以不能混用。"><a href="#3-注意点：两者ManualResetEvent和AutoResetEvent是不一样的，所以不能混用。" class="headerlink" title="3.注意点：两者ManualResetEvent和AutoResetEvent是不一样的，所以不能混用。"></a>3.注意点：两者ManualResetEvent和AutoResetEvent是不一样的，所以不能混用。</h3><h3 id="4-Semaphore-通过int整数来控制线程个数"><a href="#4-Semaphore-通过int整数来控制线程个数" class="headerlink" title="4.Semaphore:[通过int整数来控制线程个数]"></a>4.Semaphore:[通过int整数来控制线程个数]</h3><p>static Semaphore semaphore = new Semaphore(1,1);当前只能是一个线程通过</p>
+<h3 id="5-Mutex-互斥锁，同一时间只有一个线程可以拥有它，该类还可用于进程间同步的同步基元。"><a href="#5-Mutex-互斥锁，同一时间只有一个线程可以拥有它，该类还可用于进程间同步的同步基元。" class="headerlink" title="5.Mutex:互斥锁，同一时间只有一个线程可以拥有它，该类还可用于进程间同步的同步基元。"></a>5.Mutex:互斥锁，同一时间只有一个线程可以拥有它，该类还可用于进程间同步的同步基元。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">private static Mutex mutex = new Mutex();</span><br><span class="line"></span><br><span class="line"> mutex.WaitOne();</span><br><span class="line"></span><br><span class="line"> mutex.ReleaseMutex();</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/11/05/Task取消/1572915945633.png" alt="1572915945633"></p>
-<p>不能让多个线程操作一个共享变量，否则会在release版本中有潜在bug</p>
-<h2 id="二：task中有专门的类CancellationTokenSource去处理“任务取消”"><a href="#二：task中有专门的类CancellationTokenSource去处理“任务取消”" class="headerlink" title="二：task中有专门的类CancellationTokenSource去处理“任务取消”"></a>二：task中有专门的类CancellationTokenSource去处理“任务取消”</h2><h3 id="1-CancellationTokenSource远比一个变量强的多。"><a href="#1-CancellationTokenSource远比一个变量强的多。" class="headerlink" title="1.CancellationTokenSource远比一个变量强的多。"></a>1.CancellationTokenSource远比一个变量强的多。</h3><pre><code> CancellationTokenSource source = new CancellationTokenSource();
-    var task = new Task(() =&gt; {
-while (!source.IsCancellationRequested)
-    {
-        Thread.Sleep(100);
-         Console.WriteLine(&quot;当前Thread={0}正在运行&quot;,Thread.CurrentThread.ManagedThreadId);
-    }
- },source.Token);
-task.Start();
-Thread.Sleep(1000);
-source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916271694.png" alt="1572916271694"></p>
-<p>效果同上</p>
-<h3 id="2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"><a href="#2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息" class="headerlink" title="2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"></a>2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息</h3><pre><code>   CancellationTokenSource source = new CancellationTokenSource();
-    source.Token.Register(()=&gt; {
-        //如果当前token被取消，此函数被执行
-        Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
-    });
-var task = new Task(() =&gt; {
-
-    while (!source.IsCancellationRequested)
-    {
-        Thread.Sleep(100);
-         Console.WriteLine(&quot;当前Thread={0}正在运行&quot;,Thread.CurrentThread.ManagedThreadId);
-    }
-},source.Token);
-task.Start();
-Thread.Sleep(1000);
-source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916548220.png" alt="1572916548220"></p>
-<h3 id="3-延时取消：我想2秒之后自动取消，或者N秒"><a href="#3-延时取消：我想2秒之后自动取消，或者N秒" class="headerlink" title="3.延时取消：我想2秒之后自动取消，或者N秒"></a>3.延时取消：我想2秒之后自动取消，或者N秒</h3><ul>
-<li><p>source.CancelAfter(new TimeSpan(0,0,0,2));</p>
-</li>
-<li><p>CancellationTokenSource 构造函数： CancellationTokenSource source = new CancellationTokenSource(1000);</p>
-</li>
-<li><p>取消组合，将CancellationTokenSource 组成一个链表，其中任何一个CancellationTokenSource 被取消，组合也会被取消。var s3=s1&s2;</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CancellationTokenSource source1 = new CancellationTokenSource();</span><br><span class="line">         source1.Cancel();</span><br><span class="line">         CancellationTokenSource source2 = new CancellationTokenSource();</span><br><span class="line"></span><br><span class="line">         var source3 = CancellationTokenSource.CreateLinkedTokenSource(source1.Token, source2.Token);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         Console.WriteLine(&quot;s1=&#123;0&#125;,s2=&#123;1&#125;,s3=&#123;2&#125;&quot;,source1.IsCancellationRequested,source2.IsCancellationRequested,source3.IsCancellationRequested);</span><br></pre></td></tr></table></figure>
-
-<p>加了source1.Cancel();</p>
-<p><img src="/2019/11/05/Task取消/1572917962280.png" alt></p>
-<p>不加source1.Cancel();</p>
-<p><img src="/2019/11/05/Task取消/1572917999533.png" alt="1572917999533"></p>
-<h3 id="4-ThrowIfCancellationRequested"><a href="#4-ThrowIfCancellationRequested" class="headerlink" title="4.ThrowIfCancellationRequested"></a>4.ThrowIfCancellationRequested</h3><pre><code>        CancellationTokenSource source1 = new CancellationTokenSource();
-source1.Token.Register(()=&gt; {
-               Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
-           });
-       var task = Task.Factory.StartNew(() =&gt;
-       {
-           while (true)
-           {
-               source1.Token.ThrowIfCancellationRequested();
-               Thread.Sleep(100);
-               Console.WriteLine(&quot;当前Thread={0}正在运行&quot;, Thread.CurrentThread.ManagedThreadId);
-           }
-       }, source1.Token);
-       Thread.Sleep(1000);
-       source1.Cancel();
-
-       Thread.Sleep(100);
-       Console.WriteLine(task.Status);</code></pre><p><img src="/2019/11/05/Task取消/1572919032504.png" alt="1572919032504"></p>
 
       
     </div>
@@ -521,8 +464,8 @@ source1.Token.Register(()=&gt; {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/04/Task的任务延续/" rel="next" title="Task的任务延续">
-                <i class="fa fa-chevron-left"></i> Task的任务延续
+              <a href="/2019/11/09/线程锁/" rel="next" title="线程锁">
+                <i class="fa fa-chevron-left"></i> 线程锁
               </a>
             
           </div>
@@ -530,10 +473,6 @@ source1.Token.Register(()=&gt; {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/05/Task返回值/" rel="prev" title="Task返回值">
-                Task返回值 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -665,7 +604,7 @@ source1.Token.Register(()=&gt; {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：在Thread中做取消操作"><span class="nav-number">1.</span> <span class="nav-text">一：在Thread中做取消操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：task中有专门的类CancellationTokenSource去处理“任务取消”"><span class="nav-number">2.</span> <span class="nav-text">二：task中有专门的类CancellationTokenSource去处理“任务取消”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CancellationTokenSource远比一个变量强的多。"><span class="nav-number">2.1.</span> <span class="nav-text">1.CancellationTokenSource远比一个变量强的多。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"><span class="nav-number">2.2.</span> <span class="nav-text">2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-延时取消：我想2秒之后自动取消，或者N秒"><span class="nav-number">2.3.</span> <span class="nav-text">3.延时取消：我想2秒之后自动取消，或者N秒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-ThrowIfCancellationRequested"><span class="nav-number">2.4.</span> <span class="nav-text">4.ThrowIfCancellationRequested</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：锁机制的内核模式"><span class="nav-number">1.</span> <span class="nav-text">一：锁机制的内核模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：事件锁【开关锁，true、false的变量来进行控制】"><span class="nav-number">2.</span> <span class="nav-text">二：事件锁【开关锁，true、false的变量来进行控制】</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-自动事件锁【AutoResetEvent】"><span class="nav-number">2.1.</span> <span class="nav-text">1.自动事件锁【AutoResetEvent】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-手动时间锁-ManualResetEvent"><span class="nav-number">2.2.</span> <span class="nav-text">2.手动时间锁[ManualResetEvent]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-注意点：两者ManualResetEvent和AutoResetEvent是不一样的，所以不能混用。"><span class="nav-number">2.3.</span> <span class="nav-text">3.注意点：两者ManualResetEvent和AutoResetEvent是不一样的，所以不能混用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Semaphore-通过int整数来控制线程个数"><span class="nav-number">2.4.</span> <span class="nav-text">4.Semaphore:[通过int整数来控制线程个数]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Mutex-互斥锁，同一时间只有一个线程可以拥有它，该类还可用于进程间同步的同步基元。"><span class="nav-number">2.5.</span> <span class="nav-text">5.Mutex:互斥锁，同一时间只有一个线程可以拥有它，该类还可用于进程间同步的同步基元。</span></a></li></ol></li></ol></div>
             
 
           </div>
