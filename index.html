@@ -321,6 +321,677 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/混合模式锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/11/混合模式锁/" itemprop="url">混合模式锁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-11T08:57:19+08:00">
+                2019-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：混合锁"><a href="#一：混合锁" class="headerlink" title="一：混合锁"></a>一：混合锁</h2><p>混合锁=用户模式锁+内核模式锁</p>
+<p>1.用户模式锁：</p>
+<p>Thread.Sleep(1);让线程休眠毫秒</p>
+<p>Thread.Sleep(0);让线程放弃当前的时间片，让本溪拿出更高或者同等线程得到时间片运行</p>
+<p>Thread.YieId（）：让线程立即放弃当前时间片，让更低级别的线程得到运行，当其他thread时间片用完，本thread再度唤醒。</p>
+<p>Yield&lt;Sleep(0)&lt;Sleep(1)</p>
+<p>一个时间片等于30ms</p>
+<p>2.混合锁有哪些：</p>
+<ol>
+<li><p>SemaphoreSlim</p>
+</li>
+<li><p>ManualResetEventSlim</p>
+</li>
+<li><p>ReaderWriterLockSlim</p>
+</li>
+<li><p>ReaderWriterLockSlimWrapper</p>
+</li>
+</ol>
+<p>相比较内核模式，效率更高</p>
+<p> 1.ManualResetEventSlim：优化点</p>
+<ul>
+<li><p>构造函数中已经可以不提供默认状态，默认是false，表示合围状态</p>
+</li>
+<li><p>使用wait代替waitOne（waitHandle提供了一个方法）</p>
+</li>
+<li><p>支持任务取消</p>
+<pre><code>   public static ManualResetEventSlim manual = new ManualResetEventSlim(true);
+    static void Main(string[] args)
+    {
+        CancellationTokenSource source = new CancellationTokenSource();
+        while (true)
+        {
+            Console.WriteLine(&quot;-----------&quot;);
+            try
+            {
+                    manual.Wait(3, source.Token);
+                    Console.WriteLine(&quot;Hello Wordl!&quot;);
+                    manual.Set();
+                    source.Cancel();      }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            break;
+        }
+    }
+    Console.ReadKey();
+}</code></pre><p><img src="/2019/11/11/混合模式锁/1573438077240.png" alt="1573438077240"></p>
+</li>
+<li><p>wait()中的实现逻辑</p>
+<p>waitone（）调用底层的win32函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[SecurityCritical]</span><br><span class="line">[**MethodImpl**(MethodImplOptions.InternalCall)]</span><br><span class="line">**private** static extern **int** **WaitOneNative**(SafeHandle waitableSafeHandle, **uint** millisecondsTimeout, **bool** hasThreadAffinity, **bool** exitContext);</span><br></pre></td></tr></table></figure>
+
+<p>wait()：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">// System.Threading.ManualResetEventSlim</span><br><span class="line">[__DynamicallyInvokable]</span><br><span class="line">public bool Wait(int millisecondsTimeout, CancellationToken cancellationToken)</span><br><span class="line">&#123;</span><br><span class="line">	this.ThrowIfDisposed();</span><br><span class="line">	cancellationToken.ThrowIfCancellationRequested();</span><br><span class="line">	if (millisecondsTimeout &lt; -1)</span><br><span class="line">	&#123;</span><br><span class="line">		throw new ArgumentOutOfRangeException(&quot;millisecondsTimeout&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	if (!this.IsSet)</span><br><span class="line">	&#123;</span><br><span class="line">		if (millisecondsTimeout == 0)</span><br><span class="line">		&#123;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">		uint startTime = 0u;</span><br><span class="line">		bool flag = false;</span><br><span class="line">		int num = millisecondsTimeout;</span><br><span class="line">		if (millisecondsTimeout != -1)</span><br><span class="line">		&#123;</span><br><span class="line">			startTime = TimeoutHelper.GetTime();</span><br><span class="line">			flag = true;</span><br><span class="line">		&#125;</span><br><span class="line">		int num2 = 10;</span><br><span class="line">		int num3 = 5;</span><br><span class="line">		int num4 = 20;</span><br><span class="line">		int spinCount = this.SpinCount;</span><br><span class="line">		for (int i = 0; i &lt; spinCount; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (this.IsSet)</span><br><span class="line">			&#123;</span><br><span class="line">				return true;</span><br><span class="line">			&#125;</span><br><span class="line">			if (i &lt; num2)</span><br><span class="line">			&#123;</span><br><span class="line">				if (i == num2 / 2)</span><br><span class="line">				&#123;</span><br><span class="line">					Thread.Yield();</span><br><span class="line">				&#125;</span><br><span class="line">				else</span><br><span class="line">				&#123;</span><br><span class="line">					Thread.SpinWait(4 &lt;&lt; i);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				if (i % num4 == 0)</span><br><span class="line">				&#123;</span><br><span class="line">					Thread.Sleep(1);</span><br><span class="line">				&#125;</span><br><span class="line">				else</span><br><span class="line">				&#123;</span><br><span class="line">					if (i % num3 == 0)</span><br><span class="line">					&#123;</span><br><span class="line">						Thread.Sleep(0);</span><br><span class="line">					&#125;</span><br><span class="line">					else</span><br><span class="line">					&#123;</span><br><span class="line">						Thread.Yield();</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			if (i &gt;= 100 &amp;&amp; i % 10 == 0)</span><br><span class="line">			&#123;</span><br><span class="line">				cancellationToken.ThrowIfCancellationRequested();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		this.EnsureLockObjectCreated();</span><br><span class="line">		using (cancellationToken.InternalRegisterWithoutEC(ManualResetEventSlim.s_cancellationTokenCallback, this))</span><br><span class="line">		&#123;</span><br><span class="line">			object @lock = this.m_lock;</span><br><span class="line">			lock (@lock)</span><br><span class="line">			&#123;</span><br><span class="line">				while (!this.IsSet)</span><br><span class="line">				&#123;</span><br><span class="line">					cancellationToken.ThrowIfCancellationRequested();</span><br><span class="line">					if (flag)</span><br><span class="line">					&#123;</span><br><span class="line">						num = TimeoutHelper.UpdateTimeOut(startTime, millisecondsTimeout);</span><br><span class="line">						if (num &lt;= 0)</span><br><span class="line">						&#123;</span><br><span class="line">							bool result = false;</span><br><span class="line">							return result;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					this.Waiters++;</span><br><span class="line">					if (this.IsSet)</span><br><span class="line">					&#123;</span><br><span class="line">						int waiters = this.Waiters;</span><br><span class="line">						this.Waiters = waiters - 1;</span><br><span class="line">						bool result = true;</span><br><span class="line">						return result;</span><br><span class="line">					&#125;</span><br><span class="line">					try</span><br><span class="line">					&#123;</span><br><span class="line">						if (!Monitor.Wait(this.m_lock, num))</span><br><span class="line">						&#123;</span><br><span class="line">							bool result = false;</span><br><span class="line">							return result;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					finally</span><br><span class="line">					&#123;</span><br><span class="line">						this.Waiters--;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>2.SemaphoreSlim：信号量</p>
+<p>Semaphore的WaitOne或者Release方法的调用大约会耗费1微秒的系统时间，而优化后的SemaphoreSlim则需要大致四分之一微秒。</p>
+<p>Semaphore就好像一个栅栏，有一定的容量，当里面的线程数量到达设置的最大值时候，就没有线程可以进去。然后，如果一个线程工作完成以后出来了，那下一个线程就可以进去了。Semaphore的WaitOne或Release等操作分别将自动地递减或者递增信号量的当前计数值。当线程试图对计数值已经为0的信号量执行WaitOne操作时，线程将阻塞直到计数值大于0。在构造Semaphore时，最少需要2个参数。信号量的初始容量和最大的容量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static SemaphoreSlim slim = new SemaphoreSlim(2, 10);</span><br><span class="line">    static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">       for (int i = 0; i &lt; 10; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Task.Run(()=&gt; &#123;</span><br><span class="line">                Run();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        //等待2秒后</span><br><span class="line">        Thread.Sleep(2000);</span><br><span class="line">        slim.Release(10);      Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">    static void Run()</span><br><span class="line">    &#123;</span><br><span class="line">        slim.Wait();</span><br><span class="line">        Thread.Sleep(1000*5);</span><br><span class="line">        Console.WriteLine(&quot;当前t1=&#123;0&#125;正在运行，时间：&#123;1&#125;&quot;,Thread.CurrentThread.ManagedThreadId,DateTime.Now);</span><br><span class="line">        slim.Release();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.ReaderWriterLockSlim</p>
+<p>用EnterReadLock代替AcquireReaderLock方法，性能比内核版本要高很多。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static ReaderWriterLockSlim lockSlim = new ReaderWriterLockSlim();</span><br><span class="line"> lockSlim.EnterReadLock();</span><br><span class="line">      lockSlim.ExitReadLock();</span><br><span class="line">      lockSlim.EnterWriteLock();</span><br><span class="line">      lockSlim.ExitWriteLock();</span><br></pre></td></tr></table></figure>
+
+<p>混合锁：先在用户模式下内旋，如果超过一定的值，会切换到内核锁。</p>
+<p>​               在内旋的情况下，我们会看到大量的Sleep(0),Sleep(1),Yield等语法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/Lock锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/09/Lock锁/" itemprop="url">Lock锁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T23:18:23+08:00">
+                2019-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：监视锁"><a href="#一：监视锁" class="headerlink" title="一：监视锁"></a>一：监视锁</h2><p>Monitor:限定线程个数的一把锁</p>
+<p>  Monitor.Enter(b);锁住某一个资源</p>
+<p>  Monitor.Exit(b);释放某一个资源</p>
+<pre><code>static object lockMe = new object();
+       static int num = 0;
+       static void Main(string[] args)
+       {
+           for (int i = 0; i &lt; 5; i++)
+           {
+               Task.Factory.StartNew(()=&gt; {
+                   Run();
+               });
+           }
+Console.ReadKey();
+   }
+   static void Run()
+   {
+       for (int i = 0; i &lt; 100; i++)
+       {
+           var b = false;
+           try
+           {
+               Monitor.Enter(lockMe, ref b);
+               Console.WriteLine(num++);
+           }
+           catch (Exception ex)
+           {
+               Console.WriteLine(ex.Message);
+           }
+           finally
+           {
+               if (b)
+               {
+                   Monitor.Exit(lockMe);
+               }
+           }
+       }
+   }</code></pre><p>简化上面的代码：</p>
+<pre><code>   static object lockMe = new object();
+    static int num = 0;
+    static void Main(string[] args)
+    {
+        for (int i = 0; i &lt; 5; i++)
+        {
+            Task.Factory.StartNew(()=&gt; {
+                Run();
+            });
+        }Console.ReadKey();
+}
+static void Run()
+{
+    for (int i = 0; i &lt; 100; i++)
+    {
+        lock (lockMe)
+        {
+            Console.WriteLine(num++);
+        }
+    }
+}</code></pre><h2 id="二：Lock-Monitor的内部机制"><a href="#二：Lock-Monitor的内部机制" class="headerlink" title="二：Lock/Monitor的内部机制"></a>二：Lock/Monitor的内部机制</h2><p>因为众多的锁机制中，唯独只有Monitor有专有的语法糖，所以比较重视！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/互斥锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/09/互斥锁/" itemprop="url">互斥锁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T22:44:57+08:00">
+                2019-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：ReaderWriteLock"><a href="#一：ReaderWriteLock" class="headerlink" title="一：ReaderWriteLock"></a>一：ReaderWriteLock</h2><p>从读写的角度进行功能分区</p>
+<p>Sqllite:库锁</p>
+<p>SqlServer:行锁【锁住行】</p>
+<p>多个线程可以一起度，只能让一个线程去写。</p>
+<p>读写是8/2开</p>
+<p>读和写的时间如果时间比较长，都会影响他们。</p>
+<pre><code>static ReaderWriterLock reader = new ReaderWriterLock();
+    static void Main(string[] args)
+    {
+        for (int i = 0; i &lt; 5; i++)
+        {
+            Task.Factory.StartNew(() =&gt; {
+                Read();
+            });
+        }
+        Task.Factory.StartNew(() =&gt; {
+            Write();
+        });
+        Console.ReadKey();
+    }
+/// &lt;summary&gt;
+/// 线程读
+/// &lt;/summary&gt;
+static void Read()
+{
+    while (true)
+    {
+        Thread.Sleep(10);
+        reader.AcquireReaderLock(int.MaxValue);
+        Thread.Sleep(10);
+        Console.WriteLine(&quot;当前t={0}进行读取{1}&quot;,Thread.CurrentContext.ContextID,DateTime.Now);
+        reader.ReleaseReaderLock();
+    }
+}
+
+/// &lt;summary&gt;
+/// 线程写
+/// &lt;/summary&gt;
+static void Write()
+{
+    while (true)
+    {
+        Thread.Sleep(3000);
+
+        reader.AcquireWriterLock(int.MaxValue);
+
+        Thread.Sleep(3000);
+
+        Console.WriteLine(&quot;当前t={0}进行写入........................................{1}&quot;, Thread.CurrentContext.ContextID,DateTime.Now);
+
+        reader.ReleaseWriterLock();
+    }
+}</code></pre><p><img src="/2019/11/09/互斥锁/1573311644550.png" alt="1573311644550"></p>
+<h2 id="二：CountdownEvent"><a href="#二：CountdownEvent" class="headerlink" title="二：CountdownEvent"></a>二：CountdownEvent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static CountdownEvent countdown = new CountdownEvent(10);</span><br></pre></td></tr></table></figure>
+
+<p>限制线程书的一个机制。</p>
+<pre><code>  static CountdownEvent countdown = new CountdownEvent(10);
+ static void Main(string[] args)
+ {
+     countdown.Reset(10);
+for (int i = 0; i &lt; 10; i++)
+ {
+     Task.Factory.StartNew(()=&gt; {
+         LoadOrders();
+     });
+
+ }
+ countdown.Wait();
+ Console.WriteLine(&quot;所有Orders表执行完毕，恭喜！&quot;);
+ countdown.Reset(5);
+
+ for (int i = 0; i &lt; 5; i++)
+ {
+     Task.Factory.StartNew(() =&gt; {
+         LoadProducts();
+     });
+ }
+ countdown.Wait();
+ Console.WriteLine(&quot;所有Products表执行完毕，恭喜！&quot;);
+ countdown.Reset(2);
+
+ for (int i = 0; i &lt; 2; i++)
+ {
+     Task.Factory.StartNew(() =&gt; {
+         LoadUsers();
+     });
+
+ }
+ countdown.Wait();
+ Console.WriteLine(&quot;所有Users表执行完毕，恭喜！&quot;);
+ Console.WriteLine(&quot;所有的表执行完毕，恭喜！&quot;);
+      Console.ReadKey();
+ }
+ /// &lt;summary&gt;
+ /// 加载Order表
+ /// &lt;/summary&gt;
+ static void LoadOrders()
+ {
+     //将当前的countdown减减操作
+
+     Console.WriteLine(&quot;当前Order正在加载中。。。{0}&quot;,Thread.CurrentThread.ManagedThreadId);
+     countdown.Signal();
+ }
+ /// &lt;summary&gt;
+ /// 加载Products表
+ /// &lt;/summary&gt;
+ static void LoadProducts()
+ {
+     Console.WriteLine(&quot;当前Products正在加载中。。。{0}&quot;, Thread.CurrentThread.ManagedThreadId);
+     countdown.Signal();
+ }
+
+ /// &lt;summary&gt;
+ /// 加载Users表
+ /// &lt;/summary&gt;
+ static void LoadUsers()
+ {
+     Console.WriteLine(&quot;当前Users正在加载中。。。{0}&quot;, Thread.CurrentThread.ManagedThreadId);
+     countdown.Signal();
+
+ }</code></pre><p><img src="/2019/11/09/互斥锁/1573312641905.png" alt="1573312641905"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/内核模式锁机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1608,590 +2279,11 @@ foreach (var item in query)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/Task返回值/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/05/Task返回值/" itemprop="url">Task返回值</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-05T15:30:51+08:00">
-                2019-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：Task的返回值："><a href="#一：Task的返回值：" class="headerlink" title="一：Task的返回值："></a>一：Task的返回值：</h2><p>1.使用Task.Result</p>
-<pre><code>Task&lt;int&gt; task = Task.Factory.StartNew(()=&gt; {
-    int s = 0;
-    for (int i = 0; i &lt; 5; i++)
-    {
-        s += i;
-    }
-    return s;
-});
-Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/05/Task返回值/1572941896412.png" alt="1572941896412"></p>
-<h2 id="二：ContinueWith的返回值"><a href="#二：ContinueWith的返回值" class="headerlink" title="二：ContinueWith的返回值"></a>二：ContinueWith<t>的返回值</t></h2><pre><code>  Task&lt;int&gt; task = Task.Factory.StartNew(()=&gt; {
-        int s = 0;
-        for (int i = 0; i &lt; 5; i++)
-        {
-            s += i;
-        }
-        return s;
-    });
-    var task2 = task.ContinueWith&lt;string&gt;(t =&gt;
-    {var num = t.Result;
-    var sum = num + 10;
-    return sum.ToString();
-});
-Console.WriteLine(task2.Result);
-Console.ReadKey();</code></pre><p><img src="/2019/11/05/Task返回值/1572942000959.png" alt="1572942000959"></p>
-<h2 id="三：Task-WhenAll-WhenAny"><a href="#三：Task-WhenAll-WhenAny" class="headerlink" title="三：Task.WhenAll/WhenAny"></a>三：Task.WhenAll<t>/WhenAny</t></h2><pre><code>   Task&lt;int&gt; task = Task.Factory.StartNew(() =&gt;
-      {
-          return 6;
-      });
-Task&lt;int&gt; task2 = Task.Factory.StartNew(() =&gt;
-  {
-      return 2;
-  });
-  int[] result = Task.WhenAll&lt;int&gt;(new Task&lt;int&gt;[2] { task, task2 }).Result;
-
-  foreach (var item in result)
-  {
-      Console.WriteLine(item);
-  }
-  Console.ReadKey();</code></pre><p><img src="/2019/11/05/Task返回值/1572942605519.png" alt="1572942605519"></p>
-<h2 id="四：异常处理"><a href="#四：异常处理" class="headerlink" title="四：异常处理"></a>四：异常处理</h2><p>AggregateException是一个集合，因为task中可能回抛出多个异常，所以我们需要一种新的类型把这些异常都追加到一个集合种</p>
-<h3 id="1。什么时候抛出异常？"><a href="#1。什么时候抛出异常？" class="headerlink" title="1。什么时候抛出异常？"></a>1。什么时候抛出异常？</h3><p>Task.Wait() or Tresult</p>
-<h3 id="2-何时会有多个异常在AggregateException中？"><a href="#2-何时会有多个异常在AggregateException中？" class="headerlink" title="2.何时会有多个异常在AggregateException中？"></a>2.何时会有多个异常在AggregateException中？</h3><pre><code>    var task = Task.Factory.StartNew(()=&gt; {
-        var child = Task.Factory.StartNew(() =&gt; {
-            throw new Exception(&quot;我是child的异常&quot;);
-        },TaskCreationOptions.AttachedToParent);
- var child2 = Task.Factory.StartNew(() =&gt; {
-        throw new Exception(&quot;我是child2的异常&quot;);
-    },TaskCreationOptions.AttachedToParent);
-});
-try
-{
-    task.Wait();
-}
-catch (AggregateException ex)
-{
-    foreach (var item in ex.InnerExceptions)
-    {
-        Console.WriteLine(string.Format(&quot;message:{0},type={1}&quot;, item.InnerException.Message, item.GetType().ToString()));
-    }
-}</code></pre><h3 id="3-Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？"><a href="#3-Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？" class="headerlink" title="3.Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？"></a>3.Handle方法，就是处理当前的异常数组，判断上一层我当前哪些已经处理好了，没有处理好的，还需要向上抛出的？</h3><p>Handle是用来便利异常数组，如果又一个异常信息是这样的，我任务已经处理，如果你觉得异常还需要往上抛，请返回fasle</p>
-<p><img src="/2019/11/05/Task返回值/1572944579915.png" alt="1572944579915"><br>            try<br>                {<br>                    task.Wait();<br>                }<br>                catch (AggregateException ex)<br>                {<br>                    ex.Handle(x=&gt; {<br>                        return true;<br>                    });<br>                    return false;<br>                }</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/Task取消/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/05/Task取消/" itemprop="url">Task取消</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-05T08:58:04+08:00">
-                2019-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：在Thread中做取消操作"><a href="#一：在Thread中做取消操作" class="headerlink" title="一：在Thread中做取消操作"></a>一：在Thread中做取消操作</h2><p>声明一个变量取去判断Thread中是否可以退出。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bool res = false;</span><br><span class="line">           var task = new Task(()=&gt; &#123;</span><br><span class="line">               while (!res)</span><br><span class="line">               &#123;</span><br><span class="line">                   Thread.Sleep(100);</span><br><span class="line">                   Console.WriteLine(&quot;当前Thread=&#123;0&#125;正在运行&quot;,Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">           task.Start();</span><br><span class="line">           Thread.Sleep(1000);</span><br><span class="line">           res = true;</span><br><span class="line">           Console.Read();</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2019/11/05/Task取消/1572915945633.png" alt="1572915945633"></p>
-<p>不能让多个线程操作一个共享变量，否则会在release版本中有潜在bug</p>
-<h2 id="二：task中有专门的类CancellationTokenSource去处理“任务取消”"><a href="#二：task中有专门的类CancellationTokenSource去处理“任务取消”" class="headerlink" title="二：task中有专门的类CancellationTokenSource去处理“任务取消”"></a>二：task中有专门的类CancellationTokenSource去处理“任务取消”</h2><h3 id="1-CancellationTokenSource远比一个变量强的多。"><a href="#1-CancellationTokenSource远比一个变量强的多。" class="headerlink" title="1.CancellationTokenSource远比一个变量强的多。"></a>1.CancellationTokenSource远比一个变量强的多。</h3><pre><code> CancellationTokenSource source = new CancellationTokenSource();
-    var task = new Task(() =&gt; {
-while (!source.IsCancellationRequested)
-    {
-        Thread.Sleep(100);
-         Console.WriteLine(&quot;当前Thread={0}正在运行&quot;,Thread.CurrentThread.ManagedThreadId);
-    }
- },source.Token);
-task.Start();
-Thread.Sleep(1000);
-source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916271694.png" alt="1572916271694"></p>
-<p>效果同上</p>
-<h3 id="2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"><a href="#2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息" class="headerlink" title="2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"></a>2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息</h3><pre><code>   CancellationTokenSource source = new CancellationTokenSource();
-    source.Token.Register(()=&gt; {
-        //如果当前token被取消，此函数被执行
-        Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
-    });
-var task = new Task(() =&gt; {
-
-    while (!source.IsCancellationRequested)
-    {
-        Thread.Sleep(100);
-         Console.WriteLine(&quot;当前Thread={0}正在运行&quot;,Thread.CurrentThread.ManagedThreadId);
-    }
-},source.Token);
-task.Start();
-Thread.Sleep(1000);
-source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916548220.png" alt="1572916548220"></p>
-<h3 id="3-延时取消：我想2秒之后自动取消，或者N秒"><a href="#3-延时取消：我想2秒之后自动取消，或者N秒" class="headerlink" title="3.延时取消：我想2秒之后自动取消，或者N秒"></a>3.延时取消：我想2秒之后自动取消，或者N秒</h3><ul>
-<li><p>source.CancelAfter(new TimeSpan(0,0,0,2));</p>
-</li>
-<li><p>CancellationTokenSource 构造函数： CancellationTokenSource source = new CancellationTokenSource(1000);</p>
-</li>
-<li><p>取消组合，将CancellationTokenSource 组成一个链表，其中任何一个CancellationTokenSource 被取消，组合也会被取消。var s3=s1&s2;</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CancellationTokenSource source1 = new CancellationTokenSource();</span><br><span class="line">         source1.Cancel();</span><br><span class="line">         CancellationTokenSource source2 = new CancellationTokenSource();</span><br><span class="line"></span><br><span class="line">         var source3 = CancellationTokenSource.CreateLinkedTokenSource(source1.Token, source2.Token);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         Console.WriteLine(&quot;s1=&#123;0&#125;,s2=&#123;1&#125;,s3=&#123;2&#125;&quot;,source1.IsCancellationRequested,source2.IsCancellationRequested,source3.IsCancellationRequested);</span><br></pre></td></tr></table></figure>
-
-<p>加了source1.Cancel();</p>
-<p><img src="/2019/11/05/Task取消/1572917962280.png" alt></p>
-<p>不加source1.Cancel();</p>
-<p><img src="/2019/11/05/Task取消/1572917999533.png" alt="1572917999533"></p>
-<h3 id="4-ThrowIfCancellationRequested"><a href="#4-ThrowIfCancellationRequested" class="headerlink" title="4.ThrowIfCancellationRequested"></a>4.ThrowIfCancellationRequested</h3><pre><code>        CancellationTokenSource source1 = new CancellationTokenSource();
-source1.Token.Register(()=&gt; {
-               Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
-           });
-       var task = Task.Factory.StartNew(() =&gt;
-       {
-           while (true)
-           {
-               source1.Token.ThrowIfCancellationRequested();
-               Thread.Sleep(100);
-               Console.WriteLine(&quot;当前Thread={0}正在运行&quot;, Thread.CurrentThread.ManagedThreadId);
-           }
-       }, source1.Token);
-       Thread.Sleep(1000);
-       source1.Cancel();
-
-       Thread.Sleep(100);
-       Console.WriteLine(task.Status);</code></pre><p><img src="/2019/11/05/Task取消/1572919032504.png" alt="1572919032504"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/Task的任务延续/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/04/Task的任务延续/" itemprop="url">Task的任务延续</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T23:09:24+08:00">
-                2019-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：ContinueWith"><a href="#一：ContinueWith" class="headerlink" title="一：ContinueWith"></a>一：ContinueWith</h2><p>1.Task=&gt;Task.CreationOptions  第一task</p>
-<p>2.Task=&gt;TaskContinuationOptions 第二个task</p>
-<p>第二个task需要判断第一个task在什么情况下，我该执行或者不该执行。。</p>
-<h2 id="二：LazyCancellation"><a href="#二：LazyCancellation" class="headerlink" title="二：LazyCancellation"></a>二：LazyCancellation</h2><p>1.Cancellation判断任务的取消。。。相当于Thread about</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">CancellationTokenSource source = new CancellationTokenSource();//判断任务延续</span><br><span class="line">           source.Cancel();</span><br><span class="line">           Task task1 = new Task(() =&gt; &#123;</span><br><span class="line">               //Thread.Sleep(1000);</span><br><span class="line">               Console.WriteLine(&quot;task1, tid=&#123;0&#125;,dt=&#123;1&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;));</span><br><span class="line">           &#125;);</span><br><span class="line">           var task2 = task1.ContinueWith(t =&gt; &#123;</span><br><span class="line">               Console.WriteLine(&quot;task2,tid=&#123;0&#125;,dt=&#123;1&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;));</span><br><span class="line">           &#125;, source.Token);</span><br><span class="line">           var task3 = task2.ContinueWith(t =&gt; &#123;</span><br><span class="line"></span><br><span class="line">               Console.WriteLine(&quot;task3,tid=&#123;0&#125;,dt=&#123;1&#125;,task2=&#123;2&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;), task2.Status);</span><br><span class="line">           &#125;);</span><br><span class="line">           task1.Start();</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2019/11/04/Task的任务延续/1572882571897.png" alt="1572882705464"></p>
-<p>正常执行顺序：task1-&gt;ContinueWith task2-&gt;ContinueWith task3</p>
-<p>结果执行顺序： task3-&gt;task1</p>
-<p>解释：ContinueWith的时候，预先判断了source.Token的值，结果发现任务已经取消，这个时候，task2和task1没有延续的关系，所以task3和task1可以并行，看似ContinueWith的关系得不到延续【并行】</p>
-<p><img src="/2019/11/04/Task的任务延续/1572882940405.png" alt="1572882940405"></p>
-<p>使用TaskContinuationOptions.LazyCancellation</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">CancellationTokenSource source = new CancellationTokenSource();//判断任务延续</span><br><span class="line">          source.Cancel();</span><br><span class="line">          Task task1 = new Task(() =&gt; &#123;</span><br><span class="line">              //Thread.Sleep(1000);</span><br><span class="line">              Console.WriteLine(&quot;task1, tid=&#123;0&#125;,dt=&#123;1&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;));</span><br><span class="line">          &#125;);</span><br><span class="line">          var task2 = task1.ContinueWith(t =&gt; &#123;</span><br><span class="line">              Console.WriteLine(&quot;task2,tid=&#123;0&#125;,dt=&#123;1&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;));</span><br><span class="line">          &#125;, source.Token,TaskContinuationOptions.LazyCancellation, TaskScheduler.Current);</span><br><span class="line">          var task3 = task2.ContinueWith(t =&gt; &#123;</span><br><span class="line">              Console.WriteLine(&quot;task3,tid=&#123;0&#125;,dt=&#123;1&#125;,task2=&#123;2&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;), task2.Status);</span><br><span class="line">          &#125;);</span><br><span class="line">          task1.Start();</span><br><span class="line">          Console.Read();</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2019/11/04/Task的任务延续/1572883135949.png" alt="1572883135949"></p>
-<p>TaskContinuationOptions.LazyCancellation当task2被取消了，还是先执行等待线程执行完成，在执行后面的线程</p>
-<h2 id="三：ExecuteSynchronously"><a href="#三：ExecuteSynchronously" class="headerlink" title="三：ExecuteSynchronously"></a>三：ExecuteSynchronously</h2><p>同步执行任务，2个线程用同一个线程执行，可以减少时间片切换</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Task task1 = new Task(() =&gt; &#123;</span><br><span class="line">              Thread.Sleep(1000);</span><br><span class="line">              Console.WriteLine(&quot;task1, tid=&#123;0&#125;,dt=&#123;1&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;));</span><br><span class="line">          &#125;);</span><br><span class="line">          var task2 = task1.ContinueWith(t =&gt; &#123;</span><br><span class="line">              Console.WriteLine(&quot;task2,tid=&#123;0&#125;,dt=&#123;1&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;));</span><br><span class="line">          &#125;,TaskContinuationOptions.ExecuteSynchronously);</span><br><span class="line">          var task3 = task2.ContinueWith(t =&gt; &#123;</span><br><span class="line">              Console.WriteLine(&quot;task3,tid=&#123;0&#125;,dt=&#123;1&#125;,task2=&#123;2&#125;&quot;, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;HH:mm:ss&quot;), task2.Status);</span><br><span class="line">          &#125;);</span><br><span class="line">          task1.Start();</span><br><span class="line">          Console.Read();</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2019/11/04/Task的任务延续/1572883421282.png" alt="1572883421282"></p>
-<p>上图使用TaskContinuationOptions.ExecuteSynchronously，task1和task2使用同一个线程执行任务。</p>
-<p>不使用TaskContinuationOptions.ExecuteSynchronously的结果:</p>
-<p><img src="/2019/11/04/Task的任务延续/1572883467747.png" alt="1572883467747"></p>
-<h2 id="四：NotOnRanToCompletion和OnlyOnRanToCompletion"><a href="#四：NotOnRanToCompletion和OnlyOnRanToCompletion" class="headerlink" title="四：NotOnRanToCompletion和OnlyOnRanToCompletion"></a>四：NotOnRanToCompletion和OnlyOnRanToCompletion</h2><p>前者表示延续任务必须在非完成状态才能执行</p>
-<p>后者表示延续任务必须在完成状态才能执行</p>
-<h2 id="五：NotOnFaulted和OnlyOnFaulted"><a href="#五：NotOnFaulted和OnlyOnFaulted" class="headerlink" title="五：NotOnFaulted和OnlyOnFaulted"></a>五：NotOnFaulted和OnlyOnFaulted</h2><p>前者表示延续任务必须在非失败状态才能执行</p>
-<p>后者表示延续任务必须在失败状态才能执行</p>
-<h2 id="六：NotOnCanceled和OnlyOnCanceled"><a href="#六：NotOnCanceled和OnlyOnCanceled" class="headerlink" title="六：NotOnCanceled和OnlyOnCanceled"></a>六：NotOnCanceled和OnlyOnCanceled</h2><p>前者表示延续任务必须在非取消状态才能执行</p>
-<p>后者表示延续任务必须在取消状态才能执行</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2237,7 +2329,7 @@ source1.Token.Register(()=&gt; {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
