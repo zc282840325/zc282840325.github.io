@@ -321,6 +321,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/Task多线程模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/08/Task多线程模型/" itemprop="url">Task多线程模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T20:07:05+08:00">
+                2019-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：同步编程模型-SPM"><a href="#一：同步编程模型-SPM" class="headerlink" title="一：同步编程模型(SPM)"></a>一：同步编程模型(SPM)</h2><p>单线线程、串行开发模式。</p>
+<h2 id="二：异步编程模型（APM）"><a href="#二：异步编程模型（APM）" class="headerlink" title="二：异步编程模型（APM）"></a>二：异步编程模型（APM）</h2><p>xxxbegin、xxxend的模式。</p>
+<pre><code>   FileStream file = new FileStream(Environment.CurrentDirectory+&quot;//1.txt&quot;,FileMode.Open);
+var bytes= new byte[file.Length];
+
+   file.BeginRead(bytes,0,bytes.Length,(ary)=&gt; {
+       var nums = file.EndRead(ary);
+       Console.WriteLine(nums);
+   },string.Empty);
+
+   Console.Read();</code></pre><h2 id="三：基于事件的编程模型（EAP）"><a href="#三：基于事件的编程模型（EAP）" class="headerlink" title="三：基于事件的编程模型（EAP）"></a>三：基于事件的编程模型（EAP）</h2><p>xxAsync这样的事件模式。 eg：WebClient。</p>
+<h2 id="四：基于Task的编程模型（TAP）"><a href="#四：基于Task的编程模型（TAP）" class="headerlink" title="四：基于Task的编程模型（TAP）"></a>四：基于Task的编程模型（TAP）</h2><p> APM和EAP都可以使用Task来实现，微软的初衷就是想通过Task大一统异步编程领域</p>
+<p>使用Task封装APM模式：</p>
+<p>代码量小</p>
+<p>Task更简单</p>
+<pre><code>FileStream file = new FileStream(Environment.CurrentDirectory+&quot;//1.txt&quot;,FileMode.Open);
+
+       var bytes= new byte[file.Length];
+        var task = Task.Factory.FromAsync(file.BeginRead, file.EndRead, bytes, 0, bytes.Length, string.Empty);
+
+        var nums = task.Result;
+        Console.WriteLine(nums);</code></pre><p>使用Task包装EAP</p>
+<p>TaskCompletionSource：包装器</p>
+<pre><code>  private static Task&lt;int&gt; GetTask(string url)
+     {
+         TaskCompletionSource&lt;int&gt; source = new TaskCompletionSource&lt;int&gt;();
+WebClient client = new WebClient();
+     client.DownloadDataCompleted += (sendr, e) =&gt;
+     {
+         try
+         {
+             source.TrySetResult(e.Result.Length);
+         }
+         catch (Exception ex)
+         {
+             source.TrySetException(ex);
+         }
+
+     };
+     client.DownloadDataAsync(new Uri(url));
+     return source.Task;
+ }</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/Task核心调度器-TaskScheduler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2032,179 +2214,6 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/Thread定时器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/03/Thread定时器/" itemprop="url">Thread定时器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T17:41:56+08:00">
-                2019-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一-定时器-（可以想到Time）"><a href="#一-定时器-（可以想到Time）" class="headerlink" title="一.定时器 （可以想到Time）"></a>一.定时器 （可以想到Time）</h2><h3 id="1-ThreadPool的定时器功能："><a href="#1-ThreadPool的定时器功能：" class="headerlink" title="1.ThreadPool的定时器功能："></a>1.ThreadPool的定时器功能：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ThreadPool.RegisterWaitForSingleObject(new AutoResetEvent(true), new WaitOrTimerCallback((obj, b) =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">     Console.WriteLine(&quot;obj=&#123;0&#125;,tid=&#123;1&#125;,datetime=&#123;2&#125;&quot;, obj,           Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;hh:MM:ss&quot;));</span><br><span class="line">        &#125;), &quot;hello word&quot;, 1000, false);</span><br></pre></td></tr></table></figure>
-
-<p>RegisterWaitForSingleObject():</p>
-<p>1.(new AutoResetEvent(true):两个线程之间进行信号发送，当true无需等待，当为false,会等待1秒</p>
-<p>False:</p>
-<p><img src="/2019/11/03/Thread定时器/1572776249485.png" alt="1572776249485"></p>
-<p>True:</p>
-<p><img src="/2019/11/03/Thread定时器/1572776292652.png" alt></p>
-<p>2.new WaitOrTimerCallback():回调函数</p>
-<p>3.”hello word”：传递参数</p>
-<p>4.1000：定时器执行的间隔（单位毫秒）</p>
-<p>5.false:是否仅执行一次</p>
-<p>6.debug执行的效果如下：</p>
-<p><img src="/2019/11/03/Thread定时器/D:%5Chexo%5Csource_posts%5CThread%E5%AE%9A%E6%97%B6%E5%99%A8%5C1572776606802.png" alt></p>
-<p><img src="/2019/11/03/Thread定时器/1572776650195.png" alt></p>
-<h3 id="2-Timer"><a href="#2-Timer" class="headerlink" title="2.Timer"></a>2.Timer</h3><p>有很多地方都有Timer:</p>
-<ul>
-<li>System.Threading</li>
-<li>System.Timer</li>
-<li>System.Windows.Form</li>
-<li>System.Web.UI</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = new Timer(new TimerCallback((obj) =&gt;</span><br><span class="line">       &#123;</span><br><span class="line">           Console.WriteLine(&quot;obj=&#123;0&#125;,tid=&#123;1&#125;,datetime=&#123;2&#125;&quot;, obj, Thread.CurrentThread.ManagedThreadId, DateTime.Now.ToString(&quot;hh:MM:ss&quot;));</span><br><span class="line">       &#125;), &quot;hello word&quot;, 1000, 1000);</span><br></pre></td></tr></table></figure>
-
-<p>1.new TimerCallback();回调函数</p>
-<p>2.“hello word”：传递参数</p>
-<p>3.1000：延迟执行的时间【单位毫秒】</p>
-<p>4.1000：线程执行的时间间隔</p>
-<p><img src="/2019/11/03/Thread定时器/1572777324601.png" alt></p>
-<p>Timer首先是用ThreadPool.<strong>UnsafeQueueUserWorkItem</strong>(waitCallback, timer);来完成定时功能。</p>
-<h2 id="三：实战开发中，基本上不会用Timer来处理问题"><a href="#三：实战开发中，基本上不会用Timer来处理问题" class="headerlink" title="三：实战开发中，基本上不会用Timer来处理问题"></a>三：实战开发中，基本上不会用Timer来处理问题</h2><p>功能太少。</p>
-<p>比如，每天早上8点启动一个线程，逻辑太多计算时间，开销大，费时费力。</p>
-<h2 id="四：开源框架解决定时的问题：Quarz-net"><a href="#四：开源框架解决定时的问题：Quarz-net" class="headerlink" title="四：开源框架解决定时的问题：Quarz.net"></a>四：开源框架解决定时的问题：Quarz.net</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2255,7 +2264,7 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
