@@ -475,6 +475,7 @@
 <p> //创建稀疏数组<br>            int[,] res = new int[sum + 1, 3];<br>            //给稀疏数组赋值<br>            res[0, 0] = 11;<br>            res[0, 1] = 11;<br>            res[0, 2] = sum;<br>            //遍历二维数组，将非零的值存入稀疏数组<br>            int count = 0;<br>            for (int i = 0; i &lt; Math.Sqrt(chese.Length); i++)<br>            {<br>                for (int j = 0; j &lt; Math.Sqrt(chese.Length); j++)<br>                {<br>                    if (chese[i, j] != 0)<br>                    {<br>                        count++;<br>                        res[count, 0] = i;<br>                        res[count, 1] = j;<br>                        res[count, 2] = chese[i, j];<br>                    }<br>                }<br>            }</p>
 <p>   //打印稀疏数组的值</p>
 <p>Console.WriteLine(“稀疏数组:”);<br>            for (int i = 0; i &lt; res.Length / 3; i++)<br>            {<br>                for (int j = 0; j &lt; 3; j++)<br>                {<br>                    Console.Write(“\t” + res[i, j]);<br>                }<br>                Console.WriteLine(“”);<br>            }</p>
+<p>[]: <a href="https://github.com/zc282840325/DataStructure/tree/master/数据结构-稀疏数组" target="_blank" rel="noopener">https://github.com/zc282840325/DataStructure/tree/master/数据结构-稀疏数组</a>    “Github”</p>
 
           
         
