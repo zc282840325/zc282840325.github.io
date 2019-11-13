@@ -321,6 +321,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/数据结构-队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/12/数据结构-队列/" itemprop="url">数据结构--队列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T22:37:15+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：介绍队列"><a href="#一：介绍队列" class="headerlink" title="一：介绍队列"></a>一：介绍队列</h2><p>队列是一个有序列表，可以用数组或是链表来实现。</p>
+<p>遵循<strong>先入先出</strong>的原则。即：现存入队列的数据，要先取出。后存入的要后去除</p>
+<p><img src="/2019/11/12/数据结构-队列/1573570155193.png" alt="1573570155193"></p>
+<h2 id="二：数组模拟队列"><a href="#二：数组模拟队列" class="headerlink" title="二：数组模拟队列"></a>二：数组模拟队列</h2><ul>
+<li>队列本身就是有序列表，若使用数组的结构来存储队列的数据，则队列数组的声明如下图，其中maxSize是该队列的最大容量</li>
+<li>因为队列的输出、输入是分布从前后端来处理，因此需要两个变量front及rear分别记录队列前后端的下标，front会随着数据输出而改变，而rear则是随着数据输入二改变</li>
+<li>rear是队列最后【含】</li>
+<li>front是队列最前元素【不含】</li>
+</ul>
+<p><img src="/2019/11/12/数据结构-队列/1573570155193.png" alt="1573570155193"></p>
+<p>当我们将数据存入队列时称为“addQueue”,addQueue的处理需要2个步骤：</p>
+<p>将尾指针往后移:rear+1,当front==rear[空]</p>
+<p>若尾指针rear小于队列的最大下标maxSize-1,则将数据存入rear所指定的数组元素中，否则无法存入数据。rear==maxSize-1[队列满] </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">public class AarrayQueue</span><br><span class="line">   &#123;</span><br><span class="line">       //使用数组模拟队列</span><br><span class="line">       private int maxSize;//表示数组最大容量</span><br><span class="line">       private int front;//指向队列头</span><br><span class="line">       private int rear;//队列尾</span><br><span class="line">       private int[] arr;//该数组存放数据，模拟队列</span><br><span class="line">       //创建队列的构造器</span><br><span class="line">       public AarrayQueue(int arrMaxSize)</span><br><span class="line">       &#123;</span><br><span class="line">           maxSize = arrMaxSize;</span><br><span class="line">           arr = new int[maxSize];</span><br><span class="line">           front = -1;//指向队列的头部的前一个位置[不包含]</span><br><span class="line">           rear = -1;//指向队列的尾部[包含]</span><br><span class="line">       &#125;</span><br><span class="line">       //判断队列是否满</span><br><span class="line">       public bool isFull()</span><br><span class="line">       &#123;</span><br><span class="line">           return rear == maxSize - 1;</span><br><span class="line">       &#125;</span><br><span class="line">       //判断队列是否为空</span><br><span class="line">       public bool isEmpty()</span><br><span class="line">       &#123;</span><br><span class="line">           return rear == maxSize;</span><br><span class="line">       &#125;</span><br><span class="line">       //添加数据到队列</span><br><span class="line">       public void addQueue(int n)</span><br><span class="line">       &#123;</span><br><span class="line">           if (isFull())</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;队列已经满了！&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               rear++;</span><br><span class="line">               arr[rear] = n;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       //获取数据出队列</span><br><span class="line">       public int getQueue()</span><br><span class="line">       &#123;</span><br><span class="line">           if (isEmpty())</span><br><span class="line">           &#123;</span><br><span class="line">               throw new Exception(&quot;队列已经满了&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               return arr[rear--];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       //显示队列的所有数据</span><br><span class="line">       public void showQueue()</span><br><span class="line">       &#123;</span><br><span class="line">           if (isEmpty())</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;当前队列是空的，没有数据！&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           for (int i = 0; i &lt; maxSize; i++)</span><br><span class="line">           &#123;</span><br><span class="line">               Console.Write(arr[i]+&quot;\t&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       //显示队列的头数据，</span><br><span class="line">       public int headQueue()</span><br><span class="line">       &#123;</span><br><span class="line">           if (isEmpty())</span><br><span class="line">           &#123;</span><br><span class="line">               throw new Exception(&quot;队列是空的&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               return arr[front+1];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       //显示队列的尾数据</span><br><span class="line">       public int footQueue()</span><br><span class="line">       &#123;</span><br><span class="line">           if (isEmpty())</span><br><span class="line">           &#123;</span><br><span class="line">               throw new Exception(&quot;队列是空的&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               return arr[rear];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三：数组模拟环形队列"><a href="#三：数组模拟环形队列" class="headerlink" title="三：数组模拟环形队列"></a>三：数组模拟环形队列</h2><p>思路：</p>
+<ul>
+<li>front变量的含义做一个调整：front就指向队列的第一个元素，arr[front]就是队列的第一个元素，front初始值=0。</li>
+<li>real变量的含义做一个调整：real指向队列的最后一个元素的后一位置，因为希望空出一个空间做为约定，real初始值=0。</li>
+<li>当队列满的时候，条件改为 <strong>(real+1)%maxSize==front[满]</strong></li>
+<li>当队列为空的条件，<strong>rear==front[空]</strong></li>
+<li>队列的有效的数据的个数(real+maxSize-front)%maxSzie</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace demo2</span><br><span class="line">&#123;</span><br><span class="line">   public class CircleArrayQueue</span><br><span class="line">    &#123;</span><br><span class="line">        //使用数组模拟队列</span><br><span class="line">        private int maxSize;//表示数组最大容量</span><br><span class="line">        private int front;//front就指向队列的第一个元素</span><br><span class="line">        private int rear;//real指向队列的最后一个元素的后一位置</span><br><span class="line">        private int[] arr;//该数组存放数据，模拟队列</span><br><span class="line"></span><br><span class="line">        public CircleArrayQueue(int arrMaxSize)</span><br><span class="line">        &#123;</span><br><span class="line">            maxSize = arrMaxSize;</span><br><span class="line">            arr = new int[maxSize];</span><br><span class="line">        &#125;</span><br><span class="line">        //判断队列是否满</span><br><span class="line">        public bool isFull()</span><br><span class="line">        &#123;</span><br><span class="line">            return (rear + 1) % maxSize == front;</span><br><span class="line">        &#125;</span><br><span class="line">        //判断队列是否为空</span><br><span class="line">        public bool isEmpty()</span><br><span class="line">        &#123;</span><br><span class="line">            return rear == front;</span><br><span class="line">        &#125;</span><br><span class="line">        //添加数据到队列</span><br><span class="line">        public void addQueue(int n)</span><br><span class="line">        &#123;</span><br><span class="line">            if (isFull())</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;队列已经满了！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                arr[rear] = n;</span><br><span class="line">                //将readl后移</span><br><span class="line">                rear = (rear + 1) % maxSize;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //获取数据出队列</span><br><span class="line">        public int getQueue()</span><br><span class="line">        &#123;</span><br><span class="line">            if (isEmpty())</span><br><span class="line">            &#123;</span><br><span class="line">                throw new Exception(&quot;队列已经满了&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //这里需要分析出front是指向队列的第一个元素</span><br><span class="line">                //1.先把front对应的值保存到一个临时变量</span><br><span class="line">                //2.将front后移,考虑取莫</span><br><span class="line">                //3.将临时保存的变量返回</span><br><span class="line">                int temp = arr[front];</span><br><span class="line">                front = (front + 1) % maxSize;</span><br><span class="line">                return temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //显示队列的所有数据</span><br><span class="line">        public void showQueue()</span><br><span class="line">        &#123;</span><br><span class="line">            if (isEmpty())</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;当前队列是空的，没有数据！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            //思路，从front开始变量，变量多少个元素</span><br><span class="line">            for (int i = front; i &lt; front+ size(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(arr[i%maxSize] + &quot;\t&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        //求当前数组的有效个数</span><br><span class="line">        public int size()</span><br><span class="line">        &#123;</span><br><span class="line">            return (rear + maxSize - front) % maxSize;</span><br><span class="line">        &#125;</span><br><span class="line">        //显示队列的头数据，</span><br><span class="line">        public int headQueue()</span><br><span class="line">        &#123;</span><br><span class="line">            if (isEmpty())</span><br><span class="line">            &#123;</span><br><span class="line">                throw new Exception(&quot;队列是空的&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return arr[front];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //显示队列的尾数据</span><br><span class="line">        public int footQueue()</span><br><span class="line">        &#123;</span><br><span class="line">            if (isEmpty())</span><br><span class="line">            &#123;</span><br><span class="line">                throw new Exception(&quot;队列是空的&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return arr[size()-1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四：源码地址"><a href="#四：源码地址" class="headerlink" title="四：源码地址"></a>四：源码地址</h2><p><a href="https://github.com/zc282840325/DataStructure/tree/master/数据结构-队列" target="_blank" rel="noopener">https://github.com/zc282840325/DataStructure/tree/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/稀疏数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2012,167 +2179,6 @@ Interlocked.CompareExchange(ref sum, 6, 5);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/异步编程awaint/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/08/异步编程awaint/" itemprop="url">异步编程awaint</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T21:11:28+08:00">
-                2019-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：async-await"><a href="#一：async-await" class="headerlink" title="一：async await"></a>一：async await</h2><ul>
-<li>调用方法：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行；</li>
-<li>异步方法：该方法异步执行工作，然后立刻返回到调用方法；</li>
-<li>await 表达式：用于异步方法内部，指出需要异步执行的任务。一个异步方法可以包含多个 await 表达式（不存在 await 表达式的话 IDE 会发出警告）。</li>
-</ul>
-<h2 id="二、async-await-结构"><a href="#二、async-await-结构" class="headerlink" title="二、async/await 结构"></a>二、async/await 结构</h2><ul>
-<li><p>同步方法：一个程序调用某个方法，等到其执行完成之后才进行下一步操作。这也是默认的形式。</p>
-</li>
-<li><p>异步方法：一个程序调用某个方法，在处理完成之前就返回该方法。通过 async/await 我们就可以实现这种类型的方法。</p>
-</li>
-</ul>
-<h2 id="三：-异步方法"><a href="#三：-异步方法" class="headerlink" title="三： 异步方法"></a>三： 异步方法</h2><ul>
-<li>关键字：方法头使用 async 修饰。</li>
-<li>要求：包含 N（N&gt;0） 个 await 表达式（不存在 await 表达式的话 IDE 会发出警告），表示需要异步执行的任务。</li>
-<li>​     （3）返回类型：只能返回 3 种类型（void、Task 和 Task<t>）。Task 和 Task<t> 标识返回的对象会在将来完成工作，表示调用方法和异步方法可以继续执行。</t></t></li>
-<li>参数：数量不限，但不能使用 out 和 ref 关键字。</li>
-<li>命名约定：方法后缀名应以 Async 结尾。</li>
-<li>其它：匿名方法和 Lambda 表达式也可以作为异步对象；async 是一个上下文关键字；关键字 async 必须在返回类型前。</li>
-</ul>
-<p><img src="/2019/11/08/异步编程awaint/1573227579628.png" alt="1573227579628"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2223,7 +2229,7 @@ Interlocked.CompareExchange(ref sum, 6, 5);
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
