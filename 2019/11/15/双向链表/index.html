@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="数据结构,">
 
 
 
@@ -79,14 +79,20 @@
 
 
 
+<meta name="description" content="一：为什么要使用双向链表？ 单向链表，查找的方向只能是一个方向，二双向链表可以向前或向后查询。 单向链表不能自我删除，需要靠辅助节点，而双向链表，则可以自我删除，所以我们单链表删除节点时，总是找到temp,temp是待删除节点的前一个节点。  二：分析双向链表的增、删、改、查、遍历的功能！">
+<meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL面试题">
-<meta property="og:url" content="http://yoursite.com/2019/10/15/SQL面试题/index.html">
+<meta property="og:title" content="双向链表">
+<meta property="og:url" content="http://yoursite.com/2019/11/15/双向链表/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="一：为什么要使用双向链表？ 单向链表，查找的方向只能是一个方向，二双向链表可以向前或向后查询。 单向链表不能自我删除，需要靠辅助节点，而双向链表，则可以自我删除，所以我们单链表删除节点时，总是找到temp,temp是待删除节点的前一个节点。  二：分析双向链表的增、删、改、查、遍历的功能！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-15T01:45:15.953Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/15/双向链表/1573980862995.png">
+<meta property="og:updated_time" content="2019-11-17T08:55:51.267Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL面试题">
+<meta name="twitter:title" content="双向链表">
+<meta name="twitter:description" content="一：为什么要使用双向链表？ 单向链表，查找的方向只能是一个方向，二双向链表可以向前或向后查询。 单向链表不能自我删除，需要靠辅助节点，而双向链表，则可以自我删除，所以我们单链表删除节点时，总是找到temp,temp是待删除节点的前一个节点。  二：分析双向链表的增、删、改、查、遍历的功能！">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/15/双向链表/1573980862995.png">
 
 
 
@@ -116,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/10/15/SQL面试题/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/15/双向链表/">
 
 
 
 
 
-  <title>SQL面试题 | Blog</title>
+  <title>双向链表 | Blog</title>
   
 
 
@@ -321,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/15/SQL面试题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/15/双向链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张聪">
@@ -338,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SQL面试题</h1>
+          <h1 class="post-title" itemprop="name headline">双向链表</h1>
         
 
         <div class="post-meta">
@@ -350,8 +356,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-15T09:45:15+08:00">
-                2019-10-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-15T23:31:36+08:00">
+                2019-11-15
               </time>
             
 
@@ -360,6 +366,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -393,7 +421,12 @@
       
 
       
-        
+        <h2 id="一：为什么要使用双向链表？"><a href="#一：为什么要使用双向链表？" class="headerlink" title="一：为什么要使用双向链表？"></a>一：为什么要使用双向链表？</h2><ol>
+<li>单向链表，查找的方向<strong>只能是一个方向</strong>，二双向链表可以向前或向后查询。</li>
+<li>单向链表<strong>不能自我删除</strong>，需要靠辅助节点，而双向链表，则可以自我删除，所以我们单链表删除节点时，总是找到temp,temp是待删除节点的前一个节点。</li>
+</ol>
+<h2 id="二：分析双向链表的增、删、改、查、遍历的功能！"><a href="#二：分析双向链表的增、删、改、查、遍历的功能！" class="headerlink" title="二：分析双向链表的增、删、改、查、遍历的功能！"></a>二：分析双向链表的增、删、改、查、遍历的功能！</h2><p><img src="/2019/11/15/双向链表/1573980862995.png" alt="1573980862995"></p>
+
       
     </div>
     
@@ -408,6 +441,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
 
       
       
@@ -417,8 +456,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/15/C-面试题/" rel="next" title="C#面试题">
-                <i class="fa fa-chevron-left"></i> C#面试题
+              <a href="/2019/11/15/单链表面试题/" rel="next" title="单链表面试题">
+                <i class="fa fa-chevron-left"></i> 单链表面试题
               </a>
             
           </div>
@@ -426,10 +465,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/17/委托的概念/" rel="prev" title="委托的概念">
-                委托的概念 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -481,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -542,6 +586,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：为什么要使用双向链表？"><span class="nav-number">1.</span> <span class="nav-text">一：为什么要使用双向链表？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：分析双向链表的增、删、改、查、遍历的功能！"><span class="nav-number">2.</span> <span class="nav-text">二：分析双向链表的增、删、改、查、遍历的功能！</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
