@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Thread,">
+  <meta name="keywords" content="数据结构,">
 
 
 
@@ -79,26 +79,22 @@
 
 
 
-<meta name="description" content="一：Plinq问：为什么要使用Plinq？ 答：为了能够达到最大的灵活度，Linq又了并行的版本 二：如何把Linq转换为lingq1.AsParallel():将串行转换为并行 var nums = Enumerable.Range(0, 100).ToList();             var query = from n in nums.AsParallel()">
-<meta name="keywords" content="Thread">
+<meta name="description" content="一：单向环形链表应用场景 二：分析思路：1.自己分析： 给链表编辑一个add（），一个del()，获取链表长度getlength()，默认从1开始数。  初始化的时候，通过Add方法读取在数据环中，一次加载，接下来。  做while遍历，当读取到m的时候，首先检查链表的长度，如果长度大于1就移除一个元素，当长度等于1的时候跳出循环 代码实现： 123456789101112131415161718">
+<meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Task中的Plinq">
-<meta property="og:url" content="http://yoursite.com/2019/11/06/Task中的Plinq/index.html">
+<meta property="og:title" content="单向环形链表">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/单向环形链表/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="一：Plinq问：为什么要使用Plinq？ 答：为了能够达到最大的灵活度，Linq又了并行的版本 二：如何把Linq转换为lingq1.AsParallel():将串行转换为并行 var nums = Enumerable.Range(0, 100).ToList();             var query = from n in nums.AsParallel()">
+<meta property="og:description" content="一：单向环形链表应用场景 二：分析思路：1.自己分析： 给链表编辑一个add（），一个del()，获取链表长度getlength()，默认从1开始数。  初始化的时候，通过Add方法读取在数据环中，一次加载，接下来。  做while遍历，当读取到m的时候，首先检查链表的长度，如果长度大于1就移除一个元素，当长度等于1的时候跳出循环 代码实现： 123456789101112131415161718">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573051666110.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573051832978.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573052174566.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573053268353.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573053600952.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573053728533.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573055734213.png">
-<meta property="og:updated_time" content="2019-11-06T16:03:00.555Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/17/单向环形链表/1573998435002.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/17/单向环形链表/1574042353065.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/17/单向环形链表/1574042483920.png">
+<meta property="og:updated_time" content="2019-11-18T02:04:21.442Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Task中的Plinq">
-<meta name="twitter:description" content="一：Plinq问：为什么要使用Plinq？ 答：为了能够达到最大的灵活度，Linq又了并行的版本 二：如何把Linq转换为lingq1.AsParallel():将串行转换为并行 var nums = Enumerable.Range(0, 100).ToList();             var query = from n in nums.AsParallel()">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/06/Task中的Plinq/1573051666110.png">
+<meta name="twitter:title" content="单向环形链表">
+<meta name="twitter:description" content="一：单向环形链表应用场景 二：分析思路：1.自己分析： 给链表编辑一个add（），一个del()，获取链表长度getlength()，默认从1开始数。  初始化的时候，通过Add方法读取在数据环中，一次加载，接下来。  做while遍历，当读取到m的时候，首先检查链表的长度，如果长度大于1就移除一个元素，当长度等于1的时候跳出循环 代码实现： 123456789101112131415161718">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/17/单向环形链表/1573998435002.png">
 
 
 
@@ -128,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/06/Task中的Plinq/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/17/单向环形链表/">
 
 
 
 
 
-  <title>Task中的Plinq | Blog</title>
+  <title>单向环形链表 | Blog</title>
   
 
 
@@ -333,7 +329,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/Task中的Plinq/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/单向环形链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张聪">
@@ -350,7 +346,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Task中的Plinq</h1>
+          <h1 class="post-title" itemprop="name headline">单向环形链表</h1>
         
 
         <div class="post-meta">
@@ -362,8 +358,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T22:14:33+08:00">
-                2019-11-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-17T21:36:10+08:00">
+                2019-11-17
               </time>
             
 
@@ -385,8 +381,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -427,104 +423,26 @@
       
 
       
-        <h2 id="一：Plinq"><a href="#一：Plinq" class="headerlink" title="一：Plinq"></a>一：Plinq</h2><p>问：为什么要使用Plinq？</p>
-<p>答：为了能够达到最大的灵活度，Linq又了并行的版本</p>
-<h2 id="二：如何把Linq转换为lingq"><a href="#二：如何把Linq转换为lingq" class="headerlink" title="二：如何把Linq转换为lingq"></a>二：如何把Linq转换为lingq</h2><p>1.AsParallel():将串行转换为并行</p>
-<pre><code>var nums = Enumerable.Range(0, 100).ToList();
-            var query = from n in nums.AsParallel()
-                        select new
-                        {
-                            thread = Thread.CurrentThread.ManagedThreadId,
-                            nums = n
-                        };
+        <h2 id="一：单向环形链表应用场景"><a href="#一：单向环形链表应用场景" class="headerlink" title="一：单向环形链表应用场景"></a>一：单向环形链表应用场景</h2><p><img src="/2019/11/17/单向环形链表/1573998435002.png" alt="1573998435002"></p>
+<h2 id="二：分析思路："><a href="#二：分析思路：" class="headerlink" title="二：分析思路："></a>二：分析思路：</h2><p>1.自己分析：</p>
+<p>给链表编辑一个add（），一个del()，获取链表长度getlength()，默认从1开始数。</p>
+<ol>
+<li><p>初始化的时候，通过Add方法读取在数据环中，一次加载，接下来。</p>
+</li>
+<li><p>做while遍历，当读取到m的时候，首先检查链表的长度，如果长度大于1就移除一个元素，当长度等于1的时候跳出循环</p>
+<p>代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">       /// 删除节点</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;no&quot;&gt;节点的值&lt;/param&gt;</span><br><span class="line">       public void del(int no)</span><br><span class="line">       &#123;</span><br><span class="line">           Hero temp = gethead();</span><br><span class="line">           if (no== temp.no)</span><br><span class="line">           &#123;</span><br><span class="line">               if (head.next==foot)</span><br><span class="line">               &#123;</span><br><span class="line">                   Change();</span><br><span class="line">               &#125;</span><br><span class="line">               else</span><br><span class="line">               &#123;</span><br><span class="line">                   temp = foot;</span><br><span class="line">                   temp.next = temp.next.next;</span><br><span class="line">                   head = temp.next;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               temp = getpre(head, no);</span><br><span class="line">               temp.next = temp.next.next;</span><br><span class="line">               Change();</span><br><span class="line">           &#125;</span><br><span class="line">          </span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 只有2个节点的时候，直接出</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       public void Change()</span><br><span class="line">       &#123;</span><br><span class="line">           if (head.next == foot)</span><br><span class="line">           &#123;</span><br><span class="line">               Console.Write(head);</span><br><span class="line">               head = foot;</span><br><span class="line">               head.next = null;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 获取待删除节点的上一个节点</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;temp&quot;&gt;头节点的&lt;/param&gt;</span><br><span class="line">       /// &lt;param name=&quot;no&quot;&gt;要删除的节点&lt;/param&gt;</span><br><span class="line">       /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">       public Hero getpre(Hero temp,int no)</span><br><span class="line">       &#123;</span><br><span class="line">           while (true)</span><br><span class="line">           &#123;</span><br><span class="line">               if (temp.next.no == no)</span><br><span class="line">               &#123;</span><br><span class="line">                   break;</span><br><span class="line">               &#125;</span><br><span class="line">               temp = temp.next;</span><br><span class="line">           &#125;</span><br><span class="line">           if (temp.next==foot)</span><br><span class="line">           &#123;</span><br><span class="line">               foot = temp;</span><br><span class="line">           &#125;</span><br><span class="line">           return temp;</span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 获取链表的长度</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">       public int getlength()</span><br><span class="line">       &#123;</span><br><span class="line">           Hero temp = head;</span><br><span class="line">           int num = 0;</span><br><span class="line">           while (true)</span><br><span class="line">           &#123;</span><br><span class="line">               num++;</span><br><span class="line">               temp = temp.next;</span><br><span class="line">               if (temp.no==head.no)</span><br><span class="line">               &#123;</span><br><span class="line">                   break;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           return num;</span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 输出打印</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;m&quot;&gt;数m下&lt;/param&gt;</span><br><span class="line">       public void showlink(int m)</span><br><span class="line">       &#123;</span><br><span class="line">           Hero temp = head;</span><br><span class="line">           int num = 0;</span><br><span class="line">           int leng = getlength();//获取链表的长度</span><br><span class="line">           if (head == null)</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;参数输入有误，请重新输入！&quot;);</span><br><span class="line">               return;</span><br><span class="line">           &#125;</span><br><span class="line">           while (true)</span><br><span class="line">           &#123;</span><br><span class="line">               if (temp.next==null)</span><br><span class="line">               &#123;</span><br><span class="line">                   break;</span><br><span class="line">               &#125;</span><br><span class="line">               num++;</span><br><span class="line">               if (num%m==0)</span><br><span class="line">               &#123;</span><br><span class="line">                   Console.WriteLine(temp.no);</span><br><span class="line">                   del(temp.no);</span><br><span class="line">               &#125;</span><br><span class="line">               temp = temp.next;</span><br><span class="line">           &#125;</span><br><span class="line">           Console.WriteLine(temp);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 
-        foreach (var item in query)
-        {
-            Console.WriteLine(item);
-        }</code></pre><p><img src="/2019/11/06/Task中的Plinq/1573051666110.png" alt="1573051666110"></p>
-<p>2.AsOrdered()</p>
-<p>说明：就是将并行结果还是按照未排序的样式排序</p>
-<pre><code>var nums = Enumerable.Range(0, 100).ToList();
-            nums[0] = 1000;
-                var query = from n in nums.AsParallel().AsOrdered()
-                            select new
-                            {
-                                thread = Thread.CurrentThread.ManagedThreadId,
-                                nums = n
-                            };
-foreach (var item in query)
-        {
-            Console.WriteLine(item);
-        }</code></pre><p><img src="/2019/11/06/Task中的Plinq/1573051832978.png" alt="1573051832978"></p>
-<p>可以看出，AsOrdered()是按照1-100的排序输出，如果在前面加1000，还是会输出，并不会对结果在排序。</p>
-<p>3.AsUnordered就是AsOrdered的相反的意思</p>
-<p>4.AsSequential  《==》AsParallel</p>
-<p>前者将plinq转换为linq</p>
-<p>后者将Linq转换为Plinq</p>
-<pre><code>var nums = Enumerable.Range(0, 100).ToList();
-    nums[0] = 1000;
-        var query = from n in nums.AsParallel().AsSequential()
-                    select new
-                    {
-                        thread = Thread.CurrentThread.ManagedThreadId,
-                        nums = n
-                    };
-foreach (var item in query)
-{
-    Console.WriteLine(item);
-}</code></pre><p><img src="/2019/11/06/Task中的Plinq/1573052174566.png" alt="1573052174566"></p>
-<p>线程串行，<strong>只有一个线程</strong>！</p>
-<p>5.plinq底层都是用task的，基6于task的一些编程模型，让我们快速进行计算的。</p>
-<pre><code> var nums = Enumerable.Range(0, 100).ToList();
-            nums[0] = 1000;
-                var query = from n in nums.AsParallel()
-                            select new
-                            {
-                                thread = GetThreadID(),
-                                nums = n
-                            };
-foreach (var item in query)
-        {
-            Console.WriteLine(item);
-        }
-        static int GetThreadID()
-        {
-            Thread.Sleep(1000);
-            return Thread.CurrentThread.ManagedThreadId;
-        }</code></pre><p><img src="/2019/11/06/Task中的Plinq/1573053268353.png" alt="1573053268353"></p>
-<p>6.WithDegreeOfParallelism(Environment.ProcessorCount-1)</p>
-<p>设置Task开启线程的数量</p>
-<p>7.WithCancellation(source.Token)</p>
-<pre><code> CancellationTokenSource source = new CancellationTokenSource();
-    source.Cancel();
-     var nums = Enumerable.Range(0, 100).ToList();
-    nums[0] = 1000;
-    var query = from n in nums.AsParallel().WithDegreeOfParallelism(Environment.ProcessorCount - 1)
-                .WithCancellation(source.Token)
-                    select new
-                    {
-                        thread = GetThreadID(),
-                        nums = n
-                    };
-foreach (var item in query)
-{
-    Console.WriteLine(item);
-}</code></pre><p><img src="/2019/11/06/Task中的Plinq/1573053600952.png" alt="1573053600952"></p>
-<p>如果执行之前被取消，那就不要执行，会以异常保存。</p>
-<p>7.WithExecutionMode：此参数可以告诉系统当前是否强制并行</p>
-<pre><code>var query = from n in nums.AsParallel().WithDegreeOfParallelism(Environment.ProcessorCount - 1)
-                  .WithCancellation(source.Token)
-                  .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
-                        select new
-                      {
-                          thread = GetThreadID(),
-                          nums = n
-                      };</code></pre><p><img src="/2019/11/06/Task中的Plinq/1573053728533.png" alt="1573053728533"></p>
-<p>8.WithMergeOptions:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var query = from n in nums.AsParallel().WithDegreeOfParallelism(Environment.ProcessorCount - 1)</span><br><span class="line">                        .WithCancellation(source.Token)</span><br><span class="line">                        .WithExecutionMode(ParallelExecutionMode.ForceParallelism)</span><br><span class="line">                        .WithMergeOptions(ParallelMergeOptions.Default)</span><br><span class="line">                              select new</span><br><span class="line">                            &#123;</span><br><span class="line">                                thread = GetThreadID(),</span><br><span class="line">                                nums = n</span><br><span class="line">                            &#125;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/11/06/Task中的Plinq/1573055734213.png" alt="1573055734213"></p>
-<p>聚合计算合并</p>
+</li>
+</ol>
+<p>   2.老师分析：</p>
+<p>   <img src="/2019/11/17/单向环形链表/1574042353065.png" alt="1574042353065"></p>
+<p>代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">       /// 老师思路的实现</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;startNo&quot;&gt;开始的编号&lt;/param&gt;</span><br><span class="line">       /// &lt;param name=&quot;countNum&quot;&gt;间隔个数（数几下）&lt;/param&gt;</span><br><span class="line">       /// &lt;param name=&quot;nums&quot;&gt;链表长度&lt;/param&gt;</span><br><span class="line">       public void countBoy(int startNo,int countNum,int nums)</span><br><span class="line">       &#123;</span><br><span class="line">           //先对数据进行校验</span><br><span class="line">           if (head==null||startNo&lt;1||startNo&gt;nums)</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;参数输入有误，请重新输入！&quot;);</span><br><span class="line">               return;</span><br><span class="line">           &#125;</span><br><span class="line">           //创建辅助指针,小孩出圈</span><br><span class="line">           Hero helper = head;//指向最有一个节点</span><br><span class="line">           while (true)</span><br><span class="line">           &#123;</span><br><span class="line">               if (helper.next==head)</span><br><span class="line">               &#123;</span><br><span class="line">                   break;</span><br><span class="line">               &#125;</span><br><span class="line">               helper = helper.next;</span><br><span class="line">           &#125;</span><br><span class="line">           //小孩报数钱，先让head和helper移动k-1次</span><br><span class="line">           for (int i = 0; i &lt; startNo-1; i++)</span><br><span class="line">           &#123;</span><br><span class="line">               head = head.next;</span><br><span class="line">               helper = helper.next;</span><br><span class="line">           &#125;</span><br><span class="line">           //当小孩报数时，让head和helper指针同时的移动m-1次，然后出圈</span><br><span class="line">           //这里是一个循环，循环到只有一个节点的时候</span><br><span class="line">           while (true)</span><br><span class="line">           &#123;</span><br><span class="line">               if (helper==head)</span><br><span class="line">               &#123;</span><br><span class="line">                   break;</span><br><span class="line">               &#125;</span><br><span class="line">               //让head和helper指针同时的移动countNum - 1次</span><br><span class="line">               for (int i = 0; i &lt; countNum - 1; i++)</span><br><span class="line">               &#123;</span><br><span class="line">                   head = head.next;</span><br><span class="line">                   helper = helper.next;</span><br><span class="line">               &#125;</span><br><span class="line">               Console.WriteLine(&quot;小孩出圈:&quot;+head.no);</span><br><span class="line">               //将head指向的小孩出圈</span><br><span class="line">               head = head.next;</span><br><span class="line">               helper.next = head;</span><br><span class="line">           &#125;</span><br><span class="line">           Console.WriteLine(&quot;最后一个小孩:&quot;+ head.no);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/17/单向环形链表/1574042483920.png" alt="1574042483920"></p>
+<h2 id="三：源码地址"><a href="#三：源码地址" class="headerlink" title="三：源码地址"></a>三：源码地址</h2><p><a href="https://github.com/zc282840325/DataStructure/tree/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%8D%95%E5%90%91%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8" target="_blank" rel="noopener">GitHub源码地址</a></p>
 
       
     </div>
@@ -542,7 +460,7 @@ foreach (var item in query)
       
         <div class="post-tags">
           
-            <a href="/tags/Thread/" rel="tag"># Thread</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
         </div>
       
@@ -555,8 +473,8 @@ foreach (var item in query)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/05/Task并行封装/" rel="next" title="Task并行封装">
-                <i class="fa fa-chevron-left"></i> Task并行封装
+              <a href="/2019/11/15/双向链表/" rel="next" title="双向链表">
+                <i class="fa fa-chevron-left"></i> 双向链表
               </a>
             
           </div>
@@ -564,10 +482,6 @@ foreach (var item in query)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/08/Task核心调度器-TaskScheduler/" rel="prev" title="Task核心调度器[TaskScheduler]">
-                Task核心调度器[TaskScheduler] <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -699,7 +613,7 @@ foreach (var item in query)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：Plinq"><span class="nav-number">1.</span> <span class="nav-text">一：Plinq</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：如何把Linq转换为lingq"><span class="nav-number">2.</span> <span class="nav-text">二：如何把Linq转换为lingq</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：单向环形链表应用场景"><span class="nav-number">1.</span> <span class="nav-text">一：单向环形链表应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：分析思路："><span class="nav-number">2.</span> <span class="nav-text">二：分析思路：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：源码地址"><span class="nav-number">3.</span> <span class="nav-text">三：源码地址</span></a></li></ol></div>
             
 
           </div>

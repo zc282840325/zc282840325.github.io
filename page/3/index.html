@@ -321,6 +321,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/Task取消/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/05/Task取消/" itemprop="url">Task取消</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-05T08:58:04+08:00">
+                2019-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：在Thread中做取消操作"><a href="#一：在Thread中做取消操作" class="headerlink" title="一：在Thread中做取消操作"></a>一：在Thread中做取消操作</h2><p>声明一个变量取去判断Thread中是否可以退出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bool res = false;</span><br><span class="line">           var task = new Task(()=&gt; &#123;</span><br><span class="line">               while (!res)</span><br><span class="line">               &#123;</span><br><span class="line">                   Thread.Sleep(100);</span><br><span class="line">                   Console.WriteLine(&quot;当前Thread=&#123;0&#125;正在运行&quot;,Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">           task.Start();</span><br><span class="line">           Thread.Sleep(1000);</span><br><span class="line">           res = true;</span><br><span class="line">           Console.Read();</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/05/Task取消/1572915945633.png" alt="1572915945633"></p>
+<p>不能让多个线程操作一个共享变量，否则会在release版本中有潜在bug</p>
+<h2 id="二：task中有专门的类CancellationTokenSource去处理“任务取消”"><a href="#二：task中有专门的类CancellationTokenSource去处理“任务取消”" class="headerlink" title="二：task中有专门的类CancellationTokenSource去处理“任务取消”"></a>二：task中有专门的类CancellationTokenSource去处理“任务取消”</h2><h3 id="1-CancellationTokenSource远比一个变量强的多。"><a href="#1-CancellationTokenSource远比一个变量强的多。" class="headerlink" title="1.CancellationTokenSource远比一个变量强的多。"></a>1.CancellationTokenSource远比一个变量强的多。</h3><pre><code> CancellationTokenSource source = new CancellationTokenSource();
+    var task = new Task(() =&gt; {
+while (!source.IsCancellationRequested)
+    {
+        Thread.Sleep(100);
+         Console.WriteLine(&quot;当前Thread={0}正在运行&quot;,Thread.CurrentThread.ManagedThreadId);
+    }
+ },source.Token);
+task.Start();
+Thread.Sleep(1000);
+source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916271694.png" alt="1572916271694"></p>
+<p>效果同上</p>
+<h3 id="2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"><a href="#2-当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息" class="headerlink" title="2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息"></a>2.当任务取消的时候，我希望有一个函数能够被触发，这个触发可以做一些资源的清理，又或者更新数据库信息</h3><pre><code>   CancellationTokenSource source = new CancellationTokenSource();
+    source.Token.Register(()=&gt; {
+        //如果当前token被取消，此函数被执行
+        Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
+    });
+var task = new Task(() =&gt; {
+
+    while (!source.IsCancellationRequested)
+    {
+        Thread.Sleep(100);
+         Console.WriteLine(&quot;当前Thread={0}正在运行&quot;,Thread.CurrentThread.ManagedThreadId);
+    }
+},source.Token);
+task.Start();
+Thread.Sleep(1000);
+source.Cancel();</code></pre><p><img src="/2019/11/05/Task取消/1572916548220.png" alt="1572916548220"></p>
+<h3 id="3-延时取消：我想2秒之后自动取消，或者N秒"><a href="#3-延时取消：我想2秒之后自动取消，或者N秒" class="headerlink" title="3.延时取消：我想2秒之后自动取消，或者N秒"></a>3.延时取消：我想2秒之后自动取消，或者N秒</h3><ul>
+<li><p>source.CancelAfter(new TimeSpan(0,0,0,2));</p>
+</li>
+<li><p>CancellationTokenSource 构造函数： CancellationTokenSource source = new CancellationTokenSource(1000);</p>
+</li>
+<li><p>取消组合，将CancellationTokenSource 组成一个链表，其中任何一个CancellationTokenSource 被取消，组合也会被取消。var s3=s1&s2;</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CancellationTokenSource source1 = new CancellationTokenSource();</span><br><span class="line">         source1.Cancel();</span><br><span class="line">         CancellationTokenSource source2 = new CancellationTokenSource();</span><br><span class="line"></span><br><span class="line">         var source3 = CancellationTokenSource.CreateLinkedTokenSource(source1.Token, source2.Token);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         Console.WriteLine(&quot;s1=&#123;0&#125;,s2=&#123;1&#125;,s3=&#123;2&#125;&quot;,source1.IsCancellationRequested,source2.IsCancellationRequested,source3.IsCancellationRequested);</span><br></pre></td></tr></table></figure>
+
+<p>加了source1.Cancel();</p>
+<p><img src="/2019/11/05/Task取消/1572917962280.png" alt></p>
+<p>不加source1.Cancel();</p>
+<p><img src="/2019/11/05/Task取消/1572917999533.png" alt="1572917999533"></p>
+<h3 id="4-ThrowIfCancellationRequested"><a href="#4-ThrowIfCancellationRequested" class="headerlink" title="4.ThrowIfCancellationRequested"></a>4.ThrowIfCancellationRequested</h3><pre><code>        CancellationTokenSource source1 = new CancellationTokenSource();
+source1.Token.Register(()=&gt; {
+               Console.WriteLine(&quot;当前想线程被取消，可以做资源清理！&quot;);
+           });
+       var task = Task.Factory.StartNew(() =&gt;
+       {
+           while (true)
+           {
+               source1.Token.ThrowIfCancellationRequested();
+               Thread.Sleep(100);
+               Console.WriteLine(&quot;当前Thread={0}正在运行&quot;, Thread.CurrentThread.ManagedThreadId);
+           }
+       }, source1.Token);
+       Thread.Sleep(1000);
+       source1.Cancel();
+
+       Thread.Sleep(100);
+       Console.WriteLine(task.Status);</code></pre><p><img src="/2019/11/05/Task取消/1572919032504.png" alt="1572919032504"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/Task的任务延续/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1827,134 +2033,6 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/17/委托的概念/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/17/委托的概念/" itemprop="url">委托的概念</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-17T18:58:40+08:00">
-                2019-10-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-委托的概念"><a href="#1-委托的概念" class="headerlink" title="1.委托的概念"></a>1.委托的概念</h1><p>​       委托是一个<strong>类</strong>，它定义了<strong>方法的类型</strong>，使得可以<strong>将方法当作另一个方法的参数来进行传递</strong>，这种将方法<strong>动态地赋给参数的做法</strong>，可以避免在程序中大量使用If-Else(Switch)语句，同时使得程序具有更好的可扩展性。委托是一个<strong>引用类型</strong>，委托看成是用来执行方法（函数）的一个东西。</p>
-<h1 id="2-委托的声明和定义"><a href="#2-委托的声明和定义" class="headerlink" title="2.委托的声明和定义"></a>2.委托的声明和定义</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public delegate int MyFirstDelegate (string s);</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-委托的方法"><a href="#3-委托的方法" class="headerlink" title="3.委托的方法"></a>3.委托的方法</h1><p>Invoke（同步）</p>
-<p>BeginInvoke(异步)</p>
-<p>EndInvoke(异步回调)</p>
-<p>可以参考学习这个：<a href="https://blog.csdn.net/ydm19891101/article/details/50069491" target="_blank" rel="noopener">委托的invoke、beginInvoke和控件的invoke、beginInvoke的区别</a></p>
-<h1 id="4-代码模块"><a href="#4-代码模块" class="headerlink" title="4.代码模块"></a>4.代码模块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">//代码清单2-1 以各种简单的方式使用委托</span><br><span class="line">delegate void StringProcessor(string input);//声明委托类型</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">    string name;</span><br><span class="line">    public Person(string name) &#123; this.name = name; &#125;</span><br><span class="line">    //声明兼容的实例方法</span><br><span class="line">    public void Say(string message)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;&#123;0&#125;说:&#123;1&#125;&quot;,name,message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class BackGround</span><br><span class="line">&#123;</span><br><span class="line">    //声明兼容的静态方法</span><br><span class="line">    public static void Note(string note)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;（&#123;0&#125;）&quot;,note);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">    static void Main()</span><br><span class="line">    &#123;</span><br><span class="line">        //声明人物实例</span><br><span class="line">        Person jon = new Person(&quot;铁子&quot;);</span><br><span class="line">        Person tom = new Person(&quot;杨树&quot;);</span><br><span class="line">        //声明委托实例，并添加对应的实例方法和静态方法</span><br><span class="line">        StringProcessor jonsVoice, tomsVoice, background;</span><br><span class="line">        jonsVoice = new StringProcessor(jon.Say);</span><br><span class="line">        tomsVoice = new StringProcessor(tom.Say);</span><br><span class="line">        background = new StringProcessor(BackGround.Note);</span><br><span class="line">        //调用委托实例</span><br><span class="line">        jonsVoice(&quot;你瞅啥？&quot;);</span><br><span class="line">        tomsVoice.Invoke(&quot;瞅你咋地？&quot;);</span><br><span class="line">        background(&quot;烧烤摊又开始洋溢着欢快的声音了&quot;);</span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2005,7 +2083,7 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
