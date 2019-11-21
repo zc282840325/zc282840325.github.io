@@ -321,6 +321,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/Task/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/04/Task/" itemprop="url">Task</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T08:13:40+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/04/Task/" class="leancloud_visitors" data-flag-title="Task">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  370
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：Task-在-net-4-0版本使用"><a href="#一：Task-在-net-4-0版本使用" class="headerlink" title="一：Task(在.net 4.0版本使用)"></a>一：Task(在.net 4.0版本使用)</h2><ul>
+<li>Task=&gt;Thread+ThreadPool</li>
+<li>Thread:容易造成时间+空间开销，而且使用不当，容易造成线程过多，导致时间片切换</li>
+<li>ThreadPool:控制能力比较弱，做Thread的延续，阻塞，取消，超时等等功能。控制权在CLR，而不是在我们手上。</li>
+</ul>
+<p>Task是基于ThreadPool的基础上进行的封装，.net4..0之后，微软主推Task做异步启动。</p>
+<h2 id="二：Task的启动方式"><a href="#二：Task的启动方式" class="headerlink" title="二：Task的启动方式"></a>二：Task的启动方式</h2><p>1.实例化启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Task task = new Task(() =&gt;</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">           &#125;);</span><br><span class="line">           task.Start();</span><br></pre></td></tr></table></figure>
+
+<p>2.工程模式(Task.Factory启动)</p>
+<pre><code>var task = Task.Factory.StartNew(() =&gt;
+{
+    Console.WriteLine(&quot;我是工作线程，tid={0}&quot;, Thread.CurrentThread.ManagedThreadId);
+});</code></pre><p>3.使用Task的Run方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var task = Task.Run(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>4.同步（阻塞线程，同步执行）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var task = new Task(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">&#125;);</span><br><span class="line">task.RunSynchronously();</span><br></pre></td></tr></table></figure>
+
+<p>三：Task是建立在ThreadPool</p>
+<p>实例化Task在Windgb下的状态：</p>
+<p><img src="/2019/11/04/Task/1572827768283.png" alt="1572827768283"></p>
+<p>同步（阻塞线程，同步执行）在Windbg下的状态：</p>
+<p><img src="/2019/11/04/Task/1572827872739.png" alt="1572827872739"></p>
+<p>很明显看出：</p>
+<ul>
+<li>Task的底层就是ThreadPool,ThreadPool分配了2个线程，属于CLR所有</li>
+<li>同步就没有其他线程，当线程执行完，才执行主线程</li>
+</ul>
+<p>Task底层都是由不同的TaskScheduler支撑的</p>
+<p>TaskScheduler相当于Task的CPU处理器</p>
+<p>默认的TaskScheduler是ThreadPoolTaskScheduler</p>
+<h2 id="四：Task具有返回值"><a href="#四：Task具有返回值" class="headerlink" title="四：Task具有返回值"></a>四：Task具有返回值</h2><pre><code>var task = new Task&lt;string&gt;(() =&gt;
+{
+    return &quot;Hello Word!&quot;;
+});
+task.Start();
+Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/1572828794968.png" alt="1572828794968"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/Thread定时器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2320,187 +2529,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/13/力扣-数据库3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/13/力扣-数据库3/" itemprop="url">力扣-数据库3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-13T23:02:36+08:00">
-                2019-10-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/力扣-SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">力扣-SQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/10/13/力扣-数据库3/" class="leancloud_visitors" data-flag-title="力扣-数据库3">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  59
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>编写一个 SQL 查询，获取 <code>Employee</code> 表中第二高的薪水（Salary） 。</p>
-<p><img src="/2019/10/13/力扣-数据库3/1570980125556.png" alt></p>
-<p>Mysql写法：</p>
-<!--首先可能结果为空，Limit 1，1表示从第1位取一位，也就是第2位-->
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select IFNULL((select distinct(Salary) as SecondHighestSalary from Employee order by Salary desc limit 1,1),null) AS SecondHighestSalary</span><br></pre></td></tr></table></figure>
-
-<p>SQL写法：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">Max</span>(Salary) <span class="keyword">as</span> SecondHighestSalary <span class="keyword">from</span> Employee <span class="keyword">WHERE</span> Salary&lt;(<span class="keyword">select</span> <span class="keyword">Max</span>(Salary) <span class="keyword">from</span> Employee)</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2551,7 +2579,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
