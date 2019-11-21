@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Thread,">
+  <meta name="keywords" content="数据结构,">
 
 
 
@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="一：async await 调用方法：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行； 异步方法：该方法异步执行工作，然后立刻返回到调用方法； await 表达式：用于异步方法内部，指出需要异步执行的任务。一个异步方法可以包含多个 await 表达式（不存在 await 表达式的话 IDE 会发出警告）。  二、async/await 结构 同步方法：一个程序调用某个方法，等到其执行完">
-<meta name="keywords" content="Thread">
+<meta name="description" content="一：思路分析 初始化两个栈：运算符栈s1和储存中间结果的栈s2  从左至有扫描中缀表达式  遇到操作数时，将其压入s2  遇到运算符时，比较其与s1栈顶运算符的优先级：  如果s1为空，或栈顶运算符为左括号“(”，则直接将次运算符入栈 否则，若优先级比较栈顶运算符的高，也将运算符压入s1 否则，将s1栈顶的运算符弹出并压入到s2中，再次将（4-1）与s1中心耳朵栈顶运算符想比较   遇到括号时：">
+<meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="异步编程awaint">
-<meta property="og:url" content="http://yoursite.com/2019/11/08/异步编程awaint/index.html">
+<meta property="og:title" content="中缀表达式转换后缀表达式">
+<meta property="og:url" content="http://yoursite.com/2019/11/19/中缀表达式转换后缀表达式/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="一：async await 调用方法：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行； 异步方法：该方法异步执行工作，然后立刻返回到调用方法； await 表达式：用于异步方法内部，指出需要异步执行的任务。一个异步方法可以包含多个 await 表达式（不存在 await 表达式的话 IDE 会发出警告）。  二、async/await 结构 同步方法：一个程序调用某个方法，等到其执行完">
+<meta property="og:description" content="一：思路分析 初始化两个栈：运算符栈s1和储存中间结果的栈s2  从左至有扫描中缀表达式  遇到操作数时，将其压入s2  遇到运算符时，比较其与s1栈顶运算符的优先级：  如果s1为空，或栈顶运算符为左括号“(”，则直接将次运算符入栈 否则，若优先级比较栈顶运算符的高，也将运算符压入s1 否则，将s1栈顶的运算符弹出并压入到s2中，再次将（4-1）与s1中心耳朵栈顶运算符想比较   遇到括号时：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/11/08/异步编程awaint/1573227579628.png">
-<meta property="og:updated_time" content="2019-11-08T15:39:52.163Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/19/中缀表达式转换后缀表达式/1574172008981.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/19/中缀表达式转换后缀表达式/1574338060371.png">
+<meta property="og:updated_time" content="2019-11-21T12:10:29.540Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="异步编程awaint">
-<meta name="twitter:description" content="一：async await 调用方法：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行； 异步方法：该方法异步执行工作，然后立刻返回到调用方法； await 表达式：用于异步方法内部，指出需要异步执行的任务。一个异步方法可以包含多个 await 表达式（不存在 await 表达式的话 IDE 会发出警告）。  二、async/await 结构 同步方法：一个程序调用某个方法，等到其执行完">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/08/异步编程awaint/1573227579628.png">
+<meta name="twitter:title" content="中缀表达式转换后缀表达式">
+<meta name="twitter:description" content="一：思路分析 初始化两个栈：运算符栈s1和储存中间结果的栈s2  从左至有扫描中缀表达式  遇到操作数时，将其压入s2  遇到运算符时，比较其与s1栈顶运算符的优先级：  如果s1为空，或栈顶运算符为左括号“(”，则直接将次运算符入栈 否则，若优先级比较栈顶运算符的高，也将运算符压入s1 否则，将s1栈顶的运算符弹出并压入到s2中，再次将（4-1）与s1中心耳朵栈顶运算符想比较   遇到括号时：">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/19/中缀表达式转换后缀表达式/1574172008981.png">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/08/异步编程awaint/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/19/中缀表达式转换后缀表达式/">
 
 
 
 
 
-  <title>异步编程awaint | Blog</title>
+  <title>中缀表达式转换后缀表达式 | Blog</title>
   
 
 
@@ -327,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/异步编程awaint/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/中缀表达式转换后缀表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张聪">
@@ -344,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">异步编程awaint</h1>
+          <h1 class="post-title" itemprop="name headline">中缀表达式转换后缀表达式</h1>
         
 
         <div class="post-meta">
@@ -356,8 +357,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T21:11:28+08:00">
-                2019-11-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T17:55:59+08:00">
+                2019-11-19
               </time>
             
 
@@ -379,8 +380,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -396,7 +397,7 @@
 
           
           
-             <span id="/2019/11/08/异步编程awaint/" class="leancloud_visitors" data-flag-title="异步编程awaint">
+             <span id="/2019/11/19/中缀表达式转换后缀表达式/" class="leancloud_visitors" data-flag-title="中缀表达式转换后缀表达式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -426,7 +427,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  382
+                  691
                 </span>
               
 
@@ -451,26 +452,42 @@
       
 
       
-        <h2 id="一：async-await"><a href="#一：async-await" class="headerlink" title="一：async await"></a>一：async await</h2><ul>
-<li>调用方法：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行；</li>
-<li>异步方法：该方法异步执行工作，然后立刻返回到调用方法；</li>
-<li>await 表达式：用于异步方法内部，指出需要异步执行的任务。一个异步方法可以包含多个 await 表达式（不存在 await 表达式的话 IDE 会发出警告）。</li>
-</ul>
-<h2 id="二、async-await-结构"><a href="#二、async-await-结构" class="headerlink" title="二、async/await 结构"></a>二、async/await 结构</h2><ul>
-<li><p>同步方法：一个程序调用某个方法，等到其执行完成之后才进行下一步操作。这也是默认的形式。</p>
+        <h2 id="一：思路分析"><a href="#一：思路分析" class="headerlink" title="一：思路分析"></a>一：思路分析</h2><ol>
+<li><p>初始化两个栈：运算符栈s1和储存中间结果的栈s2</p>
 </li>
-<li><p>异步方法：一个程序调用某个方法，在处理完成之前就返回该方法。通过 async/await 我们就可以实现这种类型的方法。</p>
+<li><p>从左至有扫描中缀表达式</p>
 </li>
-</ul>
-<h2 id="三：-异步方法"><a href="#三：-异步方法" class="headerlink" title="三： 异步方法"></a>三： 异步方法</h2><ul>
-<li>关键字：方法头使用 async 修饰。</li>
-<li>要求：包含 N（N&gt;0） 个 await 表达式（不存在 await 表达式的话 IDE 会发出警告），表示需要异步执行的任务。</li>
-<li>​     （3）返回类型：只能返回 3 种类型（void、Task 和 Task<t>）。Task 和 Task<t> 标识返回的对象会在将来完成工作，表示调用方法和异步方法可以继续执行。</t></t></li>
-<li>参数：数量不限，但不能使用 out 和 ref 关键字。</li>
-<li>命名约定：方法后缀名应以 Async 结尾。</li>
-<li>其它：匿名方法和 Lambda 表达式也可以作为异步对象；async 是一个上下文关键字；关键字 async 必须在返回类型前。</li>
-</ul>
-<p><img src="/2019/11/08/异步编程awaint/1573227579628.png" alt="1573227579628"></p>
+<li><p>遇到操作数时，将其压入s2</p>
+</li>
+<li><p>遇到运算符时，比较其与s1栈顶运算符的优先级：</p>
+<ol>
+<li>如果s1为空，或栈顶运算符为左括号“(”，则直接将次运算符入栈</li>
+<li>否则，若优先级比较栈顶运算符的高，也将运算符压入s1</li>
+<li>否则，将s1栈顶的运算符弹出并压入到s2中，再次将（4-1）与s1中心耳朵栈顶运算符想比较</li>
+</ol>
+</li>
+<li><p>遇到括号时：</p>
+<ol>
+<li>如果是左括号“(”，则直接压入s1</li>
+<li>如果是右括号“)”,则依次弹出s1栈顶的运算符，并压入s2，直到遇到左括号为止，此时将这一对括号丢弃</li>
+</ol>
+</li>
+<li><p>重复2至5，直到表达式的最右边</p>
+</li>
+<li><p>将s1中剩余的运算符依次弹出并压入s2</p>
+</li>
+<li><p>依次弹出s2中的元素并输出，结果的逆序即为中缀表达式对应的后缀表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">中缀表达式1+((2+3)*4)-5==&gt;后缀表达式123+4*+5-</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p><img src="/2019/11/19/中缀表达式转换后缀表达式/1574172008981.png" alt="1574172008981"></p>
+<h2 id="二：代码实现"><a href="#二：代码实现" class="headerlink" title="二：代码实现"></a>二：代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;string&gt; parseSuffixExpressionList(List&lt;string&gt; ls)</span><br><span class="line">    &#123;</span><br><span class="line">        //定义两个栈</span><br><span class="line">        Stack&lt;string&gt; s1 = new Stack&lt;string&gt;();//符号栈</span><br><span class="line">   //  Stack&lt;string&gt; s2 = new Stack&lt;string&gt;();//数值栈[只有入栈，没有出栈]</span><br><span class="line">        List&lt;string&gt; s2 = new List&lt;string&gt;();</span><br><span class="line">        string str = &quot;&quot;;</span><br><span class="line">        foreach (var item in ls)</span><br><span class="line">        &#123;</span><br><span class="line">            Regex regExp = new Regex(&quot;^\\d+$&quot;);//匹配的是多位数</span><br><span class="line">          </span><br><span class="line">            if (regExp.IsMatch(item))</span><br><span class="line">            &#123;</span><br><span class="line">                //如果是数字</span><br><span class="line">                //入栈</span><br><span class="line">                s2.Add(item);</span><br><span class="line">            &#125;</span><br><span class="line">            else if(item==&quot;(&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                s1.Push(item);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (item==&quot;)&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                while (s1.Peek()!=&quot;(&quot;)</span><br><span class="line">                &#123;</span><br><span class="line">                    s2.Add(s1.Pop());</span><br><span class="line">                &#125;</span><br><span class="line">                s1.Pop();//!!!将（弹出s1栈</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //当item小于等于栈顶运算符，将s1栈顶的运算符弹出并加入s2中，再次转到4.1与s1中心的栈顶运算符想比较</span><br><span class="line">                while (s1.Count != 0 &amp;&amp; Operation.getValue(s1.Peek())&gt;= Operation.getValue(item))</span><br><span class="line">                &#123;</span><br><span class="line">                    s2.Add(s1.Pop());</span><br><span class="line">                &#125;</span><br><span class="line">                //还需要将item压入栈中</span><br><span class="line">                s1.Push(item);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //将s1中剩余的运算符依次弹出并加入s2</span><br><span class="line">        while (s1.Count()!=0)</span><br><span class="line">        &#123;</span><br><span class="line">            s2.Add(s1.Pop());</span><br><span class="line">        &#125;</span><br><span class="line">        return s2;</span><br><span class="line">    &#125;</span><br><span class="line">    class Operation</span><br><span class="line">    &#123;</span><br><span class="line">        private static int ADD = 1;</span><br><span class="line">        private static int SUB = 1;</span><br><span class="line">        private static int MUL = 2;</span><br><span class="line">        private static int DIV = 2;</span><br><span class="line"></span><br><span class="line">        public static int getValue(string operation)</span><br><span class="line">        &#123;</span><br><span class="line">            int result = 0;</span><br><span class="line">            switch (operation)</span><br><span class="line">            &#123;</span><br><span class="line">                case &quot;+&quot;:</span><br><span class="line">                    result = ADD;</span><br><span class="line">                break;</span><br><span class="line">                case &quot;-&quot;:</span><br><span class="line">                    result = SUB;</span><br><span class="line">                    break;</span><br><span class="line">                case &quot;*&quot;:</span><br><span class="line">                    result = MUL;</span><br><span class="line">                    break;</span><br><span class="line">                case &quot;/&quot;:</span><br><span class="line">                    result = DIV;</span><br><span class="line">                    break;</span><br><span class="line">                default:</span><br><span class="line">                    Console.WriteLine(&quot;不存在该运算符！&quot;);</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//测试方法</span><br><span class="line">void Main()</span><br><span class="line">&#123;</span><br><span class="line">        string str = &quot;1+((3+2)*4)-5&quot;;</span><br><span class="line">        List&lt;string&gt; list = poland.toInfixExpressionList(str);</span><br><span class="line">        </span><br><span class="line">        List&lt;string&gt; list2 = poland.parseSuffixExpressionList(list);</span><br><span class="line">        Console.Write(&quot;后缀表达式：&quot;);</span><br><span class="line">        for (int i = 0; i &lt; list2.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(list2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        Console.WriteLine(&quot;结果：&quot;+poland.calculate(list2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/19/中缀表达式转换后缀表达式/1574338060371.png" alt="1574338060371"></p>
+<h2 id="三：地址源码"><a href="#三：地址源码" class="headerlink" title="三：地址源码"></a>三：地址源码</h2><p><a href="https://github.com/zc282840325/DataStructure/tree/master/数据结构-逆波兰时计算器" target="_blank" rel="noopener">GitHub源码</a></p>
 
       
     </div>
@@ -488,7 +505,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Thread/" rel="tag"># Thread</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
         </div>
       
@@ -501,8 +518,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/08/Task多线程模型/" rel="next" title="Task多线程模型">
-                <i class="fa fa-chevron-left"></i> Task多线程模型
+              <a href="/2019/11/19/逆波兰计算器/" rel="next" title="逆波兰计算器">
+                <i class="fa fa-chevron-left"></i> 逆波兰计算器
               </a>
             
           </div>
@@ -510,10 +527,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/09/线程锁/" rel="prev" title="线程锁">
-                线程锁 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -645,7 +658,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：async-await"><span class="nav-number">1.</span> <span class="nav-text">一：async await</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、async-await-结构"><span class="nav-number">2.</span> <span class="nav-text">二、async/await 结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：-异步方法"><span class="nav-number">3.</span> <span class="nav-text">三： 异步方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：思路分析"><span class="nav-number">1.</span> <span class="nav-text">一：思路分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：代码实现"><span class="nav-number">2.</span> <span class="nav-text">二：代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：地址源码"><span class="nav-number">3.</span> <span class="nav-text">三：地址源码</span></a></li></ol></div>
             
 
           </div>
