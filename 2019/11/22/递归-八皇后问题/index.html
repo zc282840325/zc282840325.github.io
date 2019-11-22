@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="一：介绍栈 栈的英文（stack） 栈是一个先入先出（FILO-First In Last Out）的有序列表。 栈（stack）是限制线性表中元素的插入和删除只能在线性表的同一个端机械能一种特殊线性表。允许插入和删除的一端，为变化的一端，称为栈顶（TOP),另一端为固定的一端，称为栈底（Bottom）。 根据栈的定义可知，最先放入栈中元素在栈底，最后放入的元素在栈顶，而删除元素刚好相反，最后放入">
+<meta name="description" content="一：问题介绍 二： 思路分析 三：代码实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566//定义一个max表示有多少皇后     public static int max = 8;      //定">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="栈">
-<meta property="og:url" content="http://yoursite.com/2019/11/18/栈/index.html">
+<meta property="og:title" content="递归-八皇后问题">
+<meta property="og:url" content="http://yoursite.com/2019/11/22/递归-八皇后问题/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="一：介绍栈 栈的英文（stack） 栈是一个先入先出（FILO-First In Last Out）的有序列表。 栈（stack）是限制线性表中元素的插入和删除只能在线性表的同一个端机械能一种特殊线性表。允许插入和删除的一端，为变化的一端，称为栈顶（TOP),另一端为固定的一端，称为栈底（Bottom）。 根据栈的定义可知，最先放入栈中元素在栈底，最后放入的元素在栈顶，而删除元素刚好相反，最后放入">
+<meta property="og:description" content="一：问题介绍 二： 思路分析 三：代码实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566//定义一个max表示有多少皇后     public static int max = 8;      //定">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/11/18/栈/1574047858600.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/18/栈/1574047995815.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/18/栈/1574054079167.png">
-<meta property="og:updated_time" content="2019-11-18T07:17:31.992Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/22/递归-八皇后问题/1574388863742.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/22/递归-八皇后问题/1574389303827.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/22/递归-八皇后问题/1574391370587.png">
+<meta property="og:updated_time" content="2019-11-22T02:58:18.072Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="栈">
-<meta name="twitter:description" content="一：介绍栈 栈的英文（stack） 栈是一个先入先出（FILO-First In Last Out）的有序列表。 栈（stack）是限制线性表中元素的插入和删除只能在线性表的同一个端机械能一种特殊线性表。允许插入和删除的一端，为变化的一端，称为栈顶（TOP),另一端为固定的一端，称为栈底（Bottom）。 根据栈的定义可知，最先放入栈中元素在栈底，最后放入的元素在栈顶，而删除元素刚好相反，最后放入">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/18/栈/1574047858600.png">
+<meta name="twitter:title" content="递归-八皇后问题">
+<meta name="twitter:description" content="一：问题介绍 二： 思路分析 三：代码实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566//定义一个max表示有多少皇后     public static int max = 8;      //定">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/22/递归-八皇后问题/1574388863742.png">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/18/栈/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/22/递归-八皇后问题/">
 
 
 
 
 
-  <title>栈 | Blog</title>
+  <title>递归-八皇后问题 | Blog</title>
   
 
 
@@ -329,7 +329,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/栈/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/22/递归-八皇后问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张聪">
@@ -346,7 +346,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">栈</h1>
+          <h1 class="post-title" itemprop="name headline">递归-八皇后问题</h1>
         
 
         <div class="post-meta">
@@ -358,8 +358,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-18T11:21:30+08:00">
-                2019-11-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-22T10:04:45+08:00">
+                2019-11-22
               </time>
             
 
@@ -398,7 +398,7 @@
 
           
           
-             <span id="/2019/11/18/栈/" class="leancloud_visitors" data-flag-title="栈">
+             <span id="/2019/11/22/递归-八皇后问题/" class="leancloud_visitors" data-flag-title="递归-八皇后问题">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -428,7 +428,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  487
+                  376
                 </span>
               
 
@@ -453,19 +453,12 @@
       
 
       
-        <h2 id="一：介绍栈"><a href="#一：介绍栈" class="headerlink" title="一：介绍栈"></a>一：介绍栈</h2><ol>
-<li>栈的英文（stack）</li>
-<li>栈是一个<strong>先入先出（FILO-First In Last Out）</strong>的有序列表。</li>
-<li>栈（stack）是限制线性表中元素的插入和删除只能在线性表的同一个端机械能一种特殊线性表。允许插入和删除的一端，为变化的一端，称为<strong>栈顶（TOP)</strong>,另一端为固定的一端，称为<strong>栈底（Bottom）</strong>。</li>
-<li>根据栈的定义可知，最先放入栈中元素在栈底，最后放入的元素在栈顶，而删除元素刚好相反，最后放入的元素最先删除，最先放入的元素最后删除。</li>
-</ol>
-<p><img src="/2019/11/18/栈/1574047858600.png" alt="1574047858600"></p>
-<h2 id="二：栈的引用场景"><a href="#二：栈的引用场景" class="headerlink" title="二：栈的引用场景"></a>二：栈的引用场景</h2><p><img src="/2019/11/18/栈/1574047995815.png" alt="1574047995815"></p>
-<h2 id="三-使用数组模拟栈"><a href="#三-使用数组模拟栈" class="headerlink" title="三:使用数组模拟栈"></a>三:使用数组模拟栈</h2><p><img src="/2019/11/18/栈/1574054079167.png" alt="1574054079167"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public class ArrayStack</span><br><span class="line">  &#123;</span><br><span class="line">      private int maxsize;//声明栈的长度</span><br><span class="line">      private int top = -1;//栈顶</span><br><span class="line">      private int[] stack;</span><br><span class="line">      //构造器</span><br><span class="line">      public ArrayStack(int maxsize)</span><br><span class="line">      &#123;</span><br><span class="line">          this.maxsize = maxsize;</span><br><span class="line">          stack = new int[maxsize];</span><br><span class="line">      &#125;</span><br><span class="line">      //栈满</span><br><span class="line">      public bool isFull()</span><br><span class="line">      &#123;</span><br><span class="line">          return top == maxsize - 1;</span><br><span class="line">      &#125;</span><br><span class="line">      //栈空</span><br><span class="line">      public bool isEmpty()</span><br><span class="line">      &#123;</span><br><span class="line">          return top == -1;</span><br><span class="line">      &#125;</span><br><span class="line">      //入栈-push</span><br><span class="line">      public void push(int n)</span><br><span class="line">      &#123;</span><br><span class="line">          if (isFull())</span><br><span class="line">          &#123;</span><br><span class="line">              Console.WriteLine(&quot;栈满，无法添加！&quot;);</span><br><span class="line">              return;</span><br><span class="line">          &#125;</span><br><span class="line">          top++;</span><br><span class="line">          stack[top] = n;</span><br><span class="line">      &#125;</span><br><span class="line">      //出栈-pop</span><br><span class="line">      public int pop()</span><br><span class="line">      &#123;</span><br><span class="line">          if (isEmpty())</span><br><span class="line">          &#123;</span><br><span class="line">              throw new Exception(&quot;栈空，无法出栈！&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">          int value=stack[top];</span><br><span class="line">          top--;</span><br><span class="line">          return value;</span><br><span class="line">      &#125;</span><br><span class="line">      //遍历栈</span><br><span class="line">      public void showlist()</span><br><span class="line">      &#123;</span><br><span class="line">          if (isEmpty())</span><br><span class="line">          &#123;</span><br><span class="line">              throw new Exception(&quot;栈空，无法出栈！&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">          for (int i = top; i &gt;= 0; i--)</span><br><span class="line">          &#123;</span><br><span class="line">              Console.WriteLine(pop());</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="一：问题介绍"><a href="#一：问题介绍" class="headerlink" title="一：问题介绍"></a>一：问题介绍</h2><p><img src="/2019/11/22/递归-八皇后问题/1574388863742.png" alt="1574389244278"></p>
+<h2 id="二：-思路分析"><a href="#二：-思路分析" class="headerlink" title="二： 思路分析"></a>二： 思路分析</h2><p><img src="/2019/11/22/递归-八皇后问题/1574389303827.png" alt="1574389351792"></p>
+<h2 id="三：代码实现"><a href="#三：代码实现" class="headerlink" title="三：代码实现"></a>三：代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">//定义一个max表示有多少皇后</span><br><span class="line">     public static int max = 8;</span><br><span class="line">      //定义数组array,保存皇后的位置的结果</span><br><span class="line">      public static int[] array = new int[max];</span><br><span class="line">      public static int count = 0;</span><br><span class="line"></span><br><span class="line">      //编写一个方法，放置第n个皇后</span><br><span class="line">      public void check(int n)</span><br><span class="line">      &#123;</span><br><span class="line">          //判断是否放完了8个皇后</span><br><span class="line">          if (n==max)</span><br><span class="line">          &#123;</span><br><span class="line">              print();</span><br><span class="line">          &#125;</span><br><span class="line">          else</span><br><span class="line">          &#123;</span><br><span class="line">              //依次放入皇后，并判断是否冲突</span><br><span class="line">              for (int i = 0; i &lt; max; i++)</span><br><span class="line">              &#123;</span><br><span class="line">                  //先吧当前 这个皇后n,放到该行的第1列</span><br><span class="line">                  array[n] = i;</span><br><span class="line">                  if (judge(n))//不冲突</span><br><span class="line">                  &#123;</span><br><span class="line">                      check(n+1);</span><br><span class="line">                  &#125;</span><br><span class="line">                  else</span><br><span class="line">                  &#123;</span><br><span class="line">                      //如果冲突，就继续执行array[n]=i;</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      //查看当我们放置第n个皇后，就去检查该皇后是否和前面已经摆放的皇后冲突</span><br><span class="line">      public bool judge(int n)</span><br><span class="line">      &#123;</span><br><span class="line">          for (int i = 0; i &lt; n; i++)</span><br><span class="line">          &#123;</span><br><span class="line">              //判断是否在同一列、同一斜线</span><br><span class="line">              //1.array[i]==array[n]判断是否在同一列</span><br><span class="line">              //2.Math.Abs(n-i)==Math.Abs(array[n]-array[i])判断第n个皇后是否和第i个皇后在同一斜线</span><br><span class="line">              if (array[i]==array[n]||Math.Abs(n-i)==Math.Abs(array[n]-array[i]))</span><br><span class="line">              &#123;</span><br><span class="line">                  return false;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          return true;</span><br><span class="line">      &#125;</span><br><span class="line">      //写个方法，将皇后的位置输出</span><br><span class="line">      public void print()</span><br><span class="line">      &#123;</span><br><span class="line">          for (int i = 0; i &lt; array.Length; i++)</span><br><span class="line">          &#123;</span><br><span class="line">              Console.Write(array[i]);</span><br><span class="line">          &#125;</span><br><span class="line">          Console.WriteLine(&quot;&quot;);</span><br><span class="line">          count++;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">          Queue8 queue = new Queue8();</span><br><span class="line">          queue.check(0);</span><br><span class="line">          Console.WriteLine(&quot;一共有&#123;0&#125;解法&quot;, Queue8.count);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="四：使用链表模拟栈"><a href="#四：使用链表模拟栈" class="headerlink" title="四：使用链表模拟栈"></a>四：使用链表模拟栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedStack</span><br><span class="line">   &#123;</span><br><span class="line">       public Node head = new Node(-1);//虚拟头结点</span><br><span class="line">       //链空</span><br><span class="line">       public bool isEmpty()</span><br><span class="line">       &#123;</span><br><span class="line">           return head.next == null;</span><br><span class="line">       &#125;</span><br><span class="line">       //入栈</span><br><span class="line">       public void push(int n)</span><br><span class="line">       &#123;</span><br><span class="line">           Node temp = new Node(n);</span><br><span class="line">           Node temp2 = head;</span><br><span class="line">               while (temp2.next != null)</span><br><span class="line">               &#123;</span><br><span class="line">                   temp2 = temp2.next;</span><br><span class="line">               &#125;</span><br><span class="line">               temp2.next = temp;</span><br><span class="line">        </span><br><span class="line">       &#125;</span><br><span class="line">       //出栈</span><br><span class="line">       public int pop()</span><br><span class="line">       &#123;</span><br><span class="line">           Node temp =head;</span><br><span class="line">           int value = 0;</span><br><span class="line">           if (temp.next == null)</span><br><span class="line">           &#123;</span><br><span class="line">               temp.next = null;</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               value = temp.next.no;</span><br><span class="line">               temp.next = temp.next.next;</span><br><span class="line">           &#125;</span><br><span class="line">           return value;</span><br><span class="line">       &#125;</span><br><span class="line">       //展示列表</span><br><span class="line">       public void showlist()</span><br><span class="line">       &#123;</span><br><span class="line">           Node temp = head;</span><br><span class="line">           if (isEmpty())</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;栈空！&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           while (temp.next!=null)</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(pop());</span><br><span class="line">               temp = temp.next;</span><br><span class="line">           &#125;</span><br><span class="line">           Console.WriteLine(temp.no);</span><br><span class="line">       &#125; </span><br><span class="line">   &#125;</span><br><span class="line">   public class Node</span><br><span class="line">   &#123;</span><br><span class="line">       public int no;</span><br><span class="line">       public Node next;</span><br><span class="line">       public Node(int no)</span><br><span class="line">       &#123;</span><br><span class="line">           this.no = no;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="/2019/11/22/递归-八皇后问题/1574391370587.png" alt="1574391370587"></p>
+<h2 id="四：源码地址"><a href="#四：源码地址" class="headerlink" title="四：源码地址"></a>四：源码地址</h2><p><a href="https://github.com/zc282840325/DataStructure/tree/master/数据结构-递归" target="_blank" rel="noopener">Github八皇后问题解法–回溯</a></p>
 
       
     </div>
@@ -496,8 +489,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/17/单向环形链表/" rel="next" title="单向环形链表">
-                <i class="fa fa-chevron-left"></i> 单向环形链表
+              <a href="/2019/11/21/数据结构-递归/" rel="next" title="数据结构-递归">
+                <i class="fa fa-chevron-left"></i> 数据结构-递归
               </a>
             
           </div>
@@ -505,10 +498,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/18/栈解决表达式运算/" rel="prev" title="栈解决表达式运算">
-                栈解决表达式运算 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -640,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：介绍栈"><span class="nav-number">1.</span> <span class="nav-text">一：介绍栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：栈的引用场景"><span class="nav-number">2.</span> <span class="nav-text">二：栈的引用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-使用数组模拟栈"><span class="nav-number">3.</span> <span class="nav-text">三:使用数组模拟栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四：使用链表模拟栈"><span class="nav-number">4.</span> <span class="nav-text">四：使用链表模拟栈</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：问题介绍"><span class="nav-number">1.</span> <span class="nav-text">一：问题介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：-思路分析"><span class="nav-number">2.</span> <span class="nav-text">二： 思路分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：代码实现"><span class="nav-number">3.</span> <span class="nav-text">三：代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四：源码地址"><span class="nav-number">4.</span> <span class="nav-text">四：源码地址</span></a></li></ol></div>
             
 
           </div>
