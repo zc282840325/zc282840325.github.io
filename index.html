@@ -321,6 +321,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/22/冒泡排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/22/冒泡排序/" itemprop="url">冒泡排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-22T14:32:52+08:00">
+                2019-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/22/冒泡排序/" class="leancloud_visitors" data-flag-title="冒泡排序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  617
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：冒泡的基本介绍"><a href="#一：冒泡的基本介绍" class="headerlink" title="一：冒泡的基本介绍"></a>一：冒泡的基本介绍</h2><p><img src="/2019/11/22/冒泡排序/1574404458830.png" alt="1574404458830"></p>
+<p><img src="/2019/11/22/冒泡排序/1574404494676.png" alt="1574404494676"></p>
+<h2 id="二：实际应用"><a href="#二：实际应用" class="headerlink" title="二：实际应用"></a>二：实际应用</h2><p><img src="/2019/11/22/冒泡排序/1574404976105.png" alt="1574404976105"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            int[] arr = &#123;3,9,-1,10,20 &#125;;</span><br><span class="line">            for (int i = 0; i &lt; arr.Length - 1; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                for (int j = 0; j &lt; arr.Length - 1 - i; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (arr[i] &lt; arr[j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        int temp = arr[i];</span><br><span class="line">                        arr[i] = arr[j];</span><br><span class="line">                        arr[j] = temp;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                Console.Write(&quot;第&quot; + (i + 1) + &quot;趟排序后的数组：&quot;);</span><br><span class="line">                print(arr);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;最后的结果:&quot;);</span><br><span class="line">            print(arr);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static void print(int[] arr)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int i = 0; i &lt; arr.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(arr[i] + &quot;\t&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine(&quot;&quot;);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/22/冒泡排序/1574404988340.png" alt="1574405291917"></p>
+<h2 id="三：优化冒泡排序"><a href="#三：优化冒泡排序" class="headerlink" title="三：优化冒泡排序"></a>三：优化冒泡排序</h2><p>引入一个开关，如果此次遍历没有交换值，说明顺序是正确，后面没必要重新多次遍历。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">     static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        int[] arr = &#123;3,9,-1,10,20 &#125;;</span><br><span class="line">        bool flag = false;//标识变量，表示是否进行交换</span><br><span class="line">   for (int i = 0; i &lt; arr.Length - 1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        for (int j = 0; j &lt; arr.Length - 1 - i; j++)</span><br><span class="line">        &#123;</span><br><span class="line">                if (arr[j] &gt; arr[j+1])</span><br><span class="line">                &#123;</span><br><span class="line">                    flag = true;</span><br><span class="line">                    int temp = arr[j];</span><br><span class="line">                    arr[j] = arr[j+1];</span><br><span class="line">                    arr[j+1] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Console.Write(&quot;第&quot; + (i + 1) + &quot;趟排序后的数组：&quot;);</span><br><span class="line">        print(arr);</span><br><span class="line"></span><br><span class="line">        if (flag)//在一趟排序中，依次交换都没有发生过</span><br><span class="line">        &#123;</span><br><span class="line">            flag = false;//重置flag，进行下次判断</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(&quot;最后的结果:&quot;);</span><br><span class="line">    print(arr);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void print(int[] arr)</span><br><span class="line">&#123;</span><br><span class="line">    for (int i = 0; i &lt; arr.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.Write(arr[i] + &quot;\t&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(&quot;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/22/冒泡排序/1574406293361.png" alt="1574406293361"></p>
+<p>想比较上面的写法，减少了一次遍历。</p>
+<h2 id="四：比较排序的效率"><a href="#四：比较排序的效率" class="headerlink" title="四：比较排序的效率"></a>四：比较排序的效率</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">         int len = 10;//修改数据量</span><br><span class="line">         int[] arrs = new int[len];</span><br><span class="line">         for (int i = 0; i &lt; len; i++)</span><br><span class="line">         &#123;</span><br><span class="line">             Random random = new Random();</span><br><span class="line">             int a = (int)random.Next(0, len);</span><br><span class="line">             arrs[i] = a;</span><br><span class="line">             Thread.Sleep(1);</span><br><span class="line">         &#125;</span><br><span class="line">         Console.WriteLine(&quot;排序前的时间是&quot;+DateTime.Now.ToString(&quot;HH:mm:ss fff&quot;));</span><br><span class="line">         bubbleSort(arrs);</span><br><span class="line">         Console.WriteLine(&quot;排序后的时间是&quot; + DateTime.Now.ToString(&quot;HH:mm:ss fff&quot;));</span><br><span class="line">         </span><br><span class="line">         </span><br><span class="line">public static void bubbleSort(int[] arr)</span><br><span class="line">       &#123;</span><br><span class="line">         bool flag = false;//标识变量，表示是否进行交换</span><br><span class="line">         for (int i = 0; i &lt; arr.Length - 1; i++)</span><br><span class="line">         &#123;</span><br><span class="line">             for (int j = 0; j &lt; arr.Length - 1 - i; j++)</span><br><span class="line">             &#123;</span><br><span class="line">                 if (arr[j] &gt; arr[j + 1])</span><br><span class="line">                 &#123;</span><br><span class="line">                     flag = true;</span><br><span class="line">                     int temp = arr[j];</span><br><span class="line">                     arr[j] = arr[j + 1];</span><br><span class="line">                     arr[j + 1] = temp;</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">           //  Console.Write(&quot;第&quot; + (i + 1) + &quot;趟排序后的数组：&quot;);</span><br><span class="line">           //  print(arr);</span><br><span class="line"></span><br><span class="line">             if (flag)//在一趟排序中，依次交换都没有发生过</span><br><span class="line">             &#123;</span><br><span class="line">                 flag = false;//重置flag，进行下次判断</span><br><span class="line">             &#125;</span><br><span class="line">             else</span><br><span class="line">             &#123;</span><br><span class="line">                 break;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+<p>10个数据冒泡排序比骄1000个数据：</p>
+<p><img src="/2019/11/22/冒泡排序/1574408097405.png" alt="1574408097405"></p>
+<p><img src="/2019/11/22/冒泡排序/1574408162091.png" alt="1574408162091"></p>
+<p>当数据量越大，所需要的时间越长！</p>
+<h2 id="五：源码地址"><a href="#五：源码地址" class="headerlink" title="五：源码地址"></a>五：源码地址</h2><p><a href="https://github.com/zc282840325/DataStructure/tree/master/数据结构-冒泡" target="_blank" rel="noopener">Github冒泡源码</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/22/排序算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2009,185 +2198,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/15/双向链表/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/15/双向链表/" itemprop="url">双向链表</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-15T23:31:36+08:00">
-                2019-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/15/双向链表/" class="leancloud_visitors" data-flag-title="双向链表">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  870
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：为什么要使用双向链表？"><a href="#一：为什么要使用双向链表？" class="headerlink" title="一：为什么要使用双向链表？"></a>一：为什么要使用双向链表？</h2><ol>
-<li>单向链表，查找的方向<strong>只能是一个方向</strong>，二双向链表可以向前或向后查询。</li>
-<li>单向链表<strong>不能自我删除</strong>，需要靠辅助节点，而双向链表，则可以自我删除，所以我们单链表删除节点时，总是找到temp,temp是待删除节点的前一个节点。</li>
-</ol>
-<h2 id="二：分析双向链表的增、删、改、查、遍历的功能！"><a href="#二：分析双向链表的增、删、改、查、遍历的功能！" class="headerlink" title="二：分析双向链表的增、删、改、查、遍历的功能！"></a>二：分析双向链表的增、删、改、查、遍历的功能！</h2><p><img src="/2019/11/15/双向链表/1573980862995.png" alt="1573980862995"></p>
-<h2 id="三：代码实现"><a href="#三：代码实现" class="headerlink" title="三：代码实现"></a>三：代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace demo4</span><br><span class="line">&#123;</span><br><span class="line">   public class DoubleLinkedList</span><br><span class="line">    &#123;</span><br><span class="line">        //初始化一个头结点，头结点不要动，不存放具体的数据</span><br><span class="line">        private HeroNode head = new HeroNode(0, &quot;&quot;, &quot;&quot;);</span><br><span class="line"></span><br><span class="line">        //返回头结点</span><br><span class="line">        public HeroNode gethead()</span><br><span class="line">        &#123;</span><br><span class="line">            return head;</span><br><span class="line">        &#125;</span><br><span class="line">        //显示链表</span><br><span class="line">        public void showLink()</span><br><span class="line">        &#123;</span><br><span class="line">            if (head.next == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;链表为空！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            //因为头结点不能懂，我们需要一个辅助变量来遍历</span><br><span class="line">            HeroNode temp = head.next;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                //找到链表的最后</span><br><span class="line">                if (temp.next == null)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(temp);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                Console.WriteLine(temp);</span><br><span class="line">                //将temp后移</span><br><span class="line">                temp = temp.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //添加节点到单向链表</span><br><span class="line">        public void add(HeroNode heroNode)</span><br><span class="line">        &#123;</span><br><span class="line">            //因为head节点不能动，因此我们需要一个辅助遍历temp</span><br><span class="line">            HeroNode temp = head;</span><br><span class="line">            //遍历链表，找到最后</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                //找到链表的最后</span><br><span class="line">                if (temp.next == null)</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                //如果没有找到最后</span><br><span class="line">                temp = temp.next;</span><br><span class="line">            &#125;</span><br><span class="line">            //当退出while循环时，temp就指向了链表的最后</span><br><span class="line">            temp.next = heroNode;</span><br><span class="line">            heroNode.pre = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        //按照编号添加</span><br><span class="line">        public void addByOrder(HeroNode heroNode)</span><br><span class="line">        &#123;</span><br><span class="line">            HeroNode temp = head;</span><br><span class="line">            bool flag = false;//标志添加的编号是否存在，默认为false</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                if (temp.next == null)//说明temp已经在链表的最后</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                if (temp.next.no &gt; heroNode.no)//位置找到，就在temp后面插入</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">                else if (temp.next.no == heroNode.no)</span><br><span class="line">                &#123;</span><br><span class="line">                    flag = true;//说明编号存在</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                temp = temp.next;</span><br><span class="line">            &#125;</span><br><span class="line">            //判断flag的值，如果flag==true,说明编号存在</span><br><span class="line">            if (flag)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;准备插入的英雄的编号&#123;0&#125;已经存在了，不能加入\n&quot;, heroNode.no);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //插入到temp后面</span><br><span class="line">                temp.next.pre = heroNode;</span><br><span class="line">                heroNode.next = temp.next;</span><br><span class="line"></span><br><span class="line">                temp.next = heroNode;</span><br><span class="line">                heroNode.pre = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //修改结点的信息，根据编号no来修改，即no编号不能改</span><br><span class="line">        public void update(HeroNode newheroNode)</span><br><span class="line">        &#123;</span><br><span class="line">            if (head.next == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;链表为空！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                HeroNode temp = head;</span><br><span class="line">                bool flag = false;//是否找到该结点</span><br><span class="line">                while (true)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (temp == null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (temp.no == newheroNode.no)</span><br><span class="line">                    &#123;</span><br><span class="line">                        //找到</span><br><span class="line">                        flag = true;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    temp = temp.next;</span><br><span class="line">                &#125;</span><br><span class="line">                if (flag)</span><br><span class="line">                &#123;</span><br><span class="line">                    temp.name = newheroNode.name;</span><br><span class="line">                    temp.nickname = newheroNode.nickname;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;没有找到编号&#123;0&#125;的结点，不能修改\n&quot;, newheroNode.no);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //删除结点</span><br><span class="line">        public void delete(int n)</span><br><span class="line">        &#123;</span><br><span class="line">            if (head.next == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;链表为空！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                HeroNode temp = head;</span><br><span class="line">                bool flag = false;//是否找到该结点</span><br><span class="line">                while (true)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (temp == null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (temp.no == n)</span><br><span class="line">                    &#123;</span><br><span class="line">                        //找到</span><br><span class="line">                        flag = true;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    temp = temp.next;</span><br><span class="line">                &#125;</span><br><span class="line">                if (flag)</span><br><span class="line">                &#123;</span><br><span class="line">                    temp.pre.next = temp.next;</span><br><span class="line">                    if (temp.next!=null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        temp.next.pre = temp.pre;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;没有找到编号&#123;0&#125;的结点，不能修改\n&quot;, n);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class HeroNode</span><br><span class="line">    &#123;</span><br><span class="line">        public int no;</span><br><span class="line">        public string name;</span><br><span class="line">        public string nickname;</span><br><span class="line">        public HeroNode next;//指向下一个节点</span><br><span class="line">        public HeroNode pre;//指向下一个节点</span><br><span class="line">        //构造器</span><br><span class="line">        public HeroNode(int no, string name, string nickname)</span><br><span class="line">        &#123;</span><br><span class="line">            this.no = no;</span><br><span class="line">            this.name = name;</span><br><span class="line">            this.nickname = nickname;</span><br><span class="line">        &#125;</span><br><span class="line">        //为了现实方法，我们重新toString</span><br><span class="line">        public override string ToString()</span><br><span class="line">        &#123;</span><br><span class="line">            return &quot;HeroNode[no=&quot; + no + &quot;,name=&quot; + name + &quot;,nickname=&quot; + nickname + &quot;]&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="四：代码地址"><a href="#四：代码地址" class="headerlink" title="四：代码地址"></a>四：代码地址</h2><p><a href="https://github.com/zc282840325/DataStructure/tree/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/demo4" target="_blank" rel="noopener">GitHub源码地址</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2238,7 +2248,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
