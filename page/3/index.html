@@ -321,6 +321,239 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/稀疏数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/12/稀疏数组/" itemprop="url">数据结构-稀疏数组</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T10:58:37+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/12/稀疏数组/" class="leancloud_visitors" data-flag-title="数据结构-稀疏数组">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  603
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：稀疏数组基本介绍"><a href="#一：稀疏数组基本介绍" class="headerlink" title="一：稀疏数组基本介绍"></a>一：稀疏数组基本介绍</h2><p>答：当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保护该数组</p>
+<h2 id="二：稀疏数组的工作原理："><a href="#二：稀疏数组的工作原理：" class="headerlink" title="二：稀疏数组的工作原理："></a>二：稀疏数组的工作原理：</h2><p><img src="/2019/11/12/稀疏数组/1573527796664.png" alt="1573527796664"></p>
+<ol>
+<li>记录数组一共有<strong>几行几列</strong>，有多少个不同的值</li>
+<li>把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模</li>
+</ol>
+<h2 id="三：应用实例"><a href="#三：应用实例" class="headerlink" title="三：应用实例"></a>三：应用实例</h2><p>五子棋游戏：</p>
+<p><img src="/2019/11/12/稀疏数组/1573527984103.png" alt="1573527984103"></p>
+<p>二维数组转换为稀疏数组：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Row</th>
+<th>Clo</th>
+<th>Val</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>11</td>
+<td>11</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<ul>
+<li>11行11列，有效数据有2个</li>
+<li>1行2列，数值为1</li>
+<li>2行3列，数值为2</li>
+</ul>
+<p><strong>二维数组转换为稀疏数组的思路：</strong></p>
+<ol>
+<li>遍历原始的二维数组，得到有效数据的个数sum</li>
+<li>根据sum就可以创建稀疏数组sparseArr <strong>int{sum+1}{3}</strong></li>
+<li>将二维数组的有效数据存入到稀疏数组中</li>
+</ol>
+<p><strong>稀疏数组转换为二维数组的思路：</strong></p>
+<ol>
+<li>先读取稀疏数组第一行，根据第一行的数据，创建原始的二维数组</li>
+<li>在读取稀疏书中后几行数据，并赋值原始的二维数组</li>
+</ol>
+<h2 id="四：代码实现"><a href="#四：代码实现" class="headerlink" title="四：代码实现"></a>四：代码实现</h2><p> //先创建一个原始的二维数据11*11,<br>            //0:表示没有棋子，1表示黑子，2表示白子<br>            int[,] chese = new int[11, 11];<br>            chese[1, 2] = 1;<br>            chese[2, 4] = 2;<br>            chese[7, 8] = 2;<br>            chese[4, 9] = 1;</p>
+<p>  Console.WriteLine(“原始的二维数组：”);<br>            for (int i = 0; i &lt; Math.Sqrt(chese.Length); i++)<br>            {<br>                for (int j = 0; j &lt; Math.Sqrt(chese.Length); j++)<br>                {<br>                    Console.Write(“\t” + chese[i, j]);<br>                }<br>                Console.WriteLine(“”);<br>            }</p>
+<p>//第一步获取有效值的数据</p>
+<p>   int sum = 0;<br>            for (int i = 0; i &lt; Math.Sqrt(chese.Length); i++)<br>            {<br>                for (int j = 0; j &lt; Math.Sqrt(chese.Length); j++)<br>                {<br>                    if (chese[i, j] != 0)<br>                    {<br>                        sum++;<br>                    }<br>                }<br>            }</p>
+<p>//第二步创建稀疏数组并赋值</p>
+<p> //创建稀疏数组<br>            int[,] res = new int[sum + 1, 3];<br>            //给稀疏数组赋值<br>            res[0, 0] = 11;<br>            res[0, 1] = 11;<br>            res[0, 2] = sum;<br>            //遍历二维数组，将非零的值存入稀疏数组<br>            int count = 0;<br>            for (int i = 0; i &lt; Math.Sqrt(chese.Length); i++)<br>            {<br>                for (int j = 0; j &lt; Math.Sqrt(chese.Length); j++)<br>                {<br>                    if (chese[i, j] != 0)<br>                    {<br>                        count++;<br>                        res[count, 0] = i;<br>                        res[count, 1] = j;<br>                        res[count, 2] = chese[i, j];<br>                    }<br>                }<br>            }</p>
+<p>   //打印稀疏数组的值</p>
+<p>Console.WriteLine(“稀疏数组:”);<br>            for (int i = 0; i &lt; res.Length / 3; i++)<br>            {<br>                for (int j = 0; j &lt; 3; j++)<br>                {<br>                    Console.Write(“\t” + res[i, j]);<br>                }<br>                Console.WriteLine(“”);<br>            }</p>
+<p>[]: <a href="https://github.com/zc282840325/DataStructure/tree/master/数据结构-稀疏数组" target="_blank" rel="noopener">https://github.com/zc282840325/DataStructure/tree/master/数据结构-稀疏数组</a>    “Github”</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/数据结构-第一章/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2240,218 +2473,6 @@ Interlocked.CompareExchange(ref sum, 6, 5);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/Task多线程模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/08/Task多线程模型/" itemprop="url">Task多线程模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T20:07:05+08:00">
-                2019-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/08/Task多线程模型/" class="leancloud_visitors" data-flag-title="Task多线程模型">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  242
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：同步编程模型-SPM"><a href="#一：同步编程模型-SPM" class="headerlink" title="一：同步编程模型(SPM)"></a>一：同步编程模型(SPM)</h2><p>单线线程、串行开发模式。</p>
-<h2 id="二：异步编程模型（APM）"><a href="#二：异步编程模型（APM）" class="headerlink" title="二：异步编程模型（APM）"></a>二：异步编程模型（APM）</h2><p>xxxbegin、xxxend的模式。</p>
-<pre><code>   FileStream file = new FileStream(Environment.CurrentDirectory+&quot;//1.txt&quot;,FileMode.Open);
-var bytes= new byte[file.Length];
-
-   file.BeginRead(bytes,0,bytes.Length,(ary)=&gt; {
-       var nums = file.EndRead(ary);
-       Console.WriteLine(nums);
-   },string.Empty);
-
-   Console.Read();</code></pre><h2 id="三：基于事件的编程模型（EAP）"><a href="#三：基于事件的编程模型（EAP）" class="headerlink" title="三：基于事件的编程模型（EAP）"></a>三：基于事件的编程模型（EAP）</h2><p>xxAsync这样的事件模式。 eg：WebClient。</p>
-<h2 id="四：基于Task的编程模型（TAP）"><a href="#四：基于Task的编程模型（TAP）" class="headerlink" title="四：基于Task的编程模型（TAP）"></a>四：基于Task的编程模型（TAP）</h2><p> APM和EAP都可以使用Task来实现，微软的初衷就是想通过Task大一统异步编程领域</p>
-<p>使用Task封装APM模式：</p>
-<p>代码量小</p>
-<p>Task更简单</p>
-<pre><code>FileStream file = new FileStream(Environment.CurrentDirectory+&quot;//1.txt&quot;,FileMode.Open);
-
-       var bytes= new byte[file.Length];
-        var task = Task.Factory.FromAsync(file.BeginRead, file.EndRead, bytes, 0, bytes.Length, string.Empty);
-
-        var nums = task.Result;
-        Console.WriteLine(nums);</code></pre><p>使用Task包装EAP</p>
-<p>TaskCompletionSource：包装器</p>
-<pre><code>  private static Task&lt;int&gt; GetTask(string url)
-     {
-         TaskCompletionSource&lt;int&gt; source = new TaskCompletionSource&lt;int&gt;();
-WebClient client = new WebClient();
-     client.DownloadDataCompleted += (sendr, e) =&gt;
-     {
-         try
-         {
-             source.TrySetResult(e.Result.Length);
-         }
-         catch (Exception ex)
-         {
-             source.TrySetException(ex);
-         }
-
-     };
-     client.DownloadDataAsync(new Uri(url));
-     return source.Task;
- }</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2502,7 +2523,7 @@ WebClient client = new WebClient();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
