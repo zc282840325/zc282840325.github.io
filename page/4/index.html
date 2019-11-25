@@ -321,6 +321,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/Task核心调度器-TaskScheduler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/08/Task核心调度器-TaskScheduler/" itemprop="url">Task核心调度器[TaskScheduler]</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T19:07:10+08:00">
+                2019-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/08/Task核心调度器-TaskScheduler/" class="leancloud_visitors" data-flag-title="Task核心调度器[TaskScheduler]">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  322
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：TaskScheduler"><a href="#一：TaskScheduler" class="headerlink" title="一：TaskScheduler"></a>一：TaskScheduler</h2><p>问：TaskScheduler是做什么的？</p>
+<p>答：我们发现任务执行要经过Scheduler。Task的核心就是这个Scheduler，因为他把要执行任务安排在线程或者线程池中。TaskScheduler由Thread和ThreadPool组成。</p>
+<p><img src="/2019/11/08/Task核心调度器-TaskScheduler/D:%5Chexo%5Csource_posts%5CTask%E6%A0%B8%E5%BF%83%E8%B0%83%E5%BA%A6%E5%99%A8-TaskScheduler%5C1573211558433.png" alt="1573211558433"></p>
+<h2 id="二：在-net-FrameWork中有两种TaskScheduler"><a href="#二：在-net-FrameWork中有两种TaskScheduler" class="headerlink" title="二：在.net FrameWork中有两种TaskScheduler"></a>二：在.net FrameWork中有两种TaskScheduler</h2><h3 id="1-ThreadPoolTaskScheduler"><a href="#1-ThreadPoolTaskScheduler" class="headerlink" title="1.ThreadPoolTaskScheduler"></a>1.ThreadPoolTaskScheduler</h3><p>也就是Task的默认是调用ThreadPool</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">protected internal override void QueueTask(Task task)</span><br><span class="line">		&#123;</span><br><span class="line">			if ((task.Options &amp; TaskCreationOptions.LongRunning) != TaskCreationOptions.None)</span><br><span class="line">			&#123;</span><br><span class="line">				new Thread(ThreadPoolTaskScheduler.s_longRunningThreadWork)</span><br><span class="line">				&#123;</span><br><span class="line">					IsBackground = true</span><br><span class="line">				&#125;.Start(task);</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			bool forceGlobal = (task.Options &amp; TaskCreationOptions.PreferFairness) &gt; TaskCreationOptions.None;</span><br><span class="line">			ThreadPool.UnsafeQueueCustomWorkItem(task, forceGlobal);</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-SynchronizationContextTaskScheduler"><a href="#2-SynchronizationContextTaskScheduler" class="headerlink" title="2.SynchronizationContextTaskScheduler"></a>2.SynchronizationContextTaskScheduler</h3><h4 id="1-同步上下文"><a href="#1-同步上下文" class="headerlink" title="1.同步上下文"></a>1.同步上下文</h4><pre><code>Task task = new Task(() =&gt;
+{
+    try
+    {
+        label1.Text = &quot;das&quot;;
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);
+    }
+});
+task.Start(TaskScheduler.FromCurrentSynchronizationContext());</code></pre><h4 id="2-操作耗时线程"><a href="#2-操作耗时线程" class="headerlink" title="2.操作耗时线程"></a>2.操作耗时线程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var task = Task.Factory.StartNew(() =&gt;</span><br><span class="line">           &#123;</span><br><span class="line">               Thread.Sleep(10000);</span><br><span class="line">           &#125;);</span><br><span class="line">           task.ContinueWith(t =&gt;</span><br><span class="line">           &#123;</span><br><span class="line">               label1.Text = &quot;你好!&quot;;</span><br><span class="line">           &#125;, TaskScheduler.FromCurrentSynchronizationContext());</span><br></pre></td></tr></table></figure>
+
+<p>ContinueWith等待执行完耗时线程，在同步上下文</p>
+<h2 id="三：如何自定义Scheduler？"><a href="#三：如何自定义Scheduler？" class="headerlink" title="三：如何自定义Scheduler？"></a>三：如何自定义Scheduler？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class PerThreadTaskScheduler : TaskScheduler</span><br><span class="line">   &#123;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 给debug</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">       protected override IEnumerable&lt;Task&gt; GetScheduledTasks()</span><br><span class="line">       &#123;</span><br><span class="line">           return Enumerable.Empty&lt;Task&gt;();</span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 执行Task</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;task&quot;&gt;&lt;/param&gt;</span><br><span class="line">       protected override void QueueTask(Task task)</span><br><span class="line">       &#123;</span><br><span class="line">           var thread = new Thread(()=&gt; &#123;</span><br><span class="line">               TryExecuteTask(task);</span><br><span class="line">           &#125;);</span><br><span class="line">           thread.Start();</span><br><span class="line">       &#125;</span><br><span class="line">       /// &lt;summary&gt;</span><br><span class="line">       /// 同步执行</span><br><span class="line">       /// &lt;/summary&gt;</span><br><span class="line">       /// &lt;param name=&quot;task&quot;&gt;&lt;/param&gt;</span><br><span class="line">       /// &lt;param name=&quot;taskWasPreviouslyQueued&quot;&gt;&lt;/param&gt;</span><br><span class="line">       /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">       protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)</span><br><span class="line">       &#123;</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/Task中的Plinq/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2312,206 +2505,6 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/ThreadPool/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/03/ThreadPool/" itemprop="url">ThreadPool</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T10:22:26+08:00">
-                2019-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/03/ThreadPool/" class="leancloud_visitors" data-flag-title="ThreadPool">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  461
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：Thread是CLR表示线程的数据结构"><a href="#一：Thread是CLR表示线程的数据结构" class="headerlink" title="一：Thread是CLR表示线程的数据结构"></a><strong>一：Thread是CLR表示线程的数据结构</strong></h2><h2 id="二：ThreadPool线程池"><a href="#二：ThreadPool线程池" class="headerlink" title="二：ThreadPool线程池"></a>二：ThreadPool线程池</h2><ul>
-<li>Thread:做一个异步任务，就需要开启一个Thread.[专有性]</li>
-<li>ThreadPool:想做异步任务，打个比方，租车公司：租完车需要归还。</li>
-</ul>
-<h2 id="三：ThreadPool的使用方式"><a href="#三：ThreadPool的使用方式" class="headerlink" title="三：ThreadPool的使用方式"></a>三：ThreadPool的使用方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ThreadPool.QueueUserWorkItem((obj)=&gt; &#123;</span><br><span class="line">               var func = obj as Func&lt;string&gt;;</span><br><span class="line">               Console.WriteLine(&quot;我是工作线程:&#123;0&#125;,content=&#123;1&#125;&quot;,Thread.CurrentThread.ManagedThreadId,func());</span><br><span class="line">           &#125;,new Func&lt;string&gt;(()=&gt;&quot;Hello World&quot;));</span><br><span class="line"></span><br><span class="line">           Console.WriteLine(&quot;主线程ID:&#123;0&#125;&quot;,Thread.CurrentThread.ManagedThreadId);</span><br></pre></td></tr></table></figure>
-
-<h2 id="四：Thread和ThreadPool到底多少区别"><a href="#四：Thread和ThreadPool到底多少区别" class="headerlink" title="四：Thread和ThreadPool到底多少区别"></a>四：Thread和ThreadPool到底多少区别</h2><h3 id="1-如果现在有10个任务："><a href="#1-如果现在有10个任务：" class="headerlink" title="1.如果现在有10个任务："></a>1.如果现在有10个任务：</h3><ul>
-<li>Thread:需要开启10个任务</li>
-<li>Thread:10个任务放进线程池</li>
-</ul>
-<h3 id="2-区别"><a href="#2-区别" class="headerlink" title="2.区别"></a>2.区别</h3><h3 id="Thread"><a href="#Thread" class="headerlink" title="Thread:"></a>Thread:</h3><p><img src="/2019/11/03/ThreadPool/1572773284491.png" alt></p>
-<p>线程数量：12个，未启动线程：0个，后台线程：1个，待处理线程：0个，死线程：10个。</p>
-<p>XXXX表示线程死了，会进到终结器，GC会在下一次回收，会占用1M的堆栈空间。</p>
-<p>执行命令:</p>
-<p>!FinalizeQueue</p>
-<p><img src="/2019/11/03/ThreadPool/1572773908521.png" alt></p>
-<p>可以看到有11线程进入终结器</p>
-<h3 id="ThreadPool"><a href="#ThreadPool" class="headerlink" title="ThreadPool:"></a>ThreadPool:</h3><p><img src="/2019/11/03/ThreadPool/1572772113309.png" alt></p>
-<p>ThreadCount:一共有6个线程，一个主线程，一个寄存器，4个工作线程</p>
-<p><img src="/2019/11/03/ThreadPool/1572772218650.png" alt></p>
-<p><strong>Cpu利用率30%，工作线程数量4个，在运行的线程为0，空闲的线程是4个，最大的线程是2047，最小的是4个</strong></p>
-<p><strong>工作线程的队列是0个</strong></p>
-<p><strong>IO线程端口线程0个，空闲0个，最大空闲8个，最大线程1000个，最小线程4个。</strong></p>
-<p>当前ThreadPool中，有“工作线程”和“IO线程”</p>
-<p>工作线程：给一般的异步任务执行的。其中 不涉及网络，文件等IO操作。【开发调用】</p>
-<p>IO线程：一般用在文件和网络IO上。【CLR调用】</p>
-<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h2><h3 id="1-ThreadPool可以用8个线程解决10个线程干的事情："><a href="#1-ThreadPool可以用8个线程解决10个线程干的事情：" class="headerlink" title="1.ThreadPool可以用8个线程解决10个线程干的事情："></a>1.ThreadPool可以用8个线程解决10个线程干的事情：</h3><p>节省了空间和时间：</p>
-<p>时间：通过各个托管和非托管的dll</p>
-<p>空间：teb,osthread结构，堆栈</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2562,7 +2555,7 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
