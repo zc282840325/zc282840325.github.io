@@ -321,6 +321,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/异步编程awaint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张聪">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/08/异步编程awaint/" itemprop="url">异步编程awaint</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T21:11:28+08:00">
+                2019-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/线程/" itemprop="url" rel="index">
+                    <span itemprop="name">线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/08/异步编程awaint/" class="leancloud_visitors" data-flag-title="异步编程awaint">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  382
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一：async-await"><a href="#一：async-await" class="headerlink" title="一：async await"></a>一：async await</h2><ul>
+<li>调用方法：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行；</li>
+<li>异步方法：该方法异步执行工作，然后立刻返回到调用方法；</li>
+<li>await 表达式：用于异步方法内部，指出需要异步执行的任务。一个异步方法可以包含多个 await 表达式（不存在 await 表达式的话 IDE 会发出警告）。</li>
+</ul>
+<h2 id="二、async-await-结构"><a href="#二、async-await-结构" class="headerlink" title="二、async/await 结构"></a>二、async/await 结构</h2><ul>
+<li><p>同步方法：一个程序调用某个方法，等到其执行完成之后才进行下一步操作。这也是默认的形式。</p>
+</li>
+<li><p>异步方法：一个程序调用某个方法，在处理完成之前就返回该方法。通过 async/await 我们就可以实现这种类型的方法。</p>
+</li>
+</ul>
+<h2 id="三：-异步方法"><a href="#三：-异步方法" class="headerlink" title="三： 异步方法"></a>三： 异步方法</h2><ul>
+<li>关键字：方法头使用 async 修饰。</li>
+<li>要求：包含 N（N&gt;0） 个 await 表达式（不存在 await 表达式的话 IDE 会发出警告），表示需要异步执行的任务。</li>
+<li>​     （3）返回类型：只能返回 3 种类型（void、Task 和 Task<t>）。Task 和 Task<t> 标识返回的对象会在将来完成工作，表示调用方法和异步方法可以继续执行。</t></t></li>
+<li>参数：数量不限，但不能使用 out 和 ref 关键字。</li>
+<li>命名约定：方法后缀名应以 Async 结尾。</li>
+<li>其它：匿名方法和 Lambda 表达式也可以作为异步对象；async 是一个上下文关键字；关键字 async 必须在返回类型前。</li>
+</ul>
+<p><img src="/2019/11/08/异步编程awaint/1573227579628.png" alt="1573227579628"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/08/Task多线程模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2305,215 +2496,6 @@ Console.WriteLine(&quot;我是主线程&quot;);</code></pre><p><img src="/2019/1
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/Task/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张聪">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/04/Task/" itemprop="url">Task</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T08:13:40+08:00">
-                2019-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/线程/" itemprop="url" rel="index">
-                    <span itemprop="name">线程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/04/Task/" class="leancloud_visitors" data-flag-title="Task">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  370
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一：Task-在-net-4-0版本使用"><a href="#一：Task-在-net-4-0版本使用" class="headerlink" title="一：Task(在.net 4.0版本使用)"></a>一：Task(在.net 4.0版本使用)</h2><ul>
-<li>Task=&gt;Thread+ThreadPool</li>
-<li>Thread:容易造成时间+空间开销，而且使用不当，容易造成线程过多，导致时间片切换</li>
-<li>ThreadPool:控制能力比较弱，做Thread的延续，阻塞，取消，超时等等功能。控制权在CLR，而不是在我们手上。</li>
-</ul>
-<p>Task是基于ThreadPool的基础上进行的封装，.net4..0之后，微软主推Task做异步启动。</p>
-<h2 id="二：Task的启动方式"><a href="#二：Task的启动方式" class="headerlink" title="二：Task的启动方式"></a>二：Task的启动方式</h2><p>1.实例化启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Task task = new Task(() =&gt;</span><br><span class="line">           &#123;</span><br><span class="line">               Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">           &#125;);</span><br><span class="line">           task.Start();</span><br></pre></td></tr></table></figure>
-
-<p>2.工程模式(Task.Factory启动)</p>
-<pre><code>var task = Task.Factory.StartNew(() =&gt;
-{
-    Console.WriteLine(&quot;我是工作线程，tid={0}&quot;, Thread.CurrentThread.ManagedThreadId);
-});</code></pre><p>3.使用Task的Run方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var task = Task.Run(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>4.同步（阻塞线程，同步执行）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var task = new Task(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;我是工作线程，tid=&#123;0&#125;&quot;, Thread.CurrentThread.ManagedThreadId);</span><br><span class="line">&#125;);</span><br><span class="line">task.RunSynchronously();</span><br></pre></td></tr></table></figure>
-
-<p>三：Task是建立在ThreadPool</p>
-<p>实例化Task在Windgb下的状态：</p>
-<p><img src="/2019/11/04/Task/1572827768283.png" alt="1572827768283"></p>
-<p>同步（阻塞线程，同步执行）在Windbg下的状态：</p>
-<p><img src="/2019/11/04/Task/1572827872739.png" alt="1572827872739"></p>
-<p>很明显看出：</p>
-<ul>
-<li>Task的底层就是ThreadPool,ThreadPool分配了2个线程，属于CLR所有</li>
-<li>同步就没有其他线程，当线程执行完，才执行主线程</li>
-</ul>
-<p>Task底层都是由不同的TaskScheduler支撑的</p>
-<p>TaskScheduler相当于Task的CPU处理器</p>
-<p>默认的TaskScheduler是ThreadPoolTaskScheduler</p>
-<h2 id="四：Task具有返回值"><a href="#四：Task具有返回值" class="headerlink" title="四：Task具有返回值"></a>四：Task具有返回值</h2><pre><code>var task = new Task&lt;string&gt;(() =&gt;
-{
-    return &quot;Hello Word!&quot;;
-});
-task.Start();
-Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/1572828794968.png" alt="1572828794968"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2564,7 +2546,7 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2586,7 +2568,7 @@ Console.WriteLine(task.Result);</code></pre><p><img src="/2019/11/04/Task/157282
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
