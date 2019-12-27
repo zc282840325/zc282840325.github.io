@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Github查询方式</title>
+    <url>/2019/12/27/Github%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="一：Github的搜索方法"><a href="#一：Github的搜索方法" class="headerlink" title="一：Github的搜索方法"></a>一：Github的搜索方法</h1><ol>
+<li>in:name [name]：通过名称搜索</li>
+<li>in:name [name] start:&gt;[3000]：通过名称+星数</li>
+<li>in:readme [name]：通过rd介绍查询</li>
+<li>in:description [name] language:[java] pushed:&gt;2019-09-03：通过md搜索，语言搜索，更新上传时间搜索</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Github</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Socket</title>
     <url>/2019/12/10/Socket/</url>
     <content><![CDATA[<h2 id="一：介绍一下Socket"><a href="#一：介绍一下Socket" class="headerlink" title="一：介绍一下Socket"></a>一：介绍一下Socket</h2><p>程序之间的通讯，使用Socket来连接处理数据，就是一种协议。</p>
