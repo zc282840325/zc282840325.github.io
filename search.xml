@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>编程思想</title>
+    <url>/2020/01/06/%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/</url>
+    <content><![CDATA[<h2 id="一-介绍POP"><a href="#一-介绍POP" class="headerlink" title="一:介绍POP"></a>一:介绍POP</h2><ol>
+<li><p>POP:Procedure Oriented Programming (面向过程)</p>
+</li>
+<li><p>理论介绍：Pop是一个面向过程的编程，事件比较简单，可以用线性的思维去解决问题。</p>
+</li>
+<li><p>通俗的讲：就是按照事情的发展顺序去执行。</p>
+</li>
+<li><p>图解：</p>
+<p><img src="/2020/01/06/编程思想/1578320005995.png" alt="1578320005995"></p>
+</li>
+<li><h6 id="怎么把大象放进冰箱？"><a href="#怎么把大象放进冰箱？" class="headerlink" title="怎么把大象放进冰箱？"></a>怎么把大象放进冰箱？</h6></li>
+</ol>
+<ul>
+<li>打开冰箱</li>
+<li>把大象放进冰箱</li>
+<li>关上冰箱</li>
+</ul>
+<h6 id="那么，请问如果把猫放进冰箱了？"><a href="#那么，请问如果把猫放进冰箱了？" class="headerlink" title="那么，请问如果把猫放进冰箱了？"></a>那么，请问如果把猫放进冰箱了？</h6><ol>
+<li>打开冰箱</li>
+<li>把大象拿出来</li>
+<li>把猫放进去</li>
+<li>关上冰箱</li>
+</ol>
+<p>优势：</p>
+<ul>
+<li>流程化使得编程任务明确，在开发之前基本考虑了实现方式和最终结果；</li>
+<li>效率高，面向过程强调代码的胆小精悍，善于结合数据结构来开发高效率的程序；</li>
+<li>流程明确，具体步骤清楚，便于节点分析。</li>
+</ul>
+<p>劣势：</p>
+<ul>
+<li>需要深入的思考，耗费精力，代码重用性低，扩展能力差，维护起来难度比较高；</li>
+<li>对复杂业务来说，面向过程的模块话难度较高，耦合度也比较高。</li>
+</ul>
+<h2 id="二：介绍OOP"><a href="#二：介绍OOP" class="headerlink" title="二：介绍OOP"></a>二：介绍OOP</h2><ol>
+<li>OOP:Object Oriented Programming (面向对象)</li>
+<li>理论介绍：OOP是考虑问题的方式，可以应对复杂的业务需求。</li>
+<li>通俗的讲：面向对象针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分。</li>
+<li>图解：</li>
+</ol>
+<p><img src="/2020/01/06/编程思想/1578322238885.png" alt="1578322238885"></p>
+<p>5.解决POP的不能扩展的问题，编写复杂的业务逻辑。</p>
+<p>优势：</p>
+<ul>
+<li>结构清晰，程序便于模块化，结构化，抽象化，更加符合人类的思维方式；</li>
+<li>封装性，将事务高度抽象，从而便于流程中的行为分析，也便于操作和自省；</li>
+<li>容易扩展，代码重用率高，可继承，可覆盖；</li>
+<li>实现简单，可有效地减少程序的维护工作量。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>面向对象在面向过程的基础上高度抽象，从而和代码底层的直接交互非常少，从而不适合底层开发和游戏开发，甚至是多媒体开发；</li>
+<li>复杂性，对于事务开发而言，事务本身是面向过程的，过度的封装导致事务本身的复杂性提高。</li>
+</ul>
+<h2 id="二：介绍AOP"><a href="#二：介绍AOP" class="headerlink" title="二：介绍AOP"></a>二：介绍AOP</h2><ol>
+<li>AOP:Aspect Oriented Programming (面向切面)</li>
+<li>理论介绍：通过预编译方式和运行期动态代理实现程序功能的中统一处理业务逻辑的一种技术。</li>
+<li>通俗的讲：面向切面,把程序某些模块都要执行的方法，提取出来，写一个方法，在使用的地方，只需要调用就行了！比较常见的场景是：日志记录，错误捕获、性能监控等。</li>
+<li>图解：</li>
+</ol>
+<p><img src="/2020/01/06/编程思想/1578323216643.png" alt="1578323216643"></p>
+]]></content>
+      <categories>
+        <category>理论</category>
+      </categories>
+      <tags>
+        <tag>理论</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Github查询方式</title>
     <url>/2019/12/27/Github%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="一：Github的搜索方法"><a href="#一：Github的搜索方法" class="headerlink" title="一：Github的搜索方法"></a>一：Github的搜索方法</h1><ol>
